@@ -1,0 +1,72 @@
+body {
+    display: flex;
+    font-family: 'Noto Sans', 'Lato', 'Droid Sans', 'sans-serif';
+}
+#main-menu {
+    padding: 10px;
+    flex: 1 0 auto;
+    background: #ccc;
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+}
+#main-content {
+    flex: 1 1 auto;
+    padding: 10px;
+}
+img {
+    max-width: 60%;
+}
+pre {
+    display: block;
+    x-overflow: scroll;
+    border: solid 1px gray;
+    border-radius: 5px;
+    padding: 10px;
+    page-break-inside: avoid !important;
+}
+
+code {
+    font-family: Inconsolata, mono;
+}
+h2, h3, h4, h5 {
+    page-break-after: avoid !important;
+}
+h3 {
+    h2, h3, h4, h5 {
+        page-break-after: avoid !important;
+    }
+    background: #000;
+    color: #fff;
+    padding: 5px 8px;
+    border-radius: 5px;
+}
+
+ol {
+    list-style: none;
+}
+.hljs-number,.hljs-builtin-name,.hljs-type,.hljs-params,.hljs-meta,.hljs-link{ color:#000 }
+.hljs-string,.hljs-symbol,.hljs-bullet,.hljs-addition { color:#d8009b }
+.hljs-title,.hljs-section { color:#000 }
+.hljs-keyword,.hljs-built_in,.hljs-literal,.hljs-selector-tag { color:#0078cc }
+.hljs-comment,.hljs-quote { color:#00963e }
+.hljs-number { color:#ff7d00 }
+
+#main-content.base div.base div.base div.base h4.heading {
+    background: red;
+}
+div.function > h4, div.function > h5 {
+    background: green !important;
+}
+
+@media print {    
+    body {
+        font-size: 16pt;
+    }
+    #main-menu {
+        display: none !important;
+    }
+    h1 {
+        display: none !important;
+    }
+}
