@@ -105,7 +105,7 @@ for my $header ($dom->find('h4')->each) {
     my $c = $header->content;
     $c =~ s/^\s+|\s+$//;
     next if ($c ne 'Functions');
-    for my $next ($header->parent->following('div')->each) {
+    for my $next ($header->parent->following('div[class="base"]')->each) {
         my $children = $next->children('h4');
         next if (! $children->size);
         my $c = $children->first;
@@ -113,7 +113,16 @@ for my $header ($dom->find('h4')->each) {
         $c =~ s/^\s+|\s+$//;
         last if ($c eq 'Constants');
         $next->attr({'class' => join(' ', $next->attr('class'), 'function')});
-        warn "$c\n";
+        $children = $next->children('div[class="base"]');
+        for my $child ($children->each) {
+            if ($child->at('h5') && $child->at('h5')->content =~ /^\s*Parameters\s*/) {
+                $child->attr({'class' => join(' ', $child->attr('class'), 'params-header')});
+            }
+            else {
+                $child->attr({'class' => join(' ', $child->attr('class'), 'param')});
+            }
+        }
+            
     }
 }
 

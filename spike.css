@@ -70,3 +70,13 @@ div.function > h4, div.function > h5 {
         display: none !important;
     }
 }
+
+div.params-header > div {
+    display: none;
+}
+div.params-header {
+    color: purple;
+}
+div.param {
+    background: blue;
+}
