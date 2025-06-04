@@ -23,10 +23,10 @@ while (my $line = <$in>) {
 close $in;
 my $dom = Mojo::DOM58->new($html);
 
+strip_hr($dom);
 
-my $l2 =
-#'base__------packages-flipper-web-src-components-app-page-app-page-module';
-'base';
+
+my $l2 = 'base';
 my $s1 =
 '__------packages-flipper-web-src-components-app-page-app-page-module';
 my $s2 =
@@ -43,9 +43,9 @@ for my $link ($dom->find('a[href^="https://spike.legoeducation.com/prime/help/ll
     $href =~ s/^.+#/#/;
     $link->attr({'href' => $href});
 }
-for my $code ($dom->find('code')->each) {
-    $code->attr({'class' => 'language-python'});
-}
+#for my $code ($dom->find('code')->each) {
+    #$code->attr({'class' => 'language-python'});
+#}
 for my $button ($dom->find('button')->each) {
     $button->remove();
 }
@@ -101,6 +101,7 @@ if (1) {
 
     }
 }
+strip_constant_headers($dom);
 for my $header ($dom->find('h4')->each) {
     my $c = $header->content;
     $c =~ s/^\s+|\s+$//;
@@ -111,8 +112,35 @@ for my $header ($dom->find('h4')->each) {
         my $c = $children->first;
         $c = $c->content;
         $c =~ s/^\s+|\s+$//;
-        last if ($c eq 'Constants');
+        if ($c =~ '\bConstants$') {
+            $next->attr({'class' => join(' ', $next->attr('class'), 'constants')});
+            for my $kid ($next->children('div[class~="text.content"]')->each) {
+                $kid->attr({'class' => join(' ', $kid->attr('class'), 'constants-description')});
+            }
+            last;
+        }
         $next->attr({'class' => join(' ', $next->attr('class'), 'function')});
+        my @kids = $next->children('div[class="text.content"]')->each;
+        for my $i (0..$#kids) {
+            if ($i == 0) {
+                $kids[$i]->attr({'class' => join(' ', $kids[$i]->attr('class'), 'method-string')});
+            }
+            else {
+                $kids[$i]->attr({'class' => join(' ', $kids[$i]->attr('class'), 'method-description')});
+            }
+        }
+        for my $kid ($next->children('pre[class~="code.content"]')->each) {
+            $kid->attr({'class' => join(' ', $kid->attr('class'), 'method-example')});
+        }
+                
+        for my $child ($children->each) {
+            if ($child->at('h5') && $child->at('h5')->content =~ /^\s*Parameters\s*/) {
+                $child->attr({'class' => join(' ', $child->attr('class'), 'params-header')});
+            }
+            else {
+                $child->attr({'class' => join(' ', $child->attr('class'), 'param')});
+            }
+        }
         $children = $next->children('div[class="base"]');
         for my $child ($children->each) {
             if ($child->at('h5') && $child->at('h5')->content =~ /^\s*Parameters\s*/) {
@@ -120,6 +148,12 @@ for my $header ($dom->find('h4')->each) {
             }
             else {
                 $child->attr({'class' => join(' ', $child->attr('class'), 'param')});
+                for my $kid ($child->children('h5[class~="heading"]')->each) {
+                    $kid->attr({'class' => join(' ', $kid->attr('class'), 'param-string')});
+                }
+                for my $kid ($child->children('div[class~="text.content"]')->each) {
+                    $kid->attr({'class' => join(' ', $kid->attr('class'), 'param-description')});
+                }
             }
         }
             
@@ -197,5 +231,34 @@ sub traverse {
     }
 
     return @children;
+
+}
+
+sub strip_hr {
+
+    my ($dom) = @_;
+    for my $hr ($dom->find('hr')->each) {
+        $hr->parent->remove;
+    }
+
+}
+
+sub strip_constant_headers {
+
+    my ($dom) = @_;
+    for my $h ($dom->find('h4[class~="heading"]')->each) {
+        my $v = get_value($h);
+        next if ($v ne 'Constants');
+        $h->parent->remove;
+    }
+
+}
+
+sub get_value {
+
+    my ($el) = @_;
+    my $content = $el->content;
+    $content =~ s/^\s+|\s+$//;
+    return $content;
 
 }

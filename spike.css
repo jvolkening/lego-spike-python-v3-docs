@@ -80,3 +80,22 @@ div.params-header {
 div.param {
     background: blue;
 }
+.method-string {
+    background: purple;
+}
+.method-description {
+    background: #abc123;
+}
+.constants {
+    background: #888888;
+}
+.constants-description {
+    background: #a4b993;
+}
+
+.param-string {
+    background: orange;
+}
+.param-description {
+    background: yellow;
+}
