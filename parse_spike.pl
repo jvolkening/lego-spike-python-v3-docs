@@ -49,20 +49,71 @@ for my $code ($dom->find('code')->each) {
 for my $button ($dom->find('button')->each) {
     $button->remove();
 }
-for my $ht (qw/h4 h5/) {
-    for my $header ($dom->find($ht)->each) {
+if (1) {
+    for my $header ($dom->find('h4')->each) {
         my $c = $header->content;
         $c =~ s/^\s+|\s+$//;
-        next if ($c ne 'Functions');
-        for my $next ($header->parent->following('div')->each) {
-            my $children = $next->children($ht) // last;
-            my $c = $children->first;
-            $c = $c->content;
+        next if ($c ne 'Sub Modules');
+        my $module = $header->parent->parent->at('h3')->content;
+        $module =~ s/^\s+|\s+$//;
+        my @extra;
+        my $parent = $header->parent->parent;
+        for my $child ($parent->find('h4')->each) {
+            my $c = $child->content;
             $c =~ s/^\s+|\s+$//;
-            last if ($c eq 'Constants');
-            $next->attr({'class' => join(' ', $next->attr('class'), 'function')});
-            warn "$c\n";
+            next if ($c ne 'Functions');
+            push @extra, $child->parent;
+            for my $other ($child->parent->following('div[class="base"]')->each) {
+                push @extra, $other;
+                $other->remove;
+            }
+            $child->parent->remove;
         }
+        SIBLING:
+        for my $sibling ($header->parent->following('div[class="base"]')->each) {
+            for my $ht (qw/4/) {
+                my $old = "h$ht";
+                my $new = sprintf "h%s", $ht-1;
+                for my $child ($sibling->find($old)->each) {
+                    my $c = $child->content;
+                    $c =~ s/^\s+|\s+$//;
+                    last SIBLING if ($c eq 'Functions');
+                    $child->tag($new);
+                }
+            }
+            for my $ht (qw/5 6/) {
+                my $old = "h$ht";
+                my $new = sprintf "h%s", $ht-1;
+                for my $child ($sibling->find($old)->each) {
+                    my $c = $child->content;
+                    $c =~ s/^\s+|\s+$//;
+                    $child->tag($new);
+                }
+            }
+            for my $child ($sibling->children('h3')->each) {
+                my $curr = $child->content;
+                $curr =~ s/^\s+|\s+$//;
+                $child->content("$module.$curr");
+            }
+        }
+        $header->parent->remove;
+        $parent->at('h3')->append($_) for (reverse @extra);
+
+    }
+}
+for my $header ($dom->find('h4')->each) {
+    my $c = $header->content;
+    $c =~ s/^\s+|\s+$//;
+    next if ($c ne 'Functions');
+    for my $next ($header->parent->following('div')->each) {
+        my $children = $next->children('h4');
+        next if (! $children->size);
+        my $c = $children->first;
+        $c = $c->content;
+        $c =~ s/^\s+|\s+$//;
+        last if ($c eq 'Constants');
+        $next->attr({'class' => join(' ', $next->attr('class'), 'function')});
+        warn "$c\n";
     }
 }
 
