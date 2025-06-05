@@ -1,30 +1,41 @@
-def hide():
-	"""
-	:rtype None
-	"""
-	pass
+"""The `display` module is used show images in the SPIKE App
 
-def image(image):
-	"""
-	:param image: The id of the image to show. The range of available images is 1 to 21. There are consts on the <code>display</code> module for these
-	:type image: int
-	:rtype None
-	"""
-	pass
+To use the `display` module simply import the module like so:
 
-def show(fullscreen):
-	"""
-	:param fullscreen: Show in full screen
-	:type fullscreen: bool
-	:rtype None
-	"""
-	pass
+`from app import display`
 
-def text(text):
-	"""
-	:param text: The text to display
-	:type text: str
-	:rtype None
-	"""
-	pass
+`display` details
+
+"""
+
+def hide() -> None:
+    """
+
+    :rtype: None
+    """
+
+def image(image: int) -> None:
+    """
+
+    :param image: The id of the image to show. The range of available
+    images is 1 to 21. There are consts on the `display` module for these
+    :type image: int
+    :rtype: None
+    """
+
+def show(fullscreen: bool) -> None:
+    """
+
+    :param fullscreen: Show in full screen
+    :type fullscreen: bool
+    :rtype: None
+    """
+
+def text(text: str) -> None:
+    """
+
+    :param text: The text to display
+    :type text: str
+    :rtype: None
+    """
 

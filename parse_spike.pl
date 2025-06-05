@@ -424,17 +424,11 @@ sub parse_parameter {
     for my $it ($el->children()->each) {
         # extract textual documentation chunks
         if ($it->matches('div[class~="text.content"]')) {
-            if (! defined $obj->{definition}) {
-                $obj->{definition} = get_value($it->at('p'));
-                add_class( $it, 'api-parameter-definition' );
-            }
-            else {
-                push @{ $obj->{docs} }, {
-                    type => 'text',
-                    content => get_value($it)
-                };
-                add_class( $it, 'api-parameter-description' );
-            }
+            push @{ $obj->{docs} }, {
+                type => 'text',
+                content => get_value($it)
+            };
+            add_class( $it, 'api-parameter-description' );
         }
         # extract code block chunks
         elsif ($it->matches('pre[class~="code.content"]')) {
@@ -521,13 +515,20 @@ sub generate_stubs {
             $desc = block_to_markdown($desc)
                 if (length $desc);
             $desc =~ s/\n/\n\t/gm;
-            say {$out} "\t\"\"\"$desc";
+            say {$out} "\t\"\"\"$desc\n";
 
             for my $param (@{ $func->{parameters} }) {
-                say {$out} "\t:param $param->{param}: $param->{definition}";
+                my $desc = join '',
+                    map {$_->{content}}
+                    grep {$_->{type} eq 'text'}
+                    @{ $param->{docs} };
+                $desc = block_to_markdown($desc)
+                    if (length $desc);
+                $desc =~ s/\n//gm;
+                say {$out} "\t:param $param->{param}: $desc";
                 say {$out} "\t:type $param->{param}: $param->{type}";
             }
-            say {$out} "\t:rtype $return";
+            say {$out} "\t:rtype: $return";
             say {$out} "\t\"\"\"";
             say {$out} "\tpass\n";
         }

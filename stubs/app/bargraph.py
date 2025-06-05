@@ -1,48 +1,58 @@
-def change(color, value):
-	"""
-	:param color: A color from the <code>color</code> module
-	:type color: int
-	:param value: The value
-	:type value: float
-	:rtype None
-	"""
-	pass
+"""The `bargraph` module is used make bar graphs in the SPIKE App
 
-def clear_all():
-	"""
-	:rtype None
-	"""
-	pass
+To use the `bargraph` module simply import the module like so:
 
-def get_value(color):
-	"""
-	:param color: A color from the <code>color</code> module
-	:type color: int
-	:rtype Awaitable
-	"""
-	pass
+`from app import bargraph`
 
-def hide():
-	"""
-	:rtype None
-	"""
-	pass
+`bargraph` details
 
-def set_value(color, value):
-	"""
-	:param color: A color from the <code>color</code> module
-	:type color: int
-	:param value: The value
-	:type value: float
-	:rtype None
-	"""
-	pass
+"""
 
-def show(fullscreen):
-	"""
-	:param fullscreen: Show in full screen
-	:type fullscreen: bool
-	:rtype None
-	"""
-	pass
+def change(color: int, value: float) -> None:
+    """
+
+    :param color: A color from the `color` module
+    :type color: int
+    :param value: The value
+    :type value: float
+    :rtype: None
+    """
+
+def clear_all() -> None:
+    """
+
+    :rtype: None
+    """
+
+def get_value(color: int) -> Awaitable:
+    """
+
+    :param color: A color from the `color` module
+    :type color: int
+    :rtype: Awaitable
+    """
+
+def hide() -> None:
+    """
+
+    :rtype: None
+    """
+
+def set_value(color: int, value: float) -> None:
+    """
+
+    :param color: A color from the `color` module
+    :type color: int
+    :param value: The value
+    :type value: float
+    :rtype: None
+    """
+
+def show(fullscreen: bool) -> None:
+    """
+
+    :param fullscreen: Show in full screen
+    :type fullscreen: bool
+    :rtype: None
+    """
 

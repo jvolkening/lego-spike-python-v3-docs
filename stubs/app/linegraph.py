@@ -1,72 +1,82 @@
-def clear(color):
-	"""
-	:param color: A color from the <code>color</code> module
-	:type color: int
-	:rtype None
-	"""
-	pass
+"""The `linegraph` module is used make line graphs in the SPIKE App
 
-def clear_all():
-	"""
-	:rtype None
-	"""
-	pass
+To use the `linegraph` module simply import the module like so:
 
-def get_average(color):
-	"""
-	:param color: A color from the <code>color</code> module
-	:type color: int
-	:rtype Awaitable
-	"""
-	pass
+`from app import linegraph`
 
-def get_last(color):
-	"""
-	:param color: A color from the <code>color</code> module
-	:type color: int
-	:rtype Awaitable
-	"""
-	pass
+`linegraph` details
 
-def get_max(color):
-	"""
-	:param color: A color from the <code>color</code> module
-	:type color: int
-	:rtype Awaitable
-	"""
-	pass
+"""
 
-def get_min(color):
-	"""
-	:param color: A color from the <code>color</code> module
-	:type color: int
-	:rtype Awaitable
-	"""
-	pass
+def clear(color: int) -> None:
+    """
 
-def hide():
-	"""
-	:rtype None
-	"""
-	pass
+    :param color: A color from the `color` module
+    :type color: int
+    :rtype: None
+    """
 
-def plot(color, x, y):
-	"""
-	:param color: A color from the <code>color</code> module
-	:type color: int
-	:param x: The X value
-	:type x: float
-	:param y: The Y value
-	:type y: float
-	:rtype None
-	"""
-	pass
+def clear_all() -> None:
+    """
 
-def show(fullscreen):
-	"""
-	:param fullscreen: Show in full screen
-	:type fullscreen: bool
-	:rtype None
-	"""
-	pass
+    :rtype: None
+    """
+
+def get_average(color: int) -> Awaitable:
+    """
+
+    :param color: A color from the `color` module
+    :type color: int
+    :rtype: Awaitable
+    """
+
+def get_last(color: int) -> Awaitable:
+    """
+
+    :param color: A color from the `color` module
+    :type color: int
+    :rtype: Awaitable
+    """
+
+def get_max(color: int) -> Awaitable:
+    """
+
+    :param color: A color from the `color` module
+    :type color: int
+    :rtype: Awaitable
+    """
+
+def get_min(color: int) -> Awaitable:
+    """
+
+    :param color: A color from the `color` module
+    :type color: int
+    :rtype: Awaitable
+    """
+
+def hide() -> None:
+    """
+
+    :rtype: None
+    """
+
+def plot(color: int, x: float, y: float) -> None:
+    """
+
+    :param color: A color from the `color` module
+    :type color: int
+    :param x: The X value
+    :type x: float
+    :param y: The Y value
+    :type y: float
+    :rtype: None
+    """
+
+def show(fullscreen: bool) -> None:
+    """
+
+    :param fullscreen: Show in full screen
+    :type fullscreen: bool
+    :rtype: None
+    """
 

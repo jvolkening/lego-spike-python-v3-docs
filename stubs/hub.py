@@ -1,24 +1,28 @@
-def device_uuid():
-	"""Retrieve the device id.
-	:rtype str
-	"""
-	pass
+"""
+"""
 
-def hardware_id():
-	"""Retrieve the hardware id.
-	:rtype str
-	"""
-	pass
+def device_uuid() -> str:
+    """Retrieve the device id.
 
-def power_off():
-	"""Turns off the hub.
-	:rtype int
-	"""
-	pass
+    :rtype: str
+    """
 
-def temperature():
-	"""Retrieve the hub temperature. Measured in decidegrees celsius (dï¿½C) which is 1 / 10 of a degree celsius (ï¿½C)
-	:rtype int
-	"""
-	pass
+def hardware_id() -> str:
+    """Retrieve the hardware id.
+
+    :rtype: str
+    """
+
+def power_off() -> int:
+    """Turns off the hub.
+
+    :rtype: int
+    """
+
+def temperature() -> int:
+    """Retrieve the hub temperature. Measured in decidegrees celsius
+    (dï¿½C) which is 1 / 10 of a degree celsius (ï¿½C)
+
+    :rtype: int
+    """
 
