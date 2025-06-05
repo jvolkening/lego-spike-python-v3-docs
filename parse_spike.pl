@@ -3,53 +3,194 @@
 use strict;
 use warnings;
 use 5.012;
-use Data::Dumper;
-
 use open qw( :std :encoding(UTF-8) );
 
 use Cwd qw/abs_path/;
 use File::Basename qw/dirname/;
-#use HTML::Parser;
+use File::Path qw/make_path/;
+use Getopt::Long;
+use HTML::Entities;
+use HTML::WikiConverter;
 use Mojo::DOM58;
 
-my $fn_in = $ARGV[0];
-my $base_dir = dirname(abs_path($fn_in));
+my $fi_html;
+my $dir_stubs;
+my $original_source = "https://spike.legoeducation.com/prime/help/lls-help-python";
 
+GetOptions(
+    '--in=s' => \$fi_html,
+    '--stubs=s' => \$dir_stubs,
+    '--source=s'   => \$original_source,
+);
+
+# read in DOM
 my $html;
-open my $in, '<', $fn_in;
+open my $in, '<', $fi_html;
 while (my $line = <$in>) {
     $html .= $line;
 }
 close $in;
 my $dom = Mojo::DOM58->new($html);
 
-strip_hr($dom);
+# do some intial cleanup
+clean_cruft($dom);
+rename_classes($dom);
+make_links_relative($dom);
+relevel_submodules($dom);
+strip_constant_headers($dom);
 
+my $api_heading = 'API Modules';
+my $api_root = get_div_with_heading(
+    $dom,
+    2,
+    $api_heading,
+) // die "Nothing found for '$api_heading'\n";
 
-my $l2 = 'base';
-my $s1 =
-'__------packages-flipper-web-src-components-app-page-app-page-module';
-my $s2 =
-'__------packages-flipper-web-src-components-app-page-app-page-content-module';
+my $api_tree = parse_api($api_root);
+#use Data::Dumper;
+#print Dumper $api_tree;
+#exit;
+if (defined $dir_stubs) {
+    generate_stubs($api_tree, $dir_stubs);
+}
 
-for my $node ($dom->descendant_nodes->each) {
-    my $class = $node->attr('class') // next;
-    $class =~ s/$s1//g;
-    $class =~ s/$s2/.content/g;
-    $node->attr({class => $class});
+my $new = Mojo::DOM58->new('<html><head></head><body></body>');
+$new->at('head')->append_content( $dom->new_tag(
+    'link',
+    'href' =>
+    "https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap",
+    'rel' => "stylesheet",
+));
+$new->at('head')->append_content( $dom->new_tag(
+    'link',
+    'href' => 'spike.css',
+    'rel' => 'stylesheet',
+));
+my $root = $dom->at('div[class~="base"]');
+$root->attr({id => 'main-content'});
+my @menu_items = traverse($root);
+my $menu = $dom->new_tag(
+    'ol',
+    id => 'main-menu',
+);
+for my $item (@menu_items) {
+    $menu->at('ol')->append_content($item);
 }
-for my $link ($dom->find('a[href^="https://spike.legoeducation.com/prime/help/lls-help-python"]')->each) {
-    my $href = $link->attr('href');
-    $href =~ s/^.+#/#/;
-    $link->attr({'href' => $href});
+$root->at('h1')->content('Python and the Spike Prime Hub (v3)');
+$new->at('body')->append_content($menu);
+$new->at('body')->append_content($root);
+
+say "$new";
+
+sub traverse {
+
+    my ($el) = @_;
+
+    my @children;
+
+    for my $child ( $el->children('div[class~="base"]')->each ) {
+        
+        my $a = $child->at('a[id]');
+        my $id = $a->attr('id');
+        my $header = $child->at('h1')
+            // $child->at('h2')
+            // $child->at('h3');
+        next if (! defined $header);
+        my $name = $header->content;
+        $name =~ s/^\s*//g;
+        $name =~ s/\s$//g;
+        my @kids = traverse($child);
+        my $item = $dom->new_tag(
+            'li', 
+        );
+        $item->at('li')->append_content($dom->new_tag(
+                'a',
+                'href' => "#$id",
+                $name
+            )
+        );
+        if (scalar @kids) {
+            my $submenu = $dom->new_tag(
+                'ol',
+                class => join('-', $header->tag, 'menu'),
+            );
+            for my $kid (@kids) {
+                $submenu->at('ol')->append_content($kid);
+            }
+            $item->at('li')->append_content($submenu);
+        }
+                
+        push @children, $item;
+
+    }
+
+    return @children;
+
 }
-#for my $code ($dom->find('code')->each) {
-    #$code->attr({'class' => 'language-python'});
-#}
-for my $button ($dom->find('button')->each) {
-    $button->remove();
+
+sub clean_cruft {
+
+    my ($dom) = @_;
+    for my $hr ($dom->find('hr')->each) {
+        $hr->parent->remove;
+    }
+    for my $button ($dom->find('button')->each) {
+        $button->remove();
+    }
+
 }
-if (1) {
+
+sub strip_constant_headers {
+
+    my ($dom) = @_;
+    for my $h ($dom->find('h4[class~="heading"]')->each) {
+        my $v = get_value($h);
+        next if ($v ne 'Constants');
+        $h->parent->remove;
+    }
+
+}
+
+sub get_value {
+
+    my ($el) = @_;
+    my $content = $el->content;
+    $content =~ s/^\s+|\s+$//;
+    return decode_entities("$content");
+
+}
+
+sub rename_classes {
+
+    my ($dom) = @_;
+
+    my $s1 = '__------packages-flipper-web-src-components-app-page-app-page-module';
+    my $s2 = '__------packages-flipper-web-src-components-app-page-app-page-content-module';
+
+    for my $node ($dom->descendant_nodes->each) {
+        my $class = $node->attr('class') // next;
+        $class =~ s/$s1//g;
+        $class =~ s/$s2/.content/g;
+        $node->attr({class => $class});
+    }
+
+}
+
+sub make_links_relative {
+
+    my ($dom) = @_;
+    for my $link ($dom->find(sprintf('a[href^="%s"]', $original_source))->each) {
+        my $href = $link->attr('href');
+        $href =~ s/^.+#/#/;
+        $link->attr({'href' => $href});
+    }
+
+}
+
+sub relevel_submodules {
+
+    my ($dom) = @_;
+
     for my $header ($dom->find('h4')->each) {
         my $c = $header->content;
         $c =~ s/^\s+|\s+$//;
@@ -98,167 +239,298 @@ if (1) {
         }
         $header->parent->remove;
         $parent->at('h3')->append($_) for (reverse @extra);
-
-    }
-}
-strip_constant_headers($dom);
-for my $header ($dom->find('h4')->each) {
-    my $c = $header->content;
-    $c =~ s/^\s+|\s+$//;
-    next if ($c ne 'Functions');
-    for my $next ($header->parent->following('div[class="base"]')->each) {
-        my $children = $next->children('h4');
-        next if (! $children->size);
-        my $c = $children->first;
-        $c = $c->content;
-        $c =~ s/^\s+|\s+$//;
-        if ($c =~ '\bConstants$') {
-            $next->attr({'class' => join(' ', $next->attr('class'), 'constants')});
-            for my $kid ($next->children('div[class~="text.content"]')->each) {
-                $kid->attr({'class' => join(' ', $kid->attr('class'), 'constants-description')});
-            }
-            last;
-        }
-        $next->attr({'class' => join(' ', $next->attr('class'), 'function')});
-        my @kids = $next->children('div[class="text.content"]')->each;
-        for my $i (0..$#kids) {
-            if ($i == 0) {
-                $kids[$i]->attr({'class' => join(' ', $kids[$i]->attr('class'), 'method-string')});
-            }
-            else {
-                $kids[$i]->attr({'class' => join(' ', $kids[$i]->attr('class'), 'method-description')});
-            }
-        }
-        for my $kid ($next->children('pre[class~="code.content"]')->each) {
-            $kid->attr({'class' => join(' ', $kid->attr('class'), 'method-example')});
-        }
-                
-        for my $child ($children->each) {
-            if ($child->at('h5') && $child->at('h5')->content =~ /^\s*Parameters\s*/) {
-                $child->attr({'class' => join(' ', $child->attr('class'), 'params-header')});
-            }
-            else {
-                $child->attr({'class' => join(' ', $child->attr('class'), 'param')});
-            }
-        }
-        $children = $next->children('div[class="base"]');
-        for my $child ($children->each) {
-            if ($child->at('h5') && $child->at('h5')->content =~ /^\s*Parameters\s*/) {
-                $child->attr({'class' => join(' ', $child->attr('class'), 'params-header')});
-            }
-            else {
-                $child->attr({'class' => join(' ', $child->attr('class'), 'param')});
-                for my $kid ($child->children('h5[class~="heading"]')->each) {
-                    $kid->attr({'class' => join(' ', $kid->attr('class'), 'param-string')});
-                }
-                for my $kid ($child->children('div[class~="text.content"]')->each) {
-                    $kid->attr({'class' => join(' ', $kid->attr('class'), 'param-description')});
-                }
-            }
-        }
-            
     }
 }
 
-my $new = Mojo::DOM58->new('<html><head></head><body></body>');
-$new->at('head')->append_content( $dom->new_tag(
-    'link',
-    'href' =>
-    "https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap",
-    'rel' => "stylesheet",
-));
-$new->at('head')->append_content( $dom->new_tag(
-    'link',
-    'href' => 'spike.css',
-    'rel' => 'stylesheet',
-));
-my $root = $dom->at(sprintf('div[class~="%s"]', $l2));
-$root->attr({id => 'main-content'});
-my @menu_items = traverse($root);
-my $menu = $dom->new_tag(
-    'ol',
-    id => 'main-menu',
-);
-for my $item (@menu_items) {
-    $menu->at('ol')->append_content($item);
+sub get_div_with_heading {
+
+    my ($dom, $level, $value) = @_;
+
+    for my $h ($dom->find(sprintf('h%s[class="heading"]', $level))->each) {
+        next if (get_value($h) ne $value);
+        return $h->parent;
+    }
+    return undef;
+
 }
-$root->at('h1')->content('Python and the Spike Prime Hub (v3)');
-$new->at('body')->append_content($menu);
-$new->at('body')->append_content($root);
 
-say "$new";
+sub add_class {
 
-sub traverse {
+    my ($el, $class) = @_;
+    $el->attr( {'class' => join(' ', $el->attr('class'), $class)} );
+
+}
+
+sub parse_api {
+
+    my ($root) = @_;
+
+    my $tree;
+
+    for my $module ($root->children('div[class~="base"]')->each) {
+        add_class( $module, 'api-module' );
+        my @objs = parse_module($module);
+        push @{$tree}, @objs;
+    }
+
+    return $tree;
+
+}
+
+sub parse_module {
+
+    my ($module, $parent) = @_;
+    my $obj = {};
+
+    my @objs = ();
+   
+    $obj->{name} = lc get_value( $module->at('h3') )
+        // die "No name found for class";
+    $obj->{parent} = $parent; # maybe undef
+    $obj->{docs} = [];
+    $obj->{functions} = [];
+    $obj->{constants} = [];
+
+    # first check for submodules
+    for my $it ($module->children->each) {
+        next if (! scalar $it->children('h3')->each); 
+        add_class( $it, 'api-module' );
+        push @objs, parse_module($it, $obj->{name});
+    }
+    my $curr_type; # track functions and constants
+    for my $it ($module->children()->each) {
+        next if (scalar $it->children('h3')->each); 
+        # extract textual documentation chunks
+        if ($it->matches('div[class~="text.content"]')) {
+            push @{ $obj->{docs} }, {
+                type => 'text',
+                content => get_value($it)
+            };
+            add_class( $it, 'api-module-description' );
+        }
+        # extract code block chunks
+        elsif ($it->matches('pre[class~="code.content"]')) {
+            push @{ $obj->{docs} }, {
+                type => 'code_block',
+                content => get_value($it)
+            };
+            add_class( $it, 'api-module-example' );
+        } # parse function and constant lists
+        elsif ($it->matches('div[class~="base"]')) { 
+            my $name = my $h = $it->children('h4')->first;
+            die "No h4 found for $obj"
+                if (! defined $name);
+            $name = get_value($name);
+            if ($name eq 'Functions') {
+                $curr_type = 'functions';
+                add_class( $it, 'api-functions-heading' );
+                next;
+            }
+            elsif ($name =~ /\bConstants$/) {
+                $curr_type = 'constants';
+                next;
+            }
+            elsif ($curr_type eq 'functions') {
+                push @{ $obj->{functions}}, parse_function($it);
+                add_class( $it, 'api-function' );
+            }
+            elsif ($curr_type eq 'constants') {
+                push @{ $obj->{constants}}, parse_constants($it);
+                add_class( $it, 'api-constants' );
+            }
+        }
+    }
+    push @objs, $obj;
+
+    return @objs;
+
+}
+
+sub block_to_markdown {
 
     my ($el) = @_;
 
-    my @children;
-
-    for my $child ( $el->children(sprintf('div[class~="%s"]', $l2))->each ) {
-        
-        my $a = $child->at('a[id]');
-        my $id = $a->attr('id');
-        my $header = $child->at('h1')
-            // $child->at('h2')
-            // $child->at('h3');
-        next if (! defined $header);
-        my $name = $header->content;
-        $name =~ s/^\s*//g;
-        $name =~ s/\s$//g;
-        my @kids = traverse($child);
-        my $item = $dom->new_tag(
-            'li', 
-        );
-        $item->at('li')->append_content($dom->new_tag(
-                'a',
-                'href' => "#$id",
-                $name
-            )
-        );
-        if (scalar @kids) {
-            my $submenu = $dom->new_tag(
-                'ol',
-                class => join('-', $header->tag, 'menu'),
-            );
-            for my $kid (@kids) {
-                $submenu->at('ol')->append_content($kid);
-            }
-            $item->at('li')->append_content($submenu);
-        }
-                
-        push @children, $item;
-
-    }
-
-    return @children;
+    my $wc = new HTML::WikiConverter( dialect => 'Markdown' );
+    return $wc->html2wiki( "$el" );
 
 }
 
-sub strip_hr {
-
-    my ($dom) = @_;
-    for my $hr ($dom->find('hr')->each) {
-        $hr->parent->remove;
-    }
-
-}
-
-sub strip_constant_headers {
-
-    my ($dom) = @_;
-    for my $h ($dom->find('h4[class~="heading"]')->each) {
-        my $v = get_value($h);
-        next if ($v ne 'Constants');
-        $h->parent->remove;
-    }
-
-}
-
-sub get_value {
+sub parse_function {
 
     my ($el) = @_;
-    my $content = $el->content;
-    $content =~ s/^\s+|\s+$//;
-    return $content;
+
+    my $obj = {};
+   
+    $obj->{name} = lc get_value( $el->at('h4') )
+        // die "No name found for function";
+    $obj->{docs} = [];
+    $obj->{parameters} = [];
+
+    my $curr_type; # track functions and constants
+    for my $it ($el->children()->each) {
+        # extract textual documentation chunks
+        if ($it->matches('div[class~="text.content"]')) {
+            if (! defined $obj->{definition}) {
+                $obj->{definition} = get_value($it->at('p'));
+            add_class( $it, 'api-function-definition' );
+            }
+            else {
+                push @{ $obj->{docs} }, {
+                    type => 'text',
+                    content => get_value($it)
+                };
+                add_class( $it, 'api-function-description' );
+            }
+        }
+        # extract code block chunks
+        elsif ($it->matches('pre[class~="code.content"]')) {
+            push @{ $obj->{docs} }, {
+                type => 'code_block',
+                content => get_value($it)
+            };
+            add_class( $it, 'api-function-example' );
+        } # parse function and constant lists
+        elsif ($it->matches('div[class~="base"]')) { 
+            my $name = get_value($it->children('h5')->first)
+                // die "No h4 found for $obj";
+            if ($name eq 'Parameters') {
+                $curr_type = 'parameters';
+                add_class( $it, 'api-parameter-heading' );
+                next;
+            }
+            elsif ($curr_type eq 'parameters') {
+                push @{ $obj->{parameters}}, parse_parameter($it);
+                add_class( $it, 'api-parameter' );
+            }
+        }
+    }
+
+    return $obj;
 
 }
+
+sub parse_parameter {
+
+    my ($el) = @_;
+
+    my $obj = {};
+    
+    $obj->{name} = lc get_value( $el->at('h5') )
+        // die "No name found for parameter";
+    ($obj->{param}, $obj->{type}) = split /:\s*/, $obj->{name}, 2;
+    $obj->{docs} = [];
+
+    my $curr_type; # track functions and constants
+    for my $it ($el->children()->each) {
+        # extract textual documentation chunks
+        if ($it->matches('div[class~="text.content"]')) {
+            if (! defined $obj->{definition}) {
+                $obj->{definition} = get_value($it->at('p'));
+                add_class( $it, 'api-parameter-definition' );
+            }
+            else {
+                push @{ $obj->{docs} }, {
+                    type => 'text',
+                    content => get_value($it)
+                };
+                add_class( $it, 'api-parameter-description' );
+            }
+        }
+        # extract code block chunks
+        elsif ($it->matches('pre[class~="code.content"]')) {
+            push @{ $obj->{docs} }, {
+                type => 'code_block',
+                content => get_value($it)
+            };
+            add_class( $it, 'api-parameter-example' );
+        }
+    }
+
+    return $obj;
+
+}
+
+sub parse_constants {
+
+    my ($el) = @_;
+
+    my @consts;
+    
+    for my $it ($el->children()->each) {
+        # extract textual documentation chunks
+        if ($it->matches('div[class~="text.content"]')) {
+            for my $p ($it->children('p')->each) {
+                my $k = get_value($p->at('strong'))
+                    // die "No key found for $p";
+                my $v = get_value($p);
+                $v =~ s/.+=\s*//;
+                push @consts, {
+                    key => $k,
+                    val => $v
+                };
+                add_class( $p, 'api-constant' );
+            }
+        }
+    }
+
+    return \@consts;
+
+}
+
+sub generate_stubs {
+
+    my ($tree, $dir_out) = @_;
+
+    if (-e $dir_out && ! -d $dir_out) {
+        die "Output directory $dir_out exists but is not directory\n";
+    }
+    make_path($dir_out)
+        if (! -e $dir_out);
+    for my $module (@{ $tree }) {
+        my $name = $module->{name};
+        $name =~ s/.+\.//;
+        $name =~ s/\s/_/g;
+        my $dir = $dir_out;
+        if (defined $module->{parent}) { #submodule
+            $dir = "$dir_out/$module->{parent}";
+            make_path($dir)
+                if (! -e $dir);
+            if (! -e "$dir/__init__.py") {
+                open my $out, '>', "$dir/__init__.py";
+                close $out;
+            }
+        }
+        my $fn = "$dir/$name.py";
+        open my $out, '>', $fn;
+        for my $func (@{ $module->{functions} }) {
+            my $def = $func->{definition};
+            while ($def =~ s/\[[^\]]+\]//g) {
+                next;
+            }
+            $def =~ s/\:\s*\w+//g;
+            my $return;
+            if ($def =~ /(.+?)\s*->\s*(\S+)/) {
+                $def = $1;
+                $return = $2;
+            }
+            say {$out} "def $def:";
+            my $desc = join '',
+                map {$_->{content}}
+                grep {$_->{type} eq 'text'}
+                @{ $func->{docs} };
+            $desc = block_to_markdown($desc)
+                if (length $desc);
+            $desc =~ s/\n/\n\t/gm;
+            say {$out} "\t\"\"\"$desc";
+
+            for my $param (@{ $func->{parameters} }) {
+                say {$out} "\t:param $param->{param}: $param->{definition}";
+                say {$out} "\t:type $param->{param}: $param->{type}";
+            }
+            say {$out} "\t:rtype $return";
+            say {$out} "\t\"\"\"";
+            say {$out} "\tpass\n";
+        }
+    }
+}
+

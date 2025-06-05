@@ -70,32 +70,25 @@ div.function > h4, div.function > h5 {
         display: none !important;
     }
 }
-
-div.params-header > div {
-    display: none;
+.api-functions-heading {
+    background: brown;
 }
-div.params-header {
-    color: purple;
+.api-module {
+    color: #abc123;
 }
-div.param {
-    background: blue;
-}
-.method-string {
-    background: purple;
-}
-.method-description {
-    background: #abc123;
-}
-.constants {
-    background: #888888;
-}
-.constants-description {
-    background: #a4b993;
-}
-
-.param-string {
+.api-function {
     background: orange;
 }
-.param-description {
+.api-function-definition {
+    background: blue;
+}
+.api-parameter-definition {
     background: yellow;
 }
+.api-parameter {
+    background: red;
+}
+.api-parameter-defintion {
+    background: green;
+}
+

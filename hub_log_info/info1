@@ -1,0 +1,128 @@
+object <module 'color'> is of type module
+  __name__ -- color
+  BLACK -- 0
+  MAGENTA -- 1
+  PURPLE -- 2
+  BLUE -- 3
+  AZURE -- 4
+  TURQUOISE -- 5
+  GREEN -- 6
+  YELLOW -- 7
+  ORANGE -- 8
+  RED -- 9
+  WHITE -- 10
+  UNKNOWN -- -1
+object <module 'color_matrix'> is of type module
+  __name__ -- color_matrix
+  get_pixel -- <function>
+  set_pixel -- <function>
+  show -- <function>
+  clear -- <function>
+object <module 'color_sensor'> is of type module
+  __name__ -- color_sensor
+  color -- <function>
+  reflection -- <function>
+  rgbi -- <function>
+object <module 'distance_sensor'> is of type module
+  __name__ -- distance_sensor
+  distance -- <function>
+  get_pixel -- <function>
+  set_pixel -- <function>
+  show -- <function>
+  clear -- <function>
+object <module 'device'> is of type module
+  __name__ -- device
+  set_duty_cycle -- <function>
+  get_duty_cycle -- <function>
+  data -- <function>
+  id -- <function>
+  ready -- <function>
+object <module 'force_sensor'> is of type module
+  __name__ -- force_sensor
+  force -- <function>
+  raw -- <function>
+  pressed -- <function>
+object <module 'hub'> is of type module
+  __name__ -- hub
+  bootloader -- <function>
+  temperature -- <function>
+  battery_voltage -- <function>
+  battery_temperature -- <function>
+  battery_current -- <function>
+  usb_charge_current -- <function>
+  hardware_id -- <function>
+  soft_reset -- <function>
+  reset -- <function>
+  power_off -- <function>
+  device_uuid -- <function>
+  config -- <config>
+  button -- <module 'button'>
+  light -- <module 'light'>
+  light_matrix -- <module 'light_matrix'>
+  motion_sensor -- <module 'motion_sensor'>
+  sound -- <module 'sound'>
+  port -- port(A=0, B=1, C=2, D=3, E=4, F=5)
+object <module 'motor'> is of type module
+  __name__ -- motor
+  __init__ -- <function>
+  stop -- <function>
+  set_duty_cycle -- <function>
+  run -- <function>
+  run_for_time -- <function>
+  run_for_degrees -- <function>
+  run_to_relative_position -- <function>
+  run_to_absolute_position -- <function>
+  reset_relative_position -- <function>
+  get_duty_cycle -- <function>
+  velocity -- <function>
+  relative_position -- <function>
+  absolute_position -- <function>
+  status -- <function>
+  info -- <function>
+  READY -- 0
+  RUNNING -- 1
+  STALLED -- 2
+  CANCELLED -- 3
+  ERROR -- 4
+  DISCONNECTED -- 5
+  COAST -- 0
+  BRAKE -- 1
+  HOLD -- 2
+  CONTINUE -- 3
+  SMART_COAST -- 4
+  SMART_BRAKE -- 5
+  CLOCKWISE -- 0
+  COUNTERCLOCKWISE -- 1
+  SHORTEST_PATH -- 2
+  LONGEST_PATH -- 3
+object <module 'motor_pair'> is of type module
+  __name__ -- motor_pair
+  __init__ -- <function>
+  pair -- <function>
+  unpair -- <function>
+  move_tank_for_degrees -- <function>
+  move_tank_for_time -- <function>
+  move_tank -- <function>
+  move_for_degrees -- <function>
+  move_for_time -- <function>
+  move -- <function>
+  stop -- <function>
+  PAIR_1 -- 0
+  PAIR_2 -- 1
+  PAIR_3 -- 2
+object <module 'orientation'> is of type module
+  __name__ -- orientation
+  UP -- 0
+  RIGHT -- 1
+  DOWN -- 2
+  LEFT -- 3
+object <module 'runloop'> is of type module
+  __name__ -- runloop
+  run -- <function>
+  wait -- <function>
+  until -- <function>
+  sleep_ms -- <function>
+  WAITING -- 0
+  SUCCESS -- 1
+  TIMEOUT -- 2
+  CANCELLED -- 3
