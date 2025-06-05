@@ -13,6 +13,8 @@ a prefix like so:
 
 """
 
+from typing import Awaitable
+
 def run(*functions: Awaitable) -> None:
     """Start any number of parallel `async` functions. This is the function
     you should use to create programs with a similar structure to Word
@@ -23,7 +25,7 @@ def run(*functions: Awaitable) -> None:
     :rtype: None
     """
 
-def sleep_ms(duration: int) -> Awaitable:
+async def sleep_ms(duration: int) -> Awaitable:
     """Pause the execution of the application for any amount of
     milliseconds.
 
@@ -32,7 +34,7 @@ def sleep_ms(duration: int) -> Awaitable:
     :rtype: Awaitable
     """
 
-def until(function: Callable[[], bool], timeout: int = 0) -> Awaitable:
+async def until(function: Callable[[], bool], timeout: int = 0) -> Awaitable:
     """Returns an awaitable that will return when the condition in the
     function or lambda passed is `True` or when it times out
 

@@ -11,7 +11,16 @@ as a prefix like so:
 
 `motor_pair.pair(motor_pair.PAIR_1, port.A, port.B)`
 
+
+The following constants are defined:
+
+* PAIR_1 = 2<br>Third Motor Pair
+
 """
+
+from typing import Awaitable
+
+PAIR_1 = 2<br>Third Motor Pair
 
 def move(pair: int, steering: int, *, velocity: int = 360, acceleration: int = 1000) -> None:
     """Move a Motor Pair at a constant speed until a new command is given.
@@ -31,7 +40,7 @@ def move(pair: int, steering: int, *, velocity: int = 360, acceleration: int = 1
     :rtype: None
     """
 
-def move_for_degrees(pair: int, degrees: int, steering: int, *, velocity: int = 360, stop: int = motor.BRAKE, acceleration: int = 1000, deceleration: int = 1000) -> Awaitable:
+async def move_for_degrees(pair: int, degrees: int, steering: int, *, velocity: int = 360, stop: int = motor.BRAKE, acceleration: int = 1000, deceleration: int = 1000) -> Awaitable:
     """Move a Motor Pair at a constant speed for a specific number of
     degrees.<br />
     When awaited returns a status of the movement that corresponds to one
@@ -74,7 +83,7 @@ def move_for_degrees(pair: int, degrees: int, steering: int, *, velocity: int = 
     :rtype: Awaitable
     """
 
-def move_for_time(pair: int, duration: int, steering: int, *, velocity: int = 360, stop: int = motor.BRAKE, acceleration: int = 1000, deceleration: int = 1000) -> Awaitable:
+async def move_for_time(pair: int, duration: int, steering: int, *, velocity: int = 360, stop: int = motor.BRAKE, acceleration: int = 1000, deceleration: int = 1000) -> Awaitable:
     """Move a Motor Pair at a constant speed for a specific duration.<br />
     When awaited returns a status of the movement that corresponds to one
     of the following constants from the motor module:
@@ -133,7 +142,7 @@ def move_tank(pair: int, left_velocity: int, right_velocity: int, *, acceleratio
     :rtype: None
     """
 
-def move_tank_for_degrees(pair: int, degrees: int, left_velocity: int, right_velocity: int, *, stop: int = motor.BRAKE, acceleration: int = 1000, deceleration: int = 1000) -> Awaitable:
+async def move_tank_for_degrees(pair: int, degrees: int, left_velocity: int, right_velocity: int, *, stop: int = motor.BRAKE, acceleration: int = 1000, deceleration: int = 1000) -> Awaitable:
     """Perform a tank move on a Motor Pair at a constant speed until a new
     command is given.<br />
     When awaited returns a status of the movement that corresponds to one
@@ -174,7 +183,7 @@ def move_tank_for_degrees(pair: int, degrees: int, left_velocity: int, right_vel
     :rtype: Awaitable
     """
 
-def move_tank_for_time(pair: int, left_velocity: int, right_velocity: int, duration: int, *, stop: int = motor.BRAKE, acceleration: int = 1000, deceleration: int = 1000) -> Awaitable:
+async def move_tank_for_time(pair: int, left_velocity: int, right_velocity: int, duration: int, *, stop: int = motor.BRAKE, acceleration: int = 1000, deceleration: int = 1000) -> Awaitable:
     """Perform a tank move on a Motor Pair at a constant speed for a
     specific amount of time.<br />
     When awaited returns a status of the movement that corresponds to one

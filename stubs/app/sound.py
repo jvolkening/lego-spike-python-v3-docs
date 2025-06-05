@@ -8,7 +8,9 @@ To use the `sound` module simply import the module like so:
 
 """
 
-def play(sound_name: str, volume: int = 100, pitch: int = 0, pan: int = 0) -> Awaitable:
+from typing import Awaitable
+
+async def play(sound_name: str, volume: int = 100, pitch: int = 0, pan: int = 0) -> Awaitable:
     """Play a sound in the SPIKE App
 
     :param sound_name: The sound name as seen in the Word Blocks sound

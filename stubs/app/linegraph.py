@@ -8,6 +8,8 @@ To use the `linegraph` module simply import the module like so:
 
 """
 
+from typing import Awaitable
+
 def clear(color: int) -> None:
     """
 
@@ -22,7 +24,7 @@ def clear_all() -> None:
     :rtype: None
     """
 
-def get_average(color: int) -> Awaitable:
+async def get_average(color: int) -> Awaitable:
     """
 
     :param color: A color from the `color` module
@@ -30,7 +32,7 @@ def get_average(color: int) -> Awaitable:
     :rtype: Awaitable
     """
 
-def get_last(color: int) -> Awaitable:
+async def get_last(color: int) -> Awaitable:
     """
 
     :param color: A color from the `color` module
@@ -38,7 +40,7 @@ def get_last(color: int) -> Awaitable:
     :rtype: Awaitable
     """
 
-def get_max(color: int) -> Awaitable:
+async def get_max(color: int) -> Awaitable:
     """
 
     :param color: A color from the `color` module
@@ -46,7 +48,7 @@ def get_max(color: int) -> Awaitable:
     :rtype: Awaitable
     """
 
-def get_min(color: int) -> Awaitable:
+async def get_min(color: int) -> Awaitable:
     """
 
     :param color: A color from the `color` module

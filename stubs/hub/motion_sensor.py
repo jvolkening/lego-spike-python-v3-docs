@@ -8,7 +8,25 @@ module as a prefix like so:
 
 `motion_sensor.up_face()`
 
+
+The following constants are defined:
+
+* TAPPED = 0
+* DOUBLE_TAPPED = 1
+* SHAKEN = 2
+* FALLING = 3
+* UNKNOWN = -1
+* TOP = 5<br>The left side of the SPIKE Prime hub when facing the front hub
+face.
+
 """
+
+TAPPED = 0
+DOUBLE_TAPPED = 1
+SHAKEN = 2
+FALLING = 3
+UNKNOWN = -1
+TOP = 5<br>The left side of the SPIKE Prime hub when facing the front hub face.
 
 def acceleration(raw_unfiltered: bool) -> tuple[int, int, int]:
     """Returns a tuple containing x, y &amp; z acceleration values as

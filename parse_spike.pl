@@ -3,24 +3,31 @@
 use strict;
 use warnings;
 use 5.012;
+use autodie;
 use open qw( :std :encoding(UTF-8) );
 
 use Cwd qw/abs_path/;
+use Data::Dumper;
 use File::Basename qw/dirname/;
 use File::Path qw/make_path/;
 use Getopt::Long;
 use HTML::Entities;
 use HTML::WikiConverter;
 use Mojo::DOM58;
+use Text::Wrap;
+
+$Text::Wrap::unexpand = 0;
 
 my $fi_html;
 my $dir_stubs;
 my $original_source = "https://spike.legoeducation.com/prime/help/lls-help-python";
+my $fo_dump;
 
 GetOptions(
-    '--in=s' => \$fi_html,
-    '--stubs=s' => \$dir_stubs,
-    '--source=s'   => \$original_source,
+    '--in=s'     => \$fi_html,
+    '--stubs=s'  => \$dir_stubs,
+    '--source=s' => \$original_source,
+    '--dump=s'   => \$fo_dump,
 );
 
 # read in DOM
@@ -47,9 +54,10 @@ my $api_root = get_div_with_heading(
 ) // die "Nothing found for '$api_heading'\n";
 
 my $api_tree = parse_api($api_root);
-#use Data::Dumper;
-#print Dumper $api_tree;
-#exit;
+
+dump_tree($api_tree, $fo_dump)
+    if (defined $fo_dump);
+
 if (defined $dir_stubs) {
     generate_stubs($api_tree, $dir_stubs);
 }
@@ -257,7 +265,13 @@ sub get_div_with_heading {
 sub add_class {
 
     my ($el, $class) = @_;
-    $el->attr( {'class' => join(' ', $el->attr('class'), $class)} );
+    $el->attr({
+        'class' => join(
+            ' ',
+            ($el->attr('class') // ''),
+            $class
+        )
+    });
 
 }
 
@@ -328,6 +342,8 @@ sub parse_module {
             }
             elsif ($name =~ /\bConstants$/) {
                 $curr_type = 'constants';
+                push @{ $obj->{constants}}, parse_constants($it);
+                add_class( $it, 'api-constants' );
                 next;
             }
             elsif ($curr_type eq 'functions') {
@@ -449,7 +465,7 @@ sub parse_constants {
     my ($el) = @_;
 
     my @consts;
-    
+
     for my $it ($el->children()->each) {
         # extract textual documentation chunks
         if ($it->matches('div[class~="text.content"]')) {
@@ -467,13 +483,15 @@ sub parse_constants {
         }
     }
 
-    return \@consts;
+    return @consts;
 
 }
 
 sub generate_stubs {
 
     my ($tree, $dir_out) = @_;
+
+    my $tab = '    ';
 
     if (-e $dir_out && ! -d $dir_out) {
         die "Output directory $dir_out exists but is not directory\n";
@@ -496,6 +514,29 @@ sub generate_stubs {
         }
         my $fn = "$dir/$name.py";
         open my $out, '>', $fn;
+
+
+        my $doc = make_doc($module);
+        say {$out} wrap('', '', "\"\"\"$doc");
+        say {$out} "\"\"\"\n";
+
+        if (
+            grep {$_ =~ /\bAwaitable$/}
+            map {$_->{definition}}
+            @{ $module->{functions} }
+        ) {
+            say {$out} "from typing import Awaitable\n";
+        }
+
+        my @constants = @{ $module->{constants} };
+        if (scalar @constants) {
+            for my $const (@constants) {
+                say {$out} "$const->{key} = $const->{val}";
+            }
+            print {$out} "\n";
+        }
+
+        #generate function docstrings
         for my $func (@{ $module->{functions} }) {
             my $def = $func->{definition};
             while ($def =~ s/\[[^\]]+\]//g) {
@@ -507,15 +548,21 @@ sub generate_stubs {
                 $def = $1;
                 $return = $2;
             }
-            say {$out} "def $def:";
+            if ($func->{definition} =~ /\bAwaitable$/) {
+                print {$out} 'async ';
+            }
+            my $def_string = $func->{definition};
+            $def_string =~ s/ $name\./ /g;
+            say {$out} "def $def_string:";
             my $desc = join '',
                 map {$_->{content}}
                 grep {$_->{type} eq 'text'}
                 @{ $func->{docs} };
             $desc = block_to_markdown($desc)
                 if (length $desc);
-            $desc =~ s/\n/\n\t/gm;
-            say {$out} "\t\"\"\"$desc\n";
+            #$desc =~ s/\n/\n$tab/gm;
+            #say {$out} "$tab\"\"\"$desc\n";
+            say {$out} wrap($tab, $tab, "\"\"\"$desc\n");
 
             for my $param (@{ $func->{parameters} }) {
                 my $desc = join '',
@@ -525,13 +572,51 @@ sub generate_stubs {
                 $desc = block_to_markdown($desc)
                     if (length $desc);
                 $desc =~ s/\n//gm;
-                say {$out} "\t:param $param->{param}: $desc";
-                say {$out} "\t:type $param->{param}: $param->{type}";
+                say {$out} wrap($tab, $tab, ":param $param->{param}: $desc");
+                say {$out} "$tab:type $param->{param}: $param->{type}";
             }
-            say {$out} "\t:rtype: $return";
-            say {$out} "\t\"\"\"";
-            say {$out} "\tpass\n";
+            say {$out} "$tab:rtype: $return";
+            say {$out} "$tab\"\"\"\n";
+            # apparently pass is not needed if we have docstrings
+            #say {$out} "${tab}pass\n";
+
         }
     }
+}
+
+sub make_doc {
+
+    my ($el) = @_;
+
+    my $desc = '';
+    for my $part (@{ $el->{docs} }) {
+        if ($part->{type} eq 'text') {
+            $desc .= block_to_markdown("$part->{content}") . "\n\n";
+        }
+        elsif ($part->{type} eq 'code_block') {
+            $desc .= block_to_markdown("$part->{content}") . "\n\n";
+        }
+    }
+
+    my @constants = @{ $el->{constants} };
+    if (scalar @constants) {
+        $desc .= "\nThe following constants are defined:\n\n";
+        for my $const (@constants) {
+            $desc .= "* $const->{key} = $const->{val}\n"
+        }
+    }
+
+    return $desc;
+
+}
+
+sub dump_tree {
+
+    my ($obj, $fn) = @_;
+    
+    open my $out, '>', $fn;
+    print {$out} Dumper $obj;
+    close $out;
+
 }
 

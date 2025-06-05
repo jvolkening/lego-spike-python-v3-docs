@@ -10,7 +10,15 @@ prefix like so:
 
 `light.color(color.RED)`
 
+
+The following constants are defined:
+
+* POWER = 1<br>The light around the Bluetooth connect button on SPIKE
+Prime.
+
 """
+
+POWER = 1<br>The light around the Bluetooth connect button on SPIKE Prime.
 
 def color(light: int, color: int) -> None:
     """Change the color of a light on the hub.

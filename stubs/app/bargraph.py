@@ -8,6 +8,8 @@ To use the `bargraph` module simply import the module like so:
 
 """
 
+from typing import Awaitable
+
 def change(color: int, value: float) -> None:
     """
 
@@ -24,7 +26,7 @@ def clear_all() -> None:
     :rtype: None
     """
 
-def get_value(color: int) -> Awaitable:
+async def get_value(color: int) -> Awaitable:
     """
 
     :param color: A color from the `color` module

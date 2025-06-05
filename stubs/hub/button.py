@@ -8,7 +8,14 @@ a prefix like so:
 
 `button.pressed(button.LEFT)`
 
+
+The following constants are defined:
+
+* LEFT = 2<br>Right button next to the power button on the SPIKE Prime hub
+
 """
+
+LEFT = 2<br>Right button next to the power button on the SPIKE Prime hub
 
 def int pressed(button: int) -> int:
     """This module allows you to react to buttons being pressed on the hub.

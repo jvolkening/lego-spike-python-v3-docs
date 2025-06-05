@@ -7,7 +7,46 @@ prefix like so:
 
 `motor.run(port.A, 1000)`
 
+
+The following constants are defined:
+
+* READY = 0
+* RUNNING = 1
+* STALLED = 2
+* CANCELLED = 3
+* ERROR = 4
+* DISCONNECTED = 5
+* COAST = 0
+* BRAKE = 1
+* HOLD = 2
+* CONTINUE = 3
+* SMART_COAST = 4
+* SMART_BRAKE = 5
+* CLOCKWISE = 0
+* COUNTERCLOCKWISE = 1
+* SHORTEST_PATH = 2
+* LONGEST_PATH = 3
+
 """
+
+from typing import Awaitable
+
+READY = 0
+RUNNING = 1
+STALLED = 2
+CANCELLED = 3
+ERROR = 4
+DISCONNECTED = 5
+COAST = 0
+BRAKE = 1
+HOLD = 2
+CONTINUE = 3
+SMART_COAST = 4
+SMART_BRAKE = 5
+CLOCKWISE = 0
+COUNTERCLOCKWISE = 1
+SHORTEST_PATH = 2
+LONGEST_PATH = 3
 
 def absolute_position(port: int) -> int:
     """Get the absolute position of a Motor
@@ -60,7 +99,7 @@ def run(port: int, velocity: int, *, acceleration: int = 1000) -> None:
     :rtype: None
     """
 
-def run_for_degrees(port: int, degrees: int, velocity: int, *, stop: int = BRAKE, acceleration: int = 1000, deceleration: int = 1000) -> Awaitable:
+async def run_for_degrees(port: int, degrees: int, velocity: int, *, stop: int = BRAKE, acceleration: int = 1000, deceleration: int = 1000) -> Awaitable:
     """Turn a motor for a specific number of degrees<br />
     When awaited returns a status of the movement that corresponds to one
     of the following constants:
@@ -100,7 +139,7 @@ def run_for_degrees(port: int, degrees: int, velocity: int, *, stop: int = BRAKE
     :rtype: Awaitable
     """
 
-def run_for_time(port: int, duration: int, velocity: int, *, stop: int = BRAKE, acceleration: int = 1000, deceleration: int = 1000) -> Awaitable:
+async def run_for_time(port: int, duration: int, velocity: int, *, stop: int = BRAKE, acceleration: int = 1000, deceleration: int = 1000) -> Awaitable:
     """Run a Motor for a limited amount of time<br />
     When awaited returns a status of the movement that corresponds to one
     of the following constants:
@@ -139,7 +178,7 @@ def run_for_time(port: int, duration: int, velocity: int, *, stop: int = BRAKE, 
     :rtype: Awaitable
     """
 
-def run_to_absolute_position(port: int, position: int, velocity: int, *, direction: int = motor.SHORTEST_PATH, stop: int = BRAKE, acceleration: int = 1000, deceleration: int = 1000) -> Awaitable:
+async def run_to_absolute_position(port: int, position: int, velocity: int, *, direction: int = SHORTEST_PATH, stop: int = BRAKE, acceleration: int = 1000, deceleration: int = 1000) -> Awaitable:
     """Turn a motor to an absolute position.<br />
     When awaited returns a status of the movement that corresponds to one
     of the following constants:
@@ -183,7 +222,7 @@ def run_to_absolute_position(port: int, position: int, velocity: int, *, directi
     :rtype: Awaitable
     """
 
-def run_to_relative_position(port: int, position: int, velocity: int, *, stop: int = BRAKE, acceleration: int = 1000, deceleration: int = 1000) -> Awaitable:
+async def run_to_relative_position(port: int, position: int, velocity: int, *, stop: int = BRAKE, acceleration: int = 1000, deceleration: int = 1000) -> Awaitable:
     """Turn a motor to a position relative to the current position.<br />
     When awaited returns a status of the movement that corresponds to one
     of the following constants:

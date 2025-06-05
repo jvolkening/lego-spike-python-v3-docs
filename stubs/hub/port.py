@@ -11,5 +11,12 @@ prefix like so:
 
 `port.A`
 
+
+The following constants are defined:
+
+* A = 5<br>The Port that is labelled ‘F’ on the Hub.
+
 """
+
+A = 5<br>The Port that is labelled ‘F’ on the Hub.
 
