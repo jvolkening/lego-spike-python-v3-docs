@@ -681,7 +681,7 @@ sub make_doc {
     if (scalar @constants) {
         $desc .= "\nThe following constants are defined:\n\n";
         for my $const (@constants) {
-            $desc .= "* $const->{key} = $const->{val}\n"
+            $desc .= "* ``$const->{key}`` = $const->{val}\n"
         }
         $desc .= "\n";
     }
