@@ -1,8 +1,11 @@
-"""The `display` module is used show images in the SPIKE App
+"""
+The `display` module is used show images in the SPIKE App
 
 To use the `display` module simply import the module like so:
 
-`from app import display`
+::
+
+	from app import display
 
 `display` details
 
@@ -29,9 +32,7 @@ The following constants are defined:
 * IMAGE_OCEAN = 18
 * IMAGE_POLAR_BEAR = 19
 * IMAGE_PARK = 20
-* IMAGE_RANDOM = 21
-
-"""
+* IMAGE_RANDOM = 21"""
 
 IMAGE_ROBOT_1 = 1
 IMAGE_ROBOT_2 = 2
@@ -57,32 +58,30 @@ IMAGE_RANDOM = 21
 
 def hide() -> None:
     """
-
+    
     :rtype: None
     """
 
 def image(image: int) -> None:
     """
-
+    
     :param image: The id of the image to show. The range of available
-    images is 1 to 21. There are consts on the `display` module for these
-    :type image: int
+        images is 1 to 21. There are consts on the `display` module for
+        these
     :rtype: None
     """
 
 def show(fullscreen: bool) -> None:
     """
-
+    
     :param fullscreen: Show in full screen
-    :type fullscreen: bool
     :rtype: None
     """
 
 def text(text: str) -> None:
     """
-
+    
     :param text: The text to display
-    :type text: str
     :rtype: None
     """
 

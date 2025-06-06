@@ -1,4 +1,4 @@
-"""The `app` module is used communicate between hub and app
-
+"""
+The `app` module is used communicate between hub and app
 """
 

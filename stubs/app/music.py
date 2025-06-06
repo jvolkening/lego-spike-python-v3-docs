@@ -1,8 +1,11 @@
-"""The `music` module is used make music in the SPIKE App
+"""
+The `music` module is used make music in the SPIKE App
 
 To use the `music` module simply import the module like so:
 
-`from app import music`
+::
+
+	from app import music
 
 `music` details
 
@@ -47,9 +50,7 @@ The following constants are defined:
 * INSTRUMENT_SYNTH_PAD = 21
 * INSTRUMENT_TROMBONE = 9
 * INSTRUMENT_VIBRAPHONE = 16
-* INSTRUMENT_WOODEN_FLUTE = 13
-
-"""
+* INSTRUMENT_WOODEN_FLUTE = 13"""
 
 DRUM_BASS = 2
 DRUM_BONGO = 13
@@ -93,23 +94,19 @@ INSTRUMENT_WOODEN_FLUTE = 13
 
 def play_drum(drum: int) -> None:
     """
-
+    
     :param drum: The drum name. See all available values in the app.sound
-    module.
-    :type drum: int
+        module.
     :rtype: None
     """
 
 def play_instrument(instrument: int, note: int, duration: int) -> None:
     """
-
+    
     :param instrument: The instrument name. See all available values in the
-    app.music module.
-    :type instrument: int
+        app.music module.
     :param note: The midi note to play (0-130)
-    :type note: int
     :param duration: The duration in milliseconds
-    :type duration: int
     :rtype: None
     """
 

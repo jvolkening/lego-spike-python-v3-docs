@@ -1,0 +1,6 @@
+﻿color
+=====
+
+.. automodule:: color
+
+   

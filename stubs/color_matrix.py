@@ -1,59 +1,98 @@
-"""To use the Color Matrix module add the following import statement to
-your project:
+"""
+To use the Color Matrix module add the following import statement to your
+project:
 
-`import color_matrix`
+::
+
+	import color_matrix
 
 All functions in the module should be called inside the `color_matrix`
 module as a prefix like so:
 
-`color_matrix.set_pixel(port.A, 1, 1, (color.BLUE, 10))`
+::
 
+	color_matrix.set_pixel(port.A, 1, 1, (color.BLUE, 10))
 """
 
 def clear(port: int) -> None:
-    """Turn off all pixels on a Color Matrix
+    """
+    Turn off all pixels on a Color Matrix
+    
+    ::
+    
+    	from hub import port
+    	import color_matrix
+    
+    	color_matrix.clear(port.A)
 
     :param port: A port from the `port` submodule in the `hub` module
-    :type port: int
     :rtype: None
     """
 
 def get_pixel(port: int, x: int, y: int) -> tuple[int, int]:
-    """Retrieve a specific pixel represented as a tuple containing the
-    color and intensity
+    """
+    Retrieve a specific pixel represented as a tuple containing the color and
+    intensity
+    
+    ::
+    
+    	from hub import port
+    	import color_matrix
+    
+    	# Print the color and intensity of the 0,0 pixel on the Color Matrix connected to port A
+    	print(color_matrix.get_pixel(port.A, 0, 0))
 
     :param port: A port from the `port` submodule in the `hub` module
-    :type port: int
     :param x: The X value (0 - 2)
-    :type x: int
     :param y: The Y value, range (0 - 2)
-    :type y: int
     :rtype: tuple
     """
 
-def set_pixel(port: int, x: int, y: int, pixel: tuple[color: int, intensity: int]) -> None:
-    """Change a single pixel on a Color Matrix
+def set_pixel(port: int, x: int, y: int, pixel: tuple[int, int]) -> None:
+    """
+    Change a single pixel on a Color Matrix
+    
+    ::
+    
+    	from hub import port
+    	import color
+    	import color_matrix
+    
+    	# Change the color of the 0,0 pixel on the Color Matrix connected to port A
+    	color_matrix.set_pixel(port.A, 0, 0, (color.RED, 10))
+    
+    	# Print the color of the 0,0 pixel on the Color Matrix connected to port A
+    	print(color_matrix.get_pixel(port.A, 0, 0)[0])
 
     :param port: A port from the `port` submodule in the `hub` module
-    :type port: int
     :param x: The X value (0 - 2)
-    :type x: int
     :param y: The Y value, range (0 - 2)
-    :type y: int
     :param pixel: Tuple containing color and intensity, meaning how bright
-    to light up the pixel
-    :type pixel: tuple[color: int, intensity: int]
+        to light up the pixel
     :rtype: None
     """
 
 def show(port: int, pixels: list[tuple[int, int]]) -> None:
-    """Change all pixels at once on a Color Matrix
+    """
+    Change all pixels at once on a Color Matrix
+    
+    ::
+    
+    	from hub import port
+    	import color
+    	import color_matrix
+    
+    	# Update all pixels on Color Matrix using the show function
+    
+    	# Create a list with 18 items (color and intensity pairs)
+    	pixels = [(color.BLUE, 10)] * 9
+    
+    	# Update all pixels to show same color and intensity
+    	color_matrix.show(port.A, pixels)
 
     :param port: A port from the `port` submodule in the `hub` module
-    :type port: int
     :param pixels: A list containing color and intensity value tuples for
-    all 9 pixels.
-    :type pixels: list[tuple[int, int]]
+        all 9 pixels.
     :rtype: None
     """
 

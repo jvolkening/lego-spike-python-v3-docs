@@ -1,42 +1,66 @@
-"""The `force_sensor` module contains all functions and constants to use
-the Force Sensor.
+"""
+The `force_sensor` module contains all functions and constants to use the
+Force Sensor.
 
 To use the Force Sensor module add the following import statement to your
 project:
 
-`import force_sensor`
+::
+
+	import force_sensor
 
 All functions in the module should be called inside the `force_sensor`
 module as a prefix like so:
 
-`force_sensor.force(port.A)`
+::
 
+    force_sensor.force(port.A)
 """
 
 def force(port: int) -> int:
-    """Retrieves the measured force as decinewton. Values range from 0 to
-    100
+    """
+    Retrieves the measured force as decinewton. Values range from 0 to 100
+    
+    ::
+    
+    	from hub import port
+    	import force_sensor
+    
+    	print(force_sensor.force(port.A))
 
     :param port: A port from the `port` submodule in the `hub` module
-    :type port: int
     :rtype: int
     """
 
 def pressed(port: int) -> bool:
-    """Tests whether the button on the sensor is pressed. Returns true if
-    the force sensor connected to port is pressed.
+    """
+    Tests whether the button on the sensor is pressed. Returns true if the
+    force sensor connected to port is pressed.
+    
+    ::
+    
+    	from hub import port
+    	import force_sensor
+    
+    	print(force_sensor.pressed(port.A))
 
     :param port: A port from the `port` submodule in the `hub` module
-    :type port: int
     :rtype: bool
     """
 
 def raw(port: int) -> int:
-    """Returns the raw, uncalibrated force value of the force sensor
-    connected on port `port`
+    """
+    Returns the raw, uncalibrated force value of the force sensor connected on
+    port `port`
+    
+    ::
+    
+    	from hub import port
+    	import force_sensor
+    
+    	print(force_sensor.raw(port.A))
 
     :param port: A port from the `port` submodule in the `hub` module
-    :type port: int
     :rtype: int
     """
 

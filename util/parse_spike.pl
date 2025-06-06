@@ -30,6 +30,13 @@ GetOptions(
     '--dump=s'   => \$fo_dump,
 );
 
+my $tab = '    ';
+my %extra_imports = (
+    motor_pair => [
+        'import motor'
+    ],
+);
+
 # read in DOM
 my $html;
 open my $in, '<', $fi_html;
@@ -326,7 +333,7 @@ sub parse_module {
         elsif ($it->matches('pre[class~="code.content"]')) {
             push @{ $obj->{docs} }, {
                 type => 'code_block',
-                content => get_value($it)
+                content => "$it",
             };
             add_class( $it, 'api-module-example' );
         } # parse function and constant lists
@@ -402,7 +409,7 @@ sub parse_function {
         elsif ($it->matches('pre[class~="code.content"]')) {
             push @{ $obj->{docs} }, {
                 type => 'code_block',
-                content => get_value($it)
+                content => "$it",
             };
             add_class( $it, 'api-function-example' );
         } # parse function and constant lists
@@ -415,6 +422,7 @@ sub parse_function {
                 next;
             }
             elsif ($curr_type eq 'parameters') {
+                next if (! defined $it->children('div[class~="text.content"]')->first);
                 push @{ $obj->{parameters}}, parse_parameter($it);
                 add_class( $it, 'api-parameter' );
             }
@@ -450,7 +458,7 @@ sub parse_parameter {
         elsif ($it->matches('pre[class~="code.content"]')) {
             push @{ $obj->{docs} }, {
                 type => 'code_block',
-                content => get_value($it)
+                content => "$it",
             };
             add_class( $it, 'api-parameter-example' );
         }
@@ -474,6 +482,7 @@ sub parse_constants {
                     // die "No key found for $p";
                 my $v = get_value($p);
                 $v =~ s/.+=\s*//;
+                $v =~ s/[^\d\-].*$//;
                 push @consts, {
                     key => $k,
                     val => $v
@@ -490,8 +499,6 @@ sub parse_constants {
 sub generate_stubs {
 
     my ($tree, $dir_out) = @_;
-
-    my $tab = '    ';
 
     if (-e $dir_out && ! -d $dir_out) {
         die "Output directory $dir_out exists but is not directory\n";
@@ -517,16 +524,26 @@ sub generate_stubs {
 
 
         my $doc = make_doc($module);
-        say {$out} wrap('', '', "\"\"\"$doc");
+        say {$out} "\"\"\"";
+        #$doc =~ s/^\K/$tab/gm;
+        print {$out} $doc;
         say {$out} "\"\"\"\n";
 
-        if (
-            grep {$_ =~ /\bAwaitable$/}
-            map {$_->{definition}}
-            @{ $module->{functions} }
-        ) {
-            say {$out} "from typing import Awaitable\n";
+        my @imports;
+        for my $kw (qw/Awaitable Callable/) {
+            if (
+                grep {$_ =~ /\b$kw\b/}
+                map {$_->{definition}}
+                @{ $module->{functions} }
+            ) {
+                push @imports, "from typing import $kw";
+            }
         }
+        if (defined $extra_imports{$name}) {
+            push @imports, @{ $extra_imports{$name} };
+        }
+        say {$out} join( "\n", @imports), "\n"
+            if (scalar @imports);
 
         my @constants = @{ $module->{constants} };
         if (scalar @constants) {
@@ -548,21 +565,46 @@ sub generate_stubs {
                 $def = $1;
                 $return = $2;
             }
-            if ($func->{definition} =~ /\bAwaitable$/) {
-                print {$out} 'async ';
-            }
+            #if ($func->{definition} =~ /\bAwaitable$/) {
+                #print {$out} 'async ';
+            #}
+
+            # clean up the function definition a bit to pass linting
             my $def_string = $func->{definition};
+            $def_string =~ s/^\w+ //g;
             $def_string =~ s/ $name\./ /g;
+
+            # fix function definition type hints like the following:
+            #def set_pixel(port: int, x: int, y: int, pixel: tuple[color: int, intensity: int]) -> None:
+            while ($def_string =~ /^(.+?\btuple\[)([^\]]+)(\].*)$/g) {
+                my $prev = $def_string;
+                my ($s, $m, $e) = ($1, $2, $3);
+                $m =~ s/\b\w+: //g;
+                $def_string = "$s$m$e";
+                last if ($def_string eq $prev);
+            }
+
             say {$out} "def $def_string:";
-            my $desc = join '',
-                map {$_->{content}}
-                grep {$_->{type} eq 'text'}
-                @{ $func->{docs} };
-            $desc = block_to_markdown($desc)
-                if (length $desc);
-            #$desc =~ s/\n/\n$tab/gm;
-            #say {$out} "$tab\"\"\"$desc\n";
-            say {$out} wrap($tab, $tab, "\"\"\"$desc\n");
+            my $desc = '';
+            #my $desc = join '',
+                #map {$_->{content}}
+                #grep {$_->{type} eq 'text'}
+                #@{ $func->{docs} };
+            for my $part (@{ $func->{docs} }) {
+                if ($part->{type} eq 'text') {
+                    $desc .= wrap('','',block_to_markdown("$part->{content}")) . "\n";
+                }
+                elsif ($part->{type} eq 'code_block') {
+                    my $code = block_to_markdown("$part->{content}");
+                    $code =~ s/^\s*\K\`//;
+                    $code =~ s/`\s*$//;
+                    #$code =~ s/^\K/$tab/gm;
+                    $desc .= "\n::\n\n$code\n";
+                }
+            }
+            $desc =~ s/^\K/$tab/gm;
+            $desc =~ s/<br \/>\s*/ /gm;
+            say {$out} "$tab\"\"\"\n$desc";
 
             for my $param (@{ $func->{parameters} }) {
                 my $desc = join '',
@@ -572,8 +614,12 @@ sub generate_stubs {
                 $desc = block_to_markdown($desc)
                     if (length $desc);
                 $desc =~ s/\n//gm;
-                say {$out} wrap($tab, $tab, ":param $param->{param}: $desc");
-                say {$out} "$tab:type $param->{param}: $param->{type}";
+                if ($param->{param} =~ /^\*/) {
+                    $desc = "A tuple of " . lcfirst($desc);
+                    $param->{param} =~ s/^\*//g;
+                }
+                $desc =~ s/<br \/>\s*/ /gm;
+                say {$out} wrap($tab, "$tab$tab", ":param $param->{param}: $desc");
             }
             say {$out} "$tab:rtype: $return";
             say {$out} "$tab\"\"\"\n";
@@ -591,14 +637,20 @@ sub make_doc {
     my $desc = '';
     for my $part (@{ $el->{docs} }) {
         if ($part->{type} eq 'text') {
-            $desc .= block_to_markdown("$part->{content}") . "\n\n";
+            $desc .= wrap('','',block_to_markdown("$part->{content}")) . "\n\n";
         }
         elsif ($part->{type} eq 'code_block') {
-            $desc .= block_to_markdown("$part->{content}") . "\n\n";
+            my $code = block_to_markdown("$part->{content}");
+            $code =~ s/^\s*\K\`//;
+            $code =~ s/`\s*$//;
+            #$code =~ s/^\K/$tab/g;
+            $desc .= "::\n\n$code\n\n";
         }
     }
 
-    my @constants = @{ $el->{constants} };
+    my @constants = defined $el->{constants}
+        ? @{ $el->{constants} }
+        : ();
     if (scalar @constants) {
         $desc .= "\nThe following constants are defined:\n\n";
         for my $const (@constants) {
@@ -606,6 +658,8 @@ sub make_doc {
         }
     }
 
+    $desc =~ s/<br \/>\s*/ /gm;
+    chomp $desc;
     return $desc;
 
 }
