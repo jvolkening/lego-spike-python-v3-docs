@@ -10,6 +10,7 @@ use Cwd qw/abs_path/;
 use Data::Dumper;
 use File::Basename qw/dirname/;
 use File::Path qw/make_path/;
+use File::Temp;
 use Getopt::Long;
 use HTML::Entities;
 use HTML::WikiConverter;
@@ -39,7 +40,7 @@ my %extra_imports = (
 
 # read in DOM
 my $html;
-open my $in, '<', $fi_html;
+open my $in, '<:utf8', $fi_html;
 while (my $line = <$in>) {
     $html .= $line;
 }
@@ -376,7 +377,29 @@ sub block_to_markdown {
     my ($el) = @_;
 
     my $wc = new HTML::WikiConverter( dialect => 'Markdown' );
-    return $wc->html2wiki( "$el" );
+    my $md = $wc->html2wiki( "$el" );
+    my $tmp_in = File::Temp->new(SUFFIX => '.md');
+    my $tmp_out = File::Temp->new(SUFFIX => '.rst');
+    close $tmp_out;
+    print {$tmp_in} $md;
+    close $tmp_in;
+    my @cmd = (
+        'pandoc',
+        '-s' => "$tmp_in",
+        '-o' => "$tmp_out",
+    );
+    my $ret = system @cmd;
+    die "Pandoc failed: $!\n"
+        if ($ret);
+    my $rst;
+    open my $in, '<', "$tmp_out";
+    while (my $line = <$in>) {
+        $rst .= $line;
+    }
+    close $in;
+    $rst =~ s/\\//g;
+    return $rst;
+
 
 }
 
@@ -397,7 +420,7 @@ sub parse_function {
         if ($it->matches('div[class~="text.content"]')) {
             if (! defined $obj->{definition}) {
                 $obj->{definition} = get_value($it->at('p'));
-            add_class( $it, 'api-function-definition' );
+                add_class( $it, 'api-function-definition' );
             }
             else {
                 push @{ $obj->{docs} }, {
@@ -524,9 +547,10 @@ sub generate_stubs {
                 if (! -e $dir);
             $fn = "$dir/__init__.py";
         }
-        open my $out, '>', $fn;
+        open my $out, '>:utf8', $fn;
 
         my $doc = make_doc($module);
+        $doc =~ s/\n{3,}/\n\n/gm;
         say {$out} "\"\"\"";
         #$doc =~ s/^\K/$tab/gm;
         print {$out} $doc;
@@ -599,14 +623,15 @@ sub generate_stubs {
                 }
                 elsif ($part->{type} eq 'code_block') {
                     my $code = block_to_markdown("$part->{content}");
-                    $code =~ s/^\s*\K\`+//;
-                    $code =~ s/`+\s*$//;
+                    $code =~ s/^\s*\K\`+//gm;
+                    $code =~ s/`+\s*$//gm;
                     #$code =~ s/^\K/$tab/gm;
-                    $desc .= "\n::\n\n$code\n";
+                    $desc .= "$code\n";
                 }
             }
             $desc =~ s/^\K/$tab/gm;
-            $desc =~ s/<br \/>\s*/ /gm;
+            #$desc =~ s/<br \/>\s*/ /gm;
+            $desc =~ s/\n{3,}/\n\n/gm;
             say {$out} "$tab\"\"\"\n$desc";
 
             for my $param (@{ $func->{parameters} }) {
@@ -616,12 +641,13 @@ sub generate_stubs {
                     @{ $param->{docs} };
                 $desc = block_to_markdown($desc)
                     if (length $desc);
-                $desc =~ s/\n//gm;
+                $desc =~ s/\n{2,}/; /gm;
+                $desc =~ s/\n/ /gm;
                 if ($param->{param} =~ /^\*/) {
                     $desc = "A tuple of " . lcfirst($desc);
                     $param->{param} =~ s/^\*//g;
                 }
-                $desc =~ s/<br \/>\s*/ /gm;
+                #$desc =~ s/<br \/>\s*/ /gm;
                 say {$out} wrap($tab, "$tab$tab", ":param $param->{param}: $desc");
             }
             say {$out} "$tab:rtype: $return";
@@ -642,10 +668,10 @@ sub make_doc {
         }
         elsif ($part->{type} eq 'code_block') {
             my $code = block_to_markdown("$part->{content}");
-            $code =~ s/^\s*\K\`+//;
-            $code =~ s/`+\s*$//;
+            $code =~ s/^\s*\K\`+//gm;
+            $code =~ s/`+\s*$//gm;
             #$code =~ s/^\K/$tab/g;
-            $desc .= "::\n\n$code\n\n";
+            $desc .= "$code\n\n";
         }
     }
 
@@ -660,7 +686,7 @@ sub make_doc {
         $desc .= "\n";
     }
 
-    $desc =~ s/<br \/>\s*/ /gm;
+    #$desc =~ s/<br \/>\s*/ /gm;
     chomp $desc;
     return $desc;
 

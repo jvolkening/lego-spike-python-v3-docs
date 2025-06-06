@@ -1,20 +1,21 @@
 """
-The `force_sensor` module contains all functions and constants to use the
-Force Sensor.
+The ``force_sensor`` module contains all functions and constants to use
+the Force Sensor.
 
-To use the Force Sensor module add the following import statement to your
-project:
+To use the Force Sensor module add the following import statement to
+your project:
 
 ::
 
-	import force_sensor
+   import force_sensor
 
-All functions in the module should be called inside the `force_sensor`
+All functions in the module should be called inside the ``force_sensor``
 module as a prefix like so:
 
 ::
 
-    force_sensor.force(port.A)
+   force_sensor.force(port.A)
+
 """
 
 def force(port: int) -> int:
@@ -23,12 +24,12 @@ def force(port: int) -> int:
     
     ::
     
-    	from hub import port
-    	import force_sensor
+       from hub import port
+       import force_sensor
     
-    	print(force_sensor.force(port.A))
+       print(force_sensor.force(port.A))
 
-    :param port: A port from the `port` submodule in the `hub` module
+    :param port: A port from the ``port`` submodule in the ``hub`` module 
     :rtype: int
     """
 
@@ -39,28 +40,28 @@ def pressed(port: int) -> bool:
     
     ::
     
-    	from hub import port
-    	import force_sensor
+       from hub import port
+       import force_sensor
     
-    	print(force_sensor.pressed(port.A))
+       print(force_sensor.pressed(port.A))
 
-    :param port: A port from the `port` submodule in the `hub` module
+    :param port: A port from the ``port`` submodule in the ``hub`` module 
     :rtype: bool
     """
 
 def raw(port: int) -> int:
     """
-    Returns the raw, uncalibrated force value of the force sensor connected on
-    port `port`
+    Returns the raw, uncalibrated force value of the force sensor connected
+    on port ``port``
     
     ::
     
-    	from hub import port
-    	import force_sensor
+       from hub import port
+       import force_sensor
     
-    	print(force_sensor.raw(port.A))
+       print(force_sensor.raw(port.A))
 
-    :param port: A port from the `port` submodule in the `hub` module
+    :param port: A port from the ``port`` submodule in the ``hub`` module 
     :rtype: int
     """
 

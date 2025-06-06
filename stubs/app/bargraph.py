@@ -1,13 +1,14 @@
 """
-The `bargraph` module is used make bar graphs in the SPIKE App
+The ``bargraph`` module is used make bar graphs in the SPIKE App
 
-To use the `bargraph` module simply import the module like so:
+To use the ``bargraph`` module simply import the module like so:
 
 ::
 
-	from app import bargraph
+   from app import bargraph
 
-`bargraph` details
+``bargraph`` details
+
 """
 
 from typing import Awaitable
@@ -15,8 +16,8 @@ from typing import Awaitable
 def change(color: int, value: float) -> None:
     """
     
-    :param color: A color from the `color` module
-    :param value: The value
+    :param color: A color from the ``color`` module 
+    :param value: The value 
     :rtype: None
     """
 
@@ -29,7 +30,7 @@ def clear_all() -> None:
 def get_value(color: int) -> Awaitable:
     """
     
-    :param color: A color from the `color` module
+    :param color: A color from the ``color`` module 
     :rtype: Awaitable
     """
 
@@ -42,15 +43,15 @@ def hide() -> None:
 def set_value(color: int, value: float) -> None:
     """
     
-    :param color: A color from the `color` module
-    :param value: The value
+    :param color: A color from the ``color`` module 
+    :param value: The value 
     :rtype: None
     """
 
 def show(fullscreen: bool) -> None:
     """
     
-    :param fullscreen: Show in full screen
+    :param fullscreen: Show in full screen 
     :rtype: None
     """
 

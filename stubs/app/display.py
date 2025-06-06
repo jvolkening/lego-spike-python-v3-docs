@@ -1,14 +1,13 @@
 """
-The `display` module is used show images in the SPIKE App
+The ``display`` module is used show images in the SPIKE App
 
-To use the `display` module simply import the module like so:
+To use the ``display`` module simply import the module like so:
 
 ::
 
-	from app import display
+   from app import display
 
-`display` details
-
+``display`` details
 
 The following constants are defined:
 
@@ -67,22 +66,22 @@ def image(image: int) -> None:
     """
     
     :param image: The id of the image to show. The range of available
-        images is 1 to 21. There are consts on the `display` module for
-        these
+        images is 1 to 21. There are consts on the ``display`` module for
+        these 
     :rtype: None
     """
 
 def show(fullscreen: bool) -> None:
     """
     
-    :param fullscreen: Show in full screen
+    :param fullscreen: Show in full screen 
     :rtype: None
     """
 
 def text(text: str) -> None:
     """
     
-    :param text: The text to display
+    :param text: The text to display 
     :rtype: None
     """
 
