@@ -21,7 +21,8 @@ The following constants are defined:
 * SHAKEN = 2
 * FALLING = 3
 * UNKNOWN = -1
-* TOP = 5"""
+* TOP = 5
+"""
 
 TAPPED = 0
 DOUBLE_TAPPED = 1

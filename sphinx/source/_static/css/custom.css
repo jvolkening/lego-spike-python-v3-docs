@@ -1,0 +1,19 @@
+div.sphinxsidebar h3, div.sphinxsidebar h4 {
+    text-shadow: none !important;
+}
+div.related {
+    background-color: #ffd500;
+    color: #000;
+    text-shadow: none;
+}
+div.related a {
+    color: #000;
+}
+div.body h1 {
+    background-color: #306998;
+    color: #fff;
+    text-shadow: none;
+}
+table.align-default {
+    margin-left: 0;
+}

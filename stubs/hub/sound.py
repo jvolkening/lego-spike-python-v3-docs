@@ -20,7 +20,8 @@ The following constants are defined:
 * WAVEFORM_SINE = 1
 * WAVEFORM_SAWTOOTH = 3
 * WAVEFORM_SQUARE = 2
-* WAVEFORM_TRIANGLE = 1"""
+* WAVEFORM_TRIANGLE = 1
+"""
 
 from typing import Awaitable
 

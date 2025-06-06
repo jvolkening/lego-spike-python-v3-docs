@@ -82,7 +82,8 @@ The following constants are defined:
 * IMAGE_GIRAFFE = 64
 * IMAGE_SKULL = 65
 * IMAGE_UMBRELLA = 66
-* IMAGE_SNAKE = 67"""
+* IMAGE_SNAKE = 67
+"""
 
 from typing import Awaitable
 

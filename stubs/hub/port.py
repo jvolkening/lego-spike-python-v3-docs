@@ -19,7 +19,8 @@ prefix like so:
 
 The following constants are defined:
 
-* A = 5"""
+* A = 5
+"""
 
 A = 5
 

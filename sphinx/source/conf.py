@@ -19,8 +19,8 @@ code_path = os.path.join(
 sys.path.append(code_path)
 
 project = 'LEGO Spike Prime Python API v3'
-copyright = '2025, LEGO'
-author = 'LEGO'
+copyright = '2025, Jeremy Volkening'
+author = 'Jeremy Volkening'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -41,6 +41,7 @@ exclude_patterns = []
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'nature'
+html_logo = 'spike_python_logo.png'
 html_static_path = ['_static']
 autodoc_typehints = "description"
 
@@ -49,3 +50,7 @@ autodoc_default_options = {
     "undoc-members": False,
     "private-members": True,
 }
+
+# use custom CSS
+def setup(app):
+    app.add_css_file('css/custom.css')

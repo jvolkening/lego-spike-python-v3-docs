@@ -308,6 +308,7 @@ sub parse_module {
     $obj->{name} = lc get_value( $module->at('h3') )
         // die "No name found for class";
     $obj->{parent} = $parent; # maybe undef
+    $obj->{is_parent} = 0;
     $obj->{docs} = [];
     $obj->{functions} = [];
     $obj->{constants} = [];
@@ -317,6 +318,7 @@ sub parse_module {
         next if (! scalar $it->children('h3')->each); 
         add_class( $it, 'api-module' );
         push @objs, parse_module($it, $obj->{name});
+        $obj->{is_parent} = 1;
     }
     my $curr_type; # track functions and constants
     for my $it ($module->children()->each) {
@@ -509,19 +511,20 @@ sub generate_stubs {
         my $name = $module->{name};
         $name =~ s/.+\.//;
         $name =~ s/\s/_/g;
-        my $dir = $dir_out;
+        my $fn = "$dir_out/$name.py";
         if (defined $module->{parent}) { #submodule
-            $dir = "$dir_out/$module->{parent}";
+            my $dir = "$dir_out/$module->{parent}";
             make_path($dir)
                 if (! -e $dir);
-            if (! -e "$dir/__init__.py") {
-                open my $out, '>', "$dir/__init__.py";
-                close $out;
-            }
+            $fn = "$dir/$name.py";
         }
-        my $fn = "$dir/$name.py";
+        elsif ($module->{is_parent}) {
+            my $dir = "$dir_out/$name";
+            make_path($dir)
+                if (! -e $dir);
+            $fn = "$dir/__init__.py";
+        }
         open my $out, '>', $fn;
-
 
         my $doc = make_doc($module);
         say {$out} "\"\"\"";
@@ -596,8 +599,8 @@ sub generate_stubs {
                 }
                 elsif ($part->{type} eq 'code_block') {
                     my $code = block_to_markdown("$part->{content}");
-                    $code =~ s/^\s*\K\`//;
-                    $code =~ s/`\s*$//;
+                    $code =~ s/^\s*\K\`+//;
+                    $code =~ s/`+\s*$//;
                     #$code =~ s/^\K/$tab/gm;
                     $desc .= "\n::\n\n$code\n";
                 }
@@ -623,8 +626,6 @@ sub generate_stubs {
             }
             say {$out} "$tab:rtype: $return";
             say {$out} "$tab\"\"\"\n";
-            # apparently pass is not needed if we have docstrings
-            #say {$out} "${tab}pass\n";
 
         }
     }
@@ -641,8 +642,8 @@ sub make_doc {
         }
         elsif ($part->{type} eq 'code_block') {
             my $code = block_to_markdown("$part->{content}");
-            $code =~ s/^\s*\K\`//;
-            $code =~ s/`\s*$//;
+            $code =~ s/^\s*\K\`+//;
+            $code =~ s/`+\s*$//;
             #$code =~ s/^\K/$tab/g;
             $desc .= "::\n\n$code\n\n";
         }
@@ -656,6 +657,7 @@ sub make_doc {
         for my $const (@constants) {
             $desc .= "* $const->{key} = $const->{val}\n"
         }
+        $desc .= "\n";
     }
 
     $desc =~ s/<br \/>\s*/ /gm;

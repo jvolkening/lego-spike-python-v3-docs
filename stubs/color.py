@@ -22,7 +22,8 @@ The following constants are defined:
 * ORANGE = 8
 * RED = 9
 * WHITE = 10
-* UNKNOWN = -1"""
+* UNKNOWN = -1
+"""
 
 BLACK = 0
 MAGENTA = 1

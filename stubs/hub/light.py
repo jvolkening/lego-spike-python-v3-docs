@@ -18,7 +18,8 @@ prefix like so:
 
 The following constants are defined:
 
-* POWER = 1"""
+* POWER = 1
+"""
 
 POWER = 1
 

@@ -19,7 +19,8 @@ as a prefix like so:
 
 The following constants are defined:
 
-* PAIR_1 = 2"""
+* PAIR_1 = 2
+"""
 
 from typing import Awaitable
 import motor

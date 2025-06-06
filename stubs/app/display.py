@@ -32,7 +32,8 @@ The following constants are defined:
 * IMAGE_OCEAN = 18
 * IMAGE_POLAR_BEAR = 19
 * IMAGE_PARK = 20
-* IMAGE_RANDOM = 21"""
+* IMAGE_RANDOM = 21
+"""
 
 IMAGE_ROBOT_1 = 1
 IMAGE_ROBOT_2 = 2

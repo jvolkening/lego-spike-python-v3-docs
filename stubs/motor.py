@@ -30,7 +30,8 @@ The following constants are defined:
 * CLOCKWISE = 0
 * COUNTERCLOCKWISE = 1
 * SHORTEST_PATH = 2
-* LONGEST_PATH = 3"""
+* LONGEST_PATH = 3
+"""
 
 from typing import Awaitable
 

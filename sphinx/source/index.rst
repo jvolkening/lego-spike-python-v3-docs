@@ -11,8 +11,8 @@ from a set of module stubs, which were themselves generated from parsing of
 the official LEGO help documents at
 `<https://spike.legoeducation.com/prime/help/lls-help-python>`_. Thus,
 although they should be generally correct and complete, some
-errors or omissions may exist. Please report any issues to the GitHub
-repository at XXXXX.
+errors or omissions may exist. Please report any issues to the `GitHub
+repository <https://github.com/jvolkening/lego-spike-python-v3-docs>`_.
 
 .. toctree::
    :maxdepth: 2

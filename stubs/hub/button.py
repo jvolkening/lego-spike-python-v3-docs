@@ -16,7 +16,8 @@ a prefix like so:
 
 The following constants are defined:
 
-* LEFT = 2"""
+* LEFT = 2
+"""
 
 LEFT = 2
 
@@ -27,7 +28,7 @@ def pressed(button: int) -> int:
     
     ::
     
-    	`from hub import button
+    	from hub import button
     
     	left_button_press_duration = 0
     
@@ -40,7 +41,7 @@ def pressed(button: int) -> int:
     	    left_button_press_duration = button.pressed(button.LEFT)
     
     	print("Left button was pressed for " + str(left_button_press_duration) + " milliseconds")
-    	`
+    	
 
     :param button: A button from the `button` submodule in the `hub` module
     :rtype: int
