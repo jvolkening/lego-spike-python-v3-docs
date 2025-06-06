@@ -1,0 +1,27 @@
+name: documentation
+
+on: [push, pull_request, workflow_dispatch]
+
+permissions:
+  contents: write
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        uses: actions/configure-pages@v5
+      - name: Install dependencies
+        run: |
+          pip install sphinx
+      - name: Sphinx build
+        run: |
+          sphinx-build sphinx/source _build
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '_build'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
