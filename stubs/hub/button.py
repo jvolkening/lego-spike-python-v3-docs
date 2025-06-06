@@ -15,7 +15,7 @@ module as a prefix like so:
 
 The following constants are defined:
 
-* LEFT = 2
+* ``LEFT`` = 2
 """
 
 LEFT = 2

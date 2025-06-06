@@ -15,12 +15,12 @@ as a prefix like so:
 
 The following constants are defined:
 
-* ANY = -2
-* DEFAULT = -1
-* WAVEFORM_SINE = 1
-* WAVEFORM_SAWTOOTH = 3
-* WAVEFORM_SQUARE = 2
-* WAVEFORM_TRIANGLE = 1
+* ``ANY`` = -2
+* ``DEFAULT`` = -1
+* ``WAVEFORM_SINE`` = 1
+* ``WAVEFORM_SAWTOOTH`` = 3
+* ``WAVEFORM_SQUARE`` = 2
+* ``WAVEFORM_TRIANGLE`` = 1
 """
 
 from typing import Awaitable

@@ -1,5 +1,9 @@
 """
-To use the Color Matrix module add the following import statement to
+The ``color_matrix`` module enables you to interact with an attached 3x3 Color
+Light Matrix (e.g. LEGO part 45608) and write code that reacts to specific
+colors or the intensity of the reflected light.
+
+To use the ``color_matrix`` module, add the following import statement to
 your project:
 
 ::

@@ -1,16 +1,17 @@
 """
-The ``distance_sensor`` module enables you to write code that reacts to
-specific distances or light up the Distance Sensor in different ways.
+The ``distance_sensor`` module enables you to interact with an attached
+Distance Sensor (e.g. LEGO part 45604) and write code that reacts to
+specific distances or lights up the sensor LEDs in different ways.
 
-To use the Distance Sensor module add the following import statement to
+To use the ``distance_sensor`` module, add the following import statement to
 your project:
 
 ::
 
    import distance_sensor
 
-All functions in the module should be called inside the
-``distance_sensor`` module as a prefix like so:
+All functions in the module should be called inside the ``distance_sensor``
+module as a prefix like so:
 
 ::
 

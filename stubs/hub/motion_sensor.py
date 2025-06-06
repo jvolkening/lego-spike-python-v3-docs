@@ -15,12 +15,12 @@ All functions in the module should be called inside the
 
 The following constants are defined:
 
-* TAPPED = 0
-* DOUBLE_TAPPED = 1
-* SHAKEN = 2
-* FALLING = 3
-* UNKNOWN = -1
-* TOP = 5
+* ``TAPPED`` = 0
+* ``DOUBLE_TAPPED`` = 1
+* ``SHAKEN`` = 2
+* ``FALLING`` = 3
+* ``UNKNOWN`` = -1
+* ``TOP`` = 5
 """
 
 TAPPED = 0

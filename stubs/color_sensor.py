@@ -1,8 +1,9 @@
 """
-The ``color_sensor`` module enables you to write code that reacts to
-specific colors or the intensity of the reflected light.
+The ``color_sensor`` module enables you to interact with an attached Color
+Sensor (e.g. LEGO part 45605) and write code that reacts to specific colors or
+the intensity of the reflected light.
 
-To use the Color Sensor module add the following import statement to
+To use the ``color_sensor`` module, add the following import statement to
 your project:
 
 ::
@@ -18,7 +19,15 @@ module as a prefix like so:
 
 The Color Sensor can recognize the following colors:
 
-Red Green Blue Magenta Yellow Orange Azure Black White
+* Red 
+* Green 
+* Blue 
+* Magenta 
+* Yellow 
+* Orange 
+* Azure 
+* Black 
+* White
 
 """
 

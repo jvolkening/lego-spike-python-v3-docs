@@ -14,22 +14,22 @@ as a prefix like so:
 
 The following constants are defined:
 
-* READY = 0
-* RUNNING = 1
-* STALLED = 2
-* CANCELLED = 3
-* ERROR = 4
-* DISCONNECTED = 5
-* COAST = 0
-* BRAKE = 1
-* HOLD = 2
-* CONTINUE = 3
-* SMART_COAST = 4
-* SMART_BRAKE = 5
-* CLOCKWISE = 0
-* COUNTERCLOCKWISE = 1
-* SHORTEST_PATH = 2
-* LONGEST_PATH = 3
+* ``READY`` = 0
+* ``RUNNING`` = 1
+* ``STALLED`` = 2
+* ``CANCELLED`` = 3
+* ``ERROR`` = 4
+* ``DISCONNECTED`` = 5
+* ``COAST`` = 0
+* ``BRAKE`` = 1
+* ``HOLD`` = 2
+* ``CONTINUE`` = 3
+* ``SMART_COAST`` = 4
+* ``SMART_BRAKE`` = 5
+* ``CLOCKWISE`` = 0
+* ``COUNTERCLOCKWISE`` = 1
+* ``SHORTEST_PATH`` = 2
+* ``LONGEST_PATH`` = 3
 """
 
 from typing import Awaitable
