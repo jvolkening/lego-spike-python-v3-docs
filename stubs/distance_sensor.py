@@ -16,7 +16,6 @@ module as a prefix like so:
 ::
 
    distance_sensor.distance(port.A)
-
 """
 
 def clear(port: int) -> None:

@@ -9,6 +9,7 @@
    .. autosummary::
    
       beep
+      sound
       stop
       volume
    

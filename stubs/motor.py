@@ -318,7 +318,7 @@ def velocity(port: int) -> int:
     :rtype: int
     """
 
-def status() -> int:
+def status(port: int) -> int:
     """
     **UNDOCUMENTED** Get the motor status as one of :
     ``motor.READY``, ``motor.RUNNING``, ``motor.STALLED``,
@@ -327,15 +327,16 @@ def status() -> int:
     functions do.
     
 
+    :param port: A port from the ``port`` submodule in the ``hub`` module 
     :rtype: int
     """
 
-def info() -> tuple[int, int]:
+def info(port: int) -> tuple[int, int]:
     """
     **UNDOCUMENTED** Retrieve the device ID and maximum speed of the motor as
     a tuple.
     
-
+    :param port: A port from the ``port`` submodule in the ``hub`` module 
     :rtype: tuple[device_id: int, max_speed: int)
     """
 
