@@ -3,7 +3,7 @@ The ``motor_pair`` module is used to run motors in a synchronized
 fashion. This mode is optimal for creating drivebases where you’d want a
 pair of motors to start and stop at the same time.
 
-To use the ``motor_pair`` module simply import the module like so:
+To use the ``motor_pair`` module, simply import the module like so:
 
 ::
 

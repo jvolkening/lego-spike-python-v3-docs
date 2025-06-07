@@ -1,5 +1,8 @@
 """
-To use a Motor add the following import statement to your project:
+The ``motor`` module is used to control and query individual motors attached to the
+Spike hub.
+
+To use the `motor` module, add the following import statement to your project:
 
 ::
 
@@ -30,7 +33,15 @@ The following constants are defined:
 * ``COUNTERCLOCKWISE`` = 1
 * ``SHORTEST_PATH`` = 2
 * ``LONGEST_PATH`` = 3
+
+**NOTE**: The ``motor`` module contains several functions that are not
+documented in the official LEGO materials. These are marked as
+**UNDOCUMENTED** in the function descriptions below. Their behavior has been
+determined empirically and they should be used with caution.
+
 """
+
+
 
 from typing import Awaitable
 
@@ -265,7 +276,8 @@ def set_duty_cycle(port: int, pwm: int) -> None:
 
 def stop(port: int, *, stop: int = BRAKE) -> None:
     """
-    Stops a motor
+    Stop the motor given by ``port``. If no ``port`` is specified, stop all
+    attached motors.
     
     ::
     
@@ -298,10 +310,32 @@ def stop(port: int, *, stop: int = BRAKE) -> None:
 
 def velocity(port: int) -> int:
     """
-    Get the velocity (deg/sec) of a Motor
+    Get the velocity (deg/sec) of a motor (*NOTE*: empirical testing suggests the
+    unit is *not* in deg/sec)
     
 
     :param port: A port from the ``port`` submodule in the ``hub`` module 
     :rtype: int
+    """
+
+def status() -> int:
+    """
+    **UNDOCUMENTED** Get the motor status as one of :
+    ``motor.READY``, ``motor.RUNNING``, ``motor.STALLED``,
+    ``motor.CANCELLED``, ``motor.ERROR``, ``motor.DISCONNECTED``. *NOTE*:
+    ``motor.run`` does not set status to ``motor.RUNNING``; other ``run_*``
+    functions do.
+    
+
+    :rtype: int
+    """
+
+def info() -> tuple[int, int]:
+    """
+    **UNDOCUMENTED** Retrieve the device ID and maximum speed of the motor as
+    a tuple.
+    
+
+    :rtype: tuple[device_id: int, max_speed: int)
     """
 

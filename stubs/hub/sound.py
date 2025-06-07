@@ -72,3 +72,9 @@ def volume(volume: int) -> None:
     :rtype: None
     """
 
+def sound(unknown) -> None:
+    """
+    **UNDOCUMENTED** Plays a sound file from the hub (maybe?)
+
+    :rtype: None
+    """

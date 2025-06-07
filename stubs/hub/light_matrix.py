@@ -1,5 +1,8 @@
 """
-To use the Light Matrix module add the following import statement to
+The ``light_matrix`` module includes functions to interact with the 5x5 LED
+matrix on the face of the SPIKE hubs.
+
+To use the ``light_matrix`` module, add the following import statement to
 your project:
 
 ::
@@ -82,6 +85,9 @@ The following constants are defined:
 * ``IMAGE_SKULL`` = 65
 * ``IMAGE_UMBRELLA`` = 66
 * ``IMAGE_SNAKE`` = 67
+* ``SHOWING`` = 0 (**UNDOCUMENTED**)
+* ``SUCCESS`` = 1 (**UNDOCUMENTED**)
+* ``CANCELLED`` = 2 (**UNDOCUMENTED**)
 """
 
 from typing import Awaitable
@@ -153,6 +159,9 @@ IMAGE_GIRAFFE = 64
 IMAGE_SKULL = 65
 IMAGE_UMBRELLA = 66
 IMAGE_SNAKE = 67
+SHOWING = 0
+SUCCESS = 1
+CANCELLED = 2
 
 def clear() -> None:
     """

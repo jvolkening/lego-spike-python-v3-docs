@@ -15,10 +15,16 @@ module as a prefix like so:
 
 The following constants are defined:
 
-* ``LEFT`` = 2
+* ``LEFT`` = 0 (**differs from official docs**)
+* ``POWER`` = 1 (**UNDOCUMENTED**)
+* ``RIGHT`` = 2
+* ``CONNECT`` = 3 (**UNDOCUMENTED**)
 """
 
-LEFT = 2
+LEFT = 0
+POWER = 1
+RIGHT = 2;
+CONNECT = 3;
 
 def pressed(button: int) -> int:
     """

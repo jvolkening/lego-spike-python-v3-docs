@@ -19,8 +19,18 @@ as a prefix like so:
 
 The following constants are defined:
 
-* ``A`` = 5
+* ``A`` = 0
+* ``B`` = 1
+* ``C`` = 2
+* ``D`` = 3
+* ``E`` = 4
+* ``F`` = 5
 """
 
-A = 5
+A = 0
+B = 1
+C = 2
+D = 3
+E = 4
+F = 5
 

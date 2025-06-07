@@ -1,5 +1,8 @@
 """
-To use the Motion Sensor module add the following import statement to
+The ``motion_sensor`` module includes functions to interact with the internal
+motion sensor (gyroscope) in the SPIKE hubs.
+
+To use the ``motion_sensor`` module, add the following import statement to
 your project:
 
 ::
@@ -20,7 +23,12 @@ The following constants are defined:
 * ``SHAKEN`` = 2
 * ``FALLING`` = 3
 * ``UNKNOWN`` = -1
-* ``TOP`` = 5
+* ``TOP`` = 0 (the SPIKE Prime hub face with the Light Matrix)
+* ``FRONT`` = 1 (the SPIKE Prime hub face where the speaker is)
+* ``RIGHT`` = 2 (the right side of the SPIKE Prime hub when facing the front hub face)
+* ``BOTTOM`` = 3 (the side of the SPIKE Prime hub where the battery is)
+* ``BACK`` = 4 (the SPIKE Prime hub face with the USB charging port)
+* ``LEFT`` = 5 (the left side of the SPIKE Prime hub when facing the front hub face)
 """
 
 TAPPED = 0
@@ -28,7 +36,12 @@ DOUBLE_TAPPED = 1
 SHAKEN = 2
 FALLING = 3
 UNKNOWN = -1
-TOP = 5
+TOP = 0
+FRONT = 1
+RIGHT = 2
+BOTTOM = 3
+BACK = 4
+LEFT = 5
 
 def acceleration(raw_unfiltered: bool) -> tuple[int, int, int]:
     """

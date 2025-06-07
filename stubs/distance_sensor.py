@@ -46,8 +46,8 @@ def get_pixel(port: int, x: int, y: int) -> int:
     
 
     :param port: A port from the ``port`` submodule in the ``hub`` module 
-    :param x: The X value (0 - 3) 
-    :param y: The Y value, range (0 - 3) 
+    :param x: The X value (0 - 1) 
+    :param y: The Y value, range (0 - 1) 
     :rtype: int
     """
 
@@ -58,8 +58,8 @@ def set_pixel(port: int, x: int, y: int, intensity: int) -> None:
     
 
     :param port: A port from the ``port`` submodule in the ``hub`` module 
-    :param x: The X value (0 - 3) 
-    :param y: The Y value, range (0 - 3) 
+    :param x: The X value (0 - 1) 
+    :param y: The Y value, range (0 - 1) 
     :param intensity: How bright to light up the pixel 
     :rtype: None
     """
