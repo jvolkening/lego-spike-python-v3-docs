@@ -1,12 +1,12 @@
-"""
-The ``color`` module contains all the color constants to use with the
+"""The ``color`` module contains all of the color constants to use with the
 ``color_matrix``, ``color_sensor`` and ``light`` modules.
 
-To use the Color module, add the following import statement to your project:
+To use the ``color`` module, add the following import statement to your
+project:
 
 ::
 
-   import color
+    import color
 
 The following constants are defined:
 
@@ -36,4 +36,3 @@ ORANGE = 8
 RED = 9
 WHITE = 10
 UNKNOWN = -1
-
