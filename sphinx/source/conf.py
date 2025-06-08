@@ -30,6 +30,7 @@ extensions = [
     'sphinx.ext.doctest',
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
+    'sphinx_sitemap',
 ]
 
 templates_path = ['_templates']
@@ -44,6 +45,7 @@ html_theme = 'nature'
 html_title = 'Documentation'
 html_logo = 'spike_python_logo.png'
 html_static_path = ['_static']
+html_baseurl = 'https://jvolkening.github.io/lego-spike-python-v3-docs/'
 autodoc_typehints = "description"
 
 autodoc_default_options = {
