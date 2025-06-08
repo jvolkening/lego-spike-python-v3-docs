@@ -5,6 +5,7 @@
 
 .. meta::
     :keywords: LEGO, Spike, Python, API, documentation, v3
+    :google-site-verification: fKQ4GNSp7y5T1dhmFvtqZNaaGnP0q4_4UI3sLWX_GO0
 
 LEGO Spike Python API v3
 ============================================
