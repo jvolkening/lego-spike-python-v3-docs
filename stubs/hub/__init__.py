@@ -1,7 +1,6 @@
-"""
-The ``hub`` package is home to all of the modules used to interact with
-various integrated inputs (gyroscope, buttons) and outputs (lights, sound) on
-a Spike Hub (e.g. LEGO parts 45601 or 45609). This package also contains the
+"""The ``hub`` package is home to all of the modules used to interact with
+various integrated inputs (gyroscope, buttons) and outputs (lights, sound) on a
+Spike Hub (e.g. LEGO parts 45601 or 45609). This package also contains the
 `hub` module with several direct functions used to interrogate and control the
 hub itself.
 
@@ -10,100 +9,96 @@ your project:
 
 ::
 
-   import hub
+    import hub
 
 All functions in the module should be called inside the ``hub``
 module as a prefix like so:
 
 ::
 
-   t = hub.temperature()
+    t = hub.temperature()
 
 **NOTE**: The ``hub`` module contains a number of functions that are not
 documented in the official LEGO materials. These are marked as
 **UNDOCUMENTED** in the function descriptions below. Their behavior has been
 determined empirically and they should be used with caution.
-
 """
 
+
 def device_uuid() -> str:
-    """
-    Retrieves the device id.
-    
+    """Get the device id.
 
     :rtype: str
     """
+
 
 def hardware_id() -> str:
-    """
-    Retrieves the hardware id.
-    
+    """Get the hardware id.
 
     :rtype: str
     """
 
+
 def power_off() -> int:
-    """
-    Turns off the hub.
-    
+    """Turn off the hub.
 
     :rtype: int
     """
+
 
 def temperature() -> int:
-    """
-    Retrieves the hub temperature. Measured in decidegrees celsius (d�C)
-    which is 1 / 10 of a degree celsius (�C)
-    
+    """Get the hub temperature measured in decidegrees Celsius (d°C),
+    which is 1/10 of a degree Celsius (°C).
 
     :rtype: int
     """
+
 
 def soft_reset() -> int:
-    """
-    **UNDOCUMENTED** Sends a soft reset command to the hub.
+    """**UNDOCUMENTED** Send a soft reset command to the hub.
 
     :rtype: int
     """
+
 
 def reset() -> int:
-    """
-    **UNDOCUMENTED** Sends a hard reset command to the hub.
+    """**UNDOCUMENTED** Send a hard reset command to the hub.
 
     :rtype: int
     """
+
 
 def bootloader() -> int:
-    """
-    **UNDOCUMENTED** Retrieves the hub bootloader.
+    """**UNDOCUMENTED** Result currently unclear: don't use in code unless
+    you know what you are doing.
 
     :rtype: int
     """
+
 
 def battery_voltage() -> int:
-    """
-    **UNDOCUMENTED** Retrieves the battery voltage.
+    """**UNDOCUMENTED** Get the battery voltage.
 
     :rtype: int
     """
+
 
 def battery_temperature() -> int:
-    """
-    **UNDOCUMENTED** Retrieves the battery temperature.
+    """**UNDOCUMENTED** Get the battery temperature.
 
     :rtype: int
     """
+
 
 def battery_current() -> int:
-    """
-    **UNDOCUMENTED** Retrieves the battery current.
+    """**UNDOCUMENTED** Get the battery current.
 
     :rtype: int
     """
 
+
 def usb_charge_current() -> int:
-    """
-    **UNDOCUMENTED** Retrieves the USB charge current.
+    """**UNDOCUMENTED** Get the USB charge current.
 
     :rtype: int
     """

@@ -1,5 +1,4 @@
-"""
-The ``light_matrix`` module includes functions to interact with the 5x5 LED
+"""The ``light_matrix`` module includes functions to interact with the 5x5 LED
 matrix on the face of the SPIKE hubs.
 
 To use the ``light_matrix`` module, add the following import statement to
@@ -7,14 +6,14 @@ your project:
 
 ::
 
-   from hub import light_matrix
+    from hub import light_matrix
 
 All functions in the module should be called inside the ``light_matrix``
 module as a prefix like so:
 
 ::
 
-   light_matrix.write("Hello World")
+    light_matrix.write("Hello World")
 
 The following constants are defined:
 
@@ -163,142 +162,141 @@ SHOWING = 0
 SUCCESS = 1
 CANCELLED = 2
 
+
 def clear() -> None:
-    """
-    Switches off all of the pixels on the Light Matrix.
-    
+    """Switch off all of the pixels on the Light Matrix.
+
     ::
-    
-       from hub import light_matrix
-       import time
-       # Update pixels to show an image on Light Matrix, and then turn them off using the clear function
-    
-       # Show a small heart
-       light_matrix.show_image(2)
-    
-       # Wait for two seconds
-       time.sleep_ms(2000)
-    
-       # Switch off the heart
-       light_matrix.clear()
+
+        from hub import light_matrix
+        import time
+        # Update pixels to show an image on Light Matrix, and then turn
+        # them off using the clear function
+
+        # Show a small heart
+        light_matrix.show_image(2)
+
+        # Wait for two seconds
+        time.sleep_ms(2000)
+
+        # Switch off the heart
+        light_matrix.clear()
 
     :rtype: None
     """
+
 
 def get_orientation() -> int:
-    """
-    Retrieve the current orientation of the Light Matrix. Can be used with
+    """Get the current orientation of the Light Matrix. Can be used with
     the following constants: ``orientation.UP``, ``orientation.LEFT``,
     ``orientation.RIGHT``, ``orientation.DOWN``
-    
+
 
     :rtype: int
     """
+
 
 def get_pixel(x: int, y: int) -> int:
-    """
-    Retrieve the intensity of a specific pixel on the Light Matrix.
-    
-    ::
-    
-       from hub import light_matrix
-    
-       # Show a heart
-       light_matrix.show_image(1)
-    
-       # Print the value of the center pixel's intensity
-       print(light_matrix.get_pixel(2, 2))
-       
-    
+    """Get the intensity of a specific pixel on the Light Matrix.
 
-    :param x: The X value, range (0 - 4) 
-    :param y: The Y value, range (0 - 4) 
+    ::
+
+        from hub import light_matrix
+
+        # Show a heart
+        light_matrix.show_image(1)
+
+        # Print the value of the center pixel's intensity
+        print(light_matrix.get_pixel(2, 2))
+
+    :param x: The X value, range 0–4
+    :param y: The Y value, range 0–4
     :rtype: int
     """
+
 
 def set_orientation(top: int) -> int:
-    """
-    Change the orientation of the Light Matrix. All subsequent calls will
-    use the new orientation. Can be used with the following constants:
+    """Set the orientation of the Light Matrix. All subsequent calls will use
+    the new orientation. Can be used with the following constants:
     ``orientation.UP``, ``orientation.LEFT``, ``orientation.RIGHT``,
     ``orientation.DOWN``
-    
 
-    :param top: The side of the hub to be the top 
+    :param top: The side of the hub to be considered the top
     :rtype: int
     """
 
-def set_pixel(x: int, y: int, intensity: int) -> None:
-    """
-    Sets the brightness of one pixel (one of the 25 LEDs) on the Light
-    Matrix.
-    
-    ::
-    
-       from hub import light_matrix
-       # Turn on the pixel in the center of the hub
-       light_matrix.set_pixel(2, 2, 100)
 
-    :param x: The X value, range (0 - 4) 
-    :param y: The Y value, range (0 - 4) 
-    :param intensity: How bright to light up the pixel 
+def set_pixel(x: int, y: int, intensity: int) -> None:
+    """Set the brightness of one pixel (one of the 25 LEDs) on the Light
+    Matrix.
+
+    ::
+
+        from hub import light_matrix
+        # Turn on the pixel in the center of the hub
+        light_matrix.set_pixel(2, 2, 100)
+
+    :param x: The X value, range 0–4
+    :param y: The Y value, range 0–4
+    :param intensity: How bright to light up the pixel
     :rtype: None
     """
+
 
 def show(pixels: list[int]) -> None:
-    """
-    Change all the lights at the same time.
-    
+    """Set all of the lights at the same time.
+
     ::
-    
-       from hub import light_matrix
-       # Update all pixels on Light Matrix using the show function
-    
-       # Create a list with 25 identical intensity values
-       pixels = [100] * 25
-    
-       # Update all pixels to show same intensity
-       light_matrix.show(pixels)
+
+        from hub import light_matrix
+        # Update all pixels on Light Matrix using the show function
+
+        # Create a list with 25 identical intensity values
+        pixels = [100] * 25
+
+        # Update all pixels to show same intensity
+        light_matrix.show(pixels)
 
     :param pixels: A list containing light intensity values for all 25
-        pixels. 
+        pixels
     :rtype: None
     """
+
 
 def show_image(image: int) -> None:
-    """
-    Display one of the built in images on the display.
-    
-    ::
-    
-       from hub import light_matrix
-       # Update pixels to show an image on Light Matrix using the show_image function
-    
-       # Show a smiling face
-       light_matrix.show_image(light_matrix.IMAGE_HAPPY)
+    """Display one of the built-in images on the display.
 
-    :param image: The id of the image to show. The range of available
-        images is 1 to 67. There are consts on the ``light_matrix`` module
-        for these. 
+    ::
+
+        from hub import light_matrix
+        # Update pixels to show an image on Light Matrix using the
+        # show_image function
+
+        # Show a smiling face
+        light_matrix.show_image(light_matrix.IMAGE_HAPPY)
+
+    :param image: The ID of the image to show. The range of available
+        images is 1 to 67 (see the ``light_matrix`` module for available
+        constants).
     :rtype: None
     """
 
-def write(text: str, intensity: int = 100, time_per_character: int = 500) -> Awaitable:
-    """
-    Displays text on the Light Matrix, one letter at a time, scrolling from
-    right to left except if there is a single character to show which will
-    not scroll
-    
-    ::
-    
-       from hub import light_matrix
-       # White a message to the hub
-       light_matrix.write("Hello, world!")
 
-    :param text: The text to display 
-    :param intensity: How bright to light up the pixel 
+def write(
+    text: str, intensity: int = 100, time_per_character: int = 500
+) -> Awaitable:
+    """Display text on the Light Matrix, one letter at a time, scrolling from
+    right to left if necessary.
+
+    ::
+
+        from hub import light_matrix
+        # White a message to the hub
+        light_matrix.write("Hello, world!")
+
+    :param text: The text to display
+    :param intensity: How bright to light up the pixel
     :param time_per_character: How long to show each character on the
-        display 
+        display
     :rtype: Awaitable
     """
-

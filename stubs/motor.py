@@ -98,8 +98,7 @@ def reset_relative_position(port: int, position: int) -> None:
 
 
 def run(port: int, velocity: int, *, acceleration: int = 1000) -> None:
-    """
-    Move a Motor at a constant speed until a new command is given.
+    """Move a Motor at a constant speed until a new command is given.
 
     ::
 
@@ -128,8 +127,7 @@ def run_for_degrees(
     acceleration: int = 1000,
     deceleration: int = 1000
 ) -> Awaitable:
-    """
-    Turn a motor for a specific number of degrees. When awaited, returns a
+    """Turn a motor for a specific number of degrees. When awaited, returns a
     status of the movement that corresponds to one of the following
     constants:
 
@@ -171,9 +169,8 @@ def run_for_time(
     acceleration: int = 1000,
     deceleration: int = 1000
 ) -> Awaitable:
-    """
-    Run a Motor for a specific amount of time. When awaited, returns a status
-    of the movement that corresponds to one of the following constants:
+    """Run a Motor for a specific amount of time. When awaited, returns a
+    status of the movement that corresponds to one of the following constants:
 
     ``motor.READY``  ``motor.RUNNING``  ``motor.STALLED``
     ``motor.ERROR``  ``motor.DISCONNECTED``
@@ -232,8 +229,7 @@ def run_to_absolute_position(
     acceleration: int = 1000,
     deceleration: int = 1000
 ) -> Awaitable:
-    """
-    Turn a motor to an absolute position. When awaited, returns a status of
+    """Turn a Motor to an absolute position. When awaited, returns a status of
     the movement that corresponds to one of the following constants:
 
     ``motor.READY``  ``motor.RUNNING``  ``motor.STALLED``
@@ -277,8 +273,7 @@ def run_to_relative_position(
     acceleration: int = 1000,
     deceleration: int = 1000
 ) -> Awaitable:
-    """
-    Turn a motor to a position relative to its reference position (see
+    """Turn a motor to a position relative to its reference position (see
     ``reset_relative_position``). When awaited, returns a status of the
     movement that corresponds to one of the following constants:
 
@@ -321,23 +316,22 @@ def set_duty_cycle(port: int, pwm: int) -> None:
 
 
 def stop(port: int, *, stop: int = BRAKE) -> None:
-    """
-    Stop the motor given by ``port``. If no ``port`` is specified, stop all
+    """Stop the motor given by ``port``. If no ``port`` is specified, stop all
     attached motors.
 
     ::
 
-       from hub import port
-       import motor, time
+        from hub import port
+        import motor, time
 
-       # Start motor
-       motor.run(port.A, 1000)
+        # Start motor
+        motor.run(port.A, 1000)
 
-       # Wait for 2 seconds
-       time.sleep_ms(2000)
+        # Wait for 2 seconds
+        time.sleep_ms(2000)
 
-       # Stop motor
-       motor.stop(port.A)
+        # Stop motor
+        motor.stop(port.A)
 
     :param port: A port from the ``port`` submodule in the ``hub`` module
     :param stop: The behavior of the Motor after it has stopped. Use the
@@ -378,7 +372,7 @@ def status(port: int) -> int:
 
 
 def info(port: int) -> tuple[int, int]:
-    """**UNDOCUMENTED** Retrieve the device ID and maximum speed of the motor
+    """**UNDOCUMENTED** Get the device ID and maximum speed of the motor
     as a tuple.
 
     :param port: A port from the ``port`` submodule in the ``hub`` module

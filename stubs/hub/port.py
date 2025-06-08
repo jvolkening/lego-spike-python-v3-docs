@@ -1,21 +1,20 @@
-"""
-This module contains constants that enables easy access to the ports on
-the SPIKE Prime hub. Use the constants in all functions that takes a
-``port`` parameter.
+"""The ``port`` module contains constants that enable easy addressing of the
+lettered ports on the SPIKE Prime hub. Use the constants in all functions that
+take a ``port`` parameter.
 
-To use the Port module add the following import statement to your
+To use the ``port`` module add the following import statement to your
 project:
 
 ::
 
-   from hub import port
+    from hub import port
 
-All functions in the module should be called inside the ``port`` module
+All constants in the module should be called inside the ``port`` module
 as a prefix like so:
 
 ::
 
-   port.A
+    port.A
 
 The following constants are defined:
 
@@ -33,4 +32,3 @@ C = 2
 D = 3
 E = 4
 F = 5
-
