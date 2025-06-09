@@ -8,6 +8,7 @@ use open qw( :std :encoding(UTF-8) );
 
 use Cwd qw/abs_path/;
 use Data::Dumper;
+use Encode qw/encode/;
 use File::Basename qw/dirname/;
 use File::Path qw/make_path/;
 use File::Temp;
@@ -23,12 +24,14 @@ my $fi_html;
 my $dir_stubs;
 my $original_source = "https://spike.legoeducation.com/prime/help/lls-help-python";
 my $fo_dump;
+my $fo_markdown;
 
 GetOptions(
     '--in=s'     => \$fi_html,
     '--stubs=s'  => \$dir_stubs,
     '--source=s' => \$original_source,
     '--dump=s'   => \$fo_dump,
+    '--markdown=s' => \$fo_markdown,
 );
 
 my $tab = '    ';
@@ -97,6 +100,16 @@ $root->at('h1')->content('Python and the Spike Prime Hub (v3)');
 $new->at('body')->append_content($menu);
 $new->at('body')->append_content($root);
 say "$new";
+
+if (defined $fo_markdown) {
+    warn "FOO\n";
+    open my $out, '>', $fo_markdown;
+    my $wc = new HTML::WikiConverter( dialect => 'Markdown' );
+    my $md = $wc->html2wiki( encode("ISO-8859-1", "$new") );
+    print {$out} $md;
+    warn "$md\n";
+    close $out;
+}
 
 sub traverse {
 
