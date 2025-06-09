@@ -1,0 +1,528 @@
+<html><head><link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght..900&amp;display=swap" rel="stylesheet"><link href="spike.css" rel="stylesheet"></head><body><ol id="main-menu"><li><a href="#lls-help-python-gs">Getting Started</a><ol class="h2-menu"><li><a href="#lls-help-python-gs-intro">Introduction to Python</a></li><li><a href="#lls-help-python-gs-hello">Hello, World!</a></li><li><a href="#lls-help-python-gs-comments">Comments in Python</a></li><li><a href="#lls-help-python-gs-motors">Controlling Motors</a></li><li><a href="#lls-help-python-gs-variables">Variables</a></li><li><a href="#lls-help-python-gs-random">The Power of Random</a></li><li><a href="#lls-help-python-gs-s_control">Sensor Control</a></li><li><a href="#lls-help-python-gs-s_conditions">Sensor Conditions</a></li><li><a href="#lls-help-python-gs-next">Next Steps</a></li></ol></li></ol><div class="base" id="main-content"><a class="anchor" id="lls-help-python"></a><h1 class="heading">Python and the Spike Prime Hub (v3)</h1><div class="base"><a class="anchor" id="lls-help-python-gs"></a><h2 class="heading">Getting Started
+</h2><div class="base"><a class="anchor" id="lls-help-python-gs-intro"></a><h3 class="heading">
+Introduction to Python
+
+</h3><div class="text.content"><p>Python is a popular text-based coding language that is excellent for beginners because it’s concise and easy-to-read. It’s also useful for programmers because it’s applicable to web and software development, as well as scientific applications like data analysis and machine learning.</p>
+<p>This <strong>Getting Started</strong> section introduces the basics of using Python with LEGO® Education SPIKE™ Prime. It contains chapters where you’ll:</p>
+<p><strong>Introduction to Python</strong> </p>
+<ol>
+<li>Learn to use the <em>Code Editor</em> in the LEGO® Education SPIKE™ App to write Python code.</li>
+</ol>
+<p><strong>Hello, World!</strong> </p>
+<ol start="2">
+<li>Write a message on the Light Matrix of the SPIKE Prime Hub.</li>
+</ol>
+<p><strong>Comments in Python</strong> </p>
+<ol start="3">
+<li>Learn how comments can help you describe draft and finished programs.</li>
+</ol>
+<p><strong>Controlling Motors</strong> </p>
+<ol start="4">
+<li>Define and start <em>asynchronous functions</em> to control motors.</li>
+</ol>
+<p><strong>Variables</strong> </p>
+<ol start="5">
+<li>Control two motors with <em>local</em> and <em>global</em> variables.</li>
+</ol>
+<p><strong>The Power of Random</strong> </p>
+<ol start="6">
+<li>Discover ways to create fun and unpredictable programs that control the light on the Hub.</li>
+</ol>
+<p><strong>Sensor Control</strong> </p>
+<ol start="7">
+<li>Control a motor using the Force Sensor. Then learn ways to use the Console to <em>debug</em> your program.</li>
+</ol>
+<p><strong>Sensor Conditions</strong> </p>
+<ol start="8">
+<li>Use <em>logical expressions</em> to react to different conditions. Then learn to run different parts of your code together to react to multiple conditions.</li>
+</ol>
+<p><strong>Next Steps</strong> </p>
+<ol start="9">
+<li>Get suggestions for additional resources to learn more about using Python with SPIKE Prime.</li>
+</ol>
+</div><div class="base"><a class="anchor" id="lls-help-python-gs-intro-syntax"></a><h4 class="heading">Python Syntax
+</h4><div class="text.content"><p>When learning a text programming language, the first step is to understand its <em>syntax</em>. This language syntax prescribes the rules for writing <em>statements</em> (lines of code), and how to indicate <em>code blocks</em> that consist of multiple statements. </p>
+<p>In Python, each statement begins with a level of <em>indentation</em> and ends with a <em>line break</em>. Indentation is the number of spaces before a statement. Lines with the same number of spaces have the same <em>indentation level</em> and belong to the same code block. The SPIKE App uses 4 spaces for each indentation level.</p>
+<p>You write code in the <em>Code Editor</em>, which has features to help you write it correctly. For example, when you start a new code block, like a <em>function</em> or <code>if</code> statement, the Editor indents the next line with four extra spaces. Also, it numbers each line to make it easier to navigate your code. </p>
+<p><em>Syntax highlighting</em> in the Code Editor shows <em>comments</em>, <em>keywords</em>, text, and numbers in different colors so the code is easier to read. In the code below, the comment on the first line is green, the keywords <code>print</code>, <code>if</code>, and <code>True</code> are blue, the text <code>&#39;LEGO&#39;</code> is magenta, and the number <code>123</code> is orange.</p>
+</div><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-comment"># This is a comment.</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&#39;LEGO&#39;</span>)
+<span class="hljs-keyword">if</span> <span class="hljs-literal">True</span>:
+    <span class="hljs-built_in">print</span>(<span class="hljs-number">123</span>)</code></pre><div class="text.content"><p>The code above is an <em>example program</em>, which you’ll find throughout the <strong>Getting Started</strong> chapters. Each example has a Copy icon in the top right corner:</p>
+</div><img class="image.content" src="./LEGO Education SPIKE_files/copy.svg"><div class="text.content"><p>Press this icon to copy the whole example program. Then right-click or long-press the Code Editor and choose Paste from the menu to paste the code. You can also press <code>CTRL</code>+<code>V</code> on Windows or <code>Command</code>+<code>V</code> on Mac.</p>
+</div></div><div class="base"><a class="anchor" id="lls-help-python-gs-intro-modules"></a><h4 class="heading">SPIKE Prime Modules
+</h4><div class="text.content"><p>To control the SPIKE Prime Hub, sensors, and motors, you’ll need the SPIKE Prime <em>modules</em>. Modules are used to organize related code. There’s one for each SPIKE Prime component, e.g., the <code>motor</code> module contains the code to control the motors. To use the functionality of a module, first <em>import</em> it with the <code>import</code> statement:</p>
+</div><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-keyword">import</span> motor</code></pre><div class="text.content"><p>Import the modules you need once at the beginning of your Python program. See the <strong>SPIKE Prime Modules</strong> section of this User Guide for more on the modules and their functionality.</p>
+</div></div><div class="base"><a class="anchor" id="lls-help-python-gs-intro-micropython"></a><h4 class="heading">MicroPython
+</h4><div class="text.content"><p>The SPIKE Prime Hub is a small computer called a microcontroller, which has limited memory and processing power. Since the full Python programming language would use too much memory, the Hub runs <em>MicroPython</em>, a highly optimized version of the Python language that can run on microcontrollers. The modules to control the SPIKE Prime Hub, sensors, and motors are also highly optimized by using optimized <em>data types</em>.</p>
+<p>You’ve seen that the Code Editor shows text and numbers in different colors – because they’re different data types. Python further distinguishes between whole numbers and decimals. Whole numbers are also known as <em>integers</em>, or type <code>int</code>, which is optimized in MicroPython. Decimals use the unoptimized <code>float</code> type, so the SPIKE Prime modules avoid this data type. This means you have to stick to whole numbers or use different <em>units</em> to describe decimals. For half a second, you can use 500 milliseconds instead of 0.5 seconds.</p>
+</div></div><div class="base"><a class="anchor" id="lls-help-python-gs-intro-challenge"></a><h4 class="heading">Challenge
+</h4><div class="text.content"><p>Can you copy some of the example code in this chapter and paste it to the Code Editor?</p>
+</div></div></div><div class="base"><a class="anchor" id="lls-help-python-gs-hello"></a><h3 class="heading">
+Hello, World!
+
+</h3><div class="text.content"><p>It’s a tradition when learning a new programming language to create a “Hello, World!” program. You’re going to write “Hello, World!” on the Light Matrix of the SPIKE Prime Hub. First, make sure your SPIKE Prime Hub is turned on and connected to the SPIKE App. Then follow these four steps:</p>
+<ol>
+<li>Make sure the Code Editor is empty by deleting any existing code.</li>
+<li>Press the Copy icon in the top right corner of the example below to copy the code.</li>
+<li>Right-click or long-press the Code Editor and then choose Paste from the menu to paste the code.</li>
+<li>Press the Play button to run the program.</li>
+</ol>
+</div><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-keyword">from</span> hub <span class="hljs-keyword">import</span> light_matrix
+
+light_matrix.write(<span class="hljs-string">&#39;Hello, World!&#39;</span>)</code></pre><div class="text.content"><p>You’ll see the text “Hello, World!” scrolling across the Light Matrix.</p>
+<p>Let’s look at the code line by line.</p>
+<p>The first line imports the <code>light_matrix</code> module from the <code>hub</code> module, which controls the Light Matrix of the Hub. After importing a module, you can use its various functions.</p>
+<p>The final line <em>calls</em> the <code>write()</code> <em>function</em> from the <code>light_matrix</code> module to write “Hello, World!” on the Light Matrix.</p>
+</div><div class="base"><a class="anchor" id="lls-help-python-gs-hello-function"></a><h4 class="heading">Define a Function
+</h4><div class="text.content"><p>In the previous example, you used the <code>write()</code> function. A function is a block of code that performs a task when you call it. You define a function with the <code>def</code> keyword, followed by the function name, parentheses, and a colon. The <em>body</em> of the function is indented and contains all the code that runs when you call the function. You call a function by writing the function name and parentheses. Make sure to <em>unindent</em> the function call, otherwise it’s part of the function body.</p>
+<p>The example below defines the <code>hello()</code> function, which writes “Hello, World!” on the Light Matrix, and calls the function once. Try to run the example code. Remember to first delete any existing code from the Code Editor, before you copy, paste, and run the code.</p>
+</div><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-keyword">from</span> hub <span class="hljs-keyword">import</span> light_matrix
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">hello</span>():
+    light_matrix.write(<span class="hljs-string">&#39;Hello, World!&#39;</span>)
+
+hello()</code></pre></div><div class="base"><a class="anchor" id="lls-help-python-gs-hello-parameter"></a><h4 class="heading">Add a Parameter
+</h4><div class="text.content"><p>In the example above, the <code>hello()</code> function has no <em>parameters</em>, so it writes “Hello World” on the Light Matrix each time you call it. To make it more dynamic, add a parameter name inside the parentheses of the function definition. The code block in the function body can then use this parameter to do something different based on its value. An example of this is the <code>write()</code> function, which has one required parameter: the text to write on the Light Matrix.</p>
+<p>The example below adds a <code>name</code> parameter to the <code>hello()</code> function, which then writes <code>&#39;Hello, &#39; + name + &#39;!&#39;</code> on the Light Matrix. Notice the <code>+</code> <em>operator</em>, which lets you add pieces of text together. Text is also known as a <em>string</em>, or type <code>str</code>. It is surrounded by either single (<code>&#39;</code>) or double (<code>&quot;</code>) straight quotation marks, using the same type around a given text string. The updated <code>hello()</code> function has one required parameter of type <code>str</code>, so you can <em>pass</em> the string <code>&#39;World&#39;</code> as an <em>argument</em> when you call it to write “Hello, World!” on the Light Matrix.</p>
+<p>Try running the example code. Don’t forget to delete any existing code from the Code Editor before you copy, paste, and run your new code.</p>
+</div><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-keyword">from</span> hub <span class="hljs-keyword">import</span> light_matrix
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">hello</span>(<span class="hljs-params">name</span>):
+    light_matrix.write(<span class="hljs-string">&#39;Hello, &#39;</span> + name + <span class="hljs-string">&#39;!&#39;</span>)
+
+hello(<span class="hljs-string">&#39;World&#39;</span>)</code></pre><div class="text.content"><p>You’ll see the text “Hello, World!” scrolling across the Light Matrix once again.</p>
+</div></div><div class="base"><a class="anchor" id="lls-help-python-gs-hello-challenge"></a><h4 class="heading">Challenge
+</h4><div class="text.content"><p>Can you change the code so the Hub greets <em>you</em> instead of the world?</p>
+</div></div></div><div class="base"><a class="anchor" id="lls-help-python-gs-comments"></a><h3 class="heading">
+Comments in Python
+
+</h3><div class="text.content"><p>It’s easier to use code when you know what it should do. You can describe this in everyday language by adding comments. Comments aren’t part of the code that runs on the Hub, so they don’t influence its functionality.</p>
+<p>The <code>#</code> character marks the start of a comment. You’d usually place a comment before the code it describes, but you can also place short comments after a code statement.</p>
+</div><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-comment"># This is a comment.</span>
+<span class="hljs-keyword">from</span> hub <span class="hljs-keyword">import</span> light_matrix
+<span class="hljs-comment"># This is another comment.</span></code></pre><div class="text.content"><p>Sometimes part of your program doesn’t behave like you want it to. In such cases, it’s useful to <em>comment out</em> parts of the code by adding the <code>#</code> character at the start of the line. These lines then become comments and no longer run as a part of your program. Commenting out parts of a program can help you <em>debug</em> or find and correct the problem. To quickly comment out multiple lines of code, select them and then press <code>CTRL</code>+<code>/</code> on Windows or <code>Command</code>+<code>/</code> on Mac. To change multiple comments back to code, select them and press the same key combination.</p>
+</div><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-comment"># The next line is commented out:</span>
+<span class="hljs-comment"># light_matrix.write(&#39;Hello, World!&#39;)</span></code></pre><div class="text.content"><p>You can also use comments to describe your code before writing the working code. That’s called <em>pseudocode</em> and it can help you describe in everyday language what your program should do. The example below uses comments as pseudocode for a blinking-eyes animation on the Light Matrix.</p>
+</div><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-comment"># Show a happy face with eyes on the Light Matrix.</span>
+<span class="hljs-comment"># Wait for some time.</span>
+<span class="hljs-comment"># Show a smile without eyes on the Light Matrix.</span>
+<span class="hljs-comment"># Wait for a short time.</span>
+<span class="hljs-comment"># Show the first image again on the Light Matrix.</span></code></pre><div class="base"><a class="anchor" id="lls-help-python-gs-comments-blinking"></a><h4 class="heading">Blinking Eyes Program
+</h4><div class="text.content"><p>This program will show a face with blinking eyes on the Light Matrix of the Hub. Copy the code below and paste it into the Code Editor. Then run the program. As always, delete any existing code from the Code Editor before pasting the new code.</p>
+<p>When you run this program, you’ll see that the smiley face blinks after a second. The program calls the <code>show_image()</code> function from the <code>hub.light_matrix</code> module to show an image on the Light Matrix.  The program uses the <code>sleep_ms()</code> function from the <code>time</code> module to add delays for a number of milliseconds between different images. In the code, each comment describes what the next line of code should do.</p>
+</div><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-keyword">import</span> time
+
+<span class="hljs-keyword">from</span> hub <span class="hljs-keyword">import</span> light_matrix
+
+<span class="hljs-comment"># Show a happy face on the Light Matrix.</span>
+light_matrix.show_image(light_matrix.IMAGE_HAPPY)
+
+<span class="hljs-comment"># Wait for one second.</span>
+time.sleep_ms(<span class="hljs-number">1000</span>)
+
+<span class="hljs-comment"># Show a smile on the Light Matrix.</span>
+light_matrix.show_image(light_matrix.IMAGE_SMILE)
+
+<span class="hljs-comment"># Wait for 0.2 seconds.</span>
+time.sleep_ms(<span class="hljs-number">200</span>)
+
+<span class="hljs-comment"># Show a happy face on the Light Matrix.</span>
+light_matrix.show_image(light_matrix.IMAGE_HAPPY)</code></pre></div><div class="base"><a class="anchor" id="lls-help-python-gs-comments-wet_dry"></a><h4 class="heading">“WET” or “DRY”?
+</h4><div class="text.content"><p>Although commenting every line of code is tempting, the result is that you’ll <em>Write Everything Twice</em>. These <em>WET</em> comments don’t help readers if the code is self-explanatory. Instead, follow the <em>DRY</em> principle and <em>Don’t Repeat Yourself</em>.</p>
+<p>In the example below, the lines of code that blink the eyes are inside the new <code>blink()</code> function. The program then calls the function three times, so the eyes blink three times. Notice that this time, the comments describe only the main parts of the code to help readers understand what that code should do.</p>
+</div><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-keyword">import</span> time
+
+<span class="hljs-keyword">from</span> hub <span class="hljs-keyword">import</span> light_matrix
+
+<span class="hljs-comment"># This function blinks the eyes.</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">blink</span>():
+    light_matrix.show_image(light_matrix.IMAGE_HAPPY)
+    time.sleep_ms(<span class="hljs-number">1000</span>)
+    light_matrix.show_image(light_matrix.IMAGE_SMILE)
+    time.sleep_ms(<span class="hljs-number">200</span>)
+    light_matrix.show_image(light_matrix.IMAGE_HAPPY)
+
+<span class="hljs-comment"># Blink three times.</span>
+blink()
+blink()
+blink()</code></pre></div><div class="base"><a class="anchor" id="lls-help-python-gs-comments-challenge"></a><h4 class="heading">Challenge
+</h4><div class="text.content"><p>Can you change the code to keep the eyes open longer each time they blink?</p>
+</div></div></div><div class="base"><a class="anchor" id="lls-help-python-gs-motors"></a><h3 class="heading">
+Controlling Motors
+
+</h3><div class="text.content"><p>You’re ready to connect and use the motors. Connect a motor to port A and try the program below.</p>
+</div><img class="image.content" src="./LEGO Education SPIKE_files/controlling_motors.png"><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-keyword">import</span> motor
+<span class="hljs-keyword">from</span> hub <span class="hljs-keyword">import</span> port
+
+<span class="hljs-comment"># Run a motor on port A for 360 degrees at 720 degrees per second.</span>
+motor.run_for_degrees(port.A, <span class="hljs-number">360</span>, <span class="hljs-number">720</span>)</code></pre><div class="text.content"><p>You should see the motor run 360 degrees (one complete rotation) at 720 degrees (two rotations) per second.</p>
+<p>Let’s examine the code line by line.</p>
+<p>The first line imports the <code>motor</code> module that controls the motors.</p>
+<p>The second line imports <code>port</code> from the <code>hub</code> module, which holds the value for each port. You can write <code>port.A</code> for port A, <code>port.B</code> for port B, and so on to specify the port(s) you want.</p>
+<p>The final line calls the <code>run_for_degrees()</code> function with three <em>arguments</em>:</p>
+<ol>
+<li>The first parameter specifies which motor to run, using the port value.</li>
+<li>The second parameter specifies the number of degrees to run.</li>
+<li>The third parameter specifies at what velocity to run the motor, in degrees per second.</li>
+</ol>
+</div><div class="base"><a class="anchor" id="lls-help-python-gs-motors-multiple"></a><h4 class="heading">Multiple Motors
+</h4><div class="text.content"><p>Now connect a second motor to port B and try the program below.</p>
+</div><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-keyword">import</span> motor
+<span class="hljs-keyword">from</span> hub <span class="hljs-keyword">import</span> port
+
+<span class="hljs-comment"># Run two motors on ports A and B for 360 degrees at 720 degrees per second.</span>
+<span class="hljs-comment"># The motors run at the same time.</span>
+motor.run_for_degrees(port.A, <span class="hljs-number">360</span>, <span class="hljs-number">720</span>)
+motor.run_for_degrees(port.B, <span class="hljs-number">360</span>, <span class="hljs-number">720</span>)</code></pre><div class="text.content"><p>Notice that both motors run 360 degrees (one rotation) at 720 degrees per second, starting and ending at the same time. Since the two motor statements are on separate lines, you might expect them to run one by one. However, they run at the same time because the <code>run_for_degrees()</code> is an <em>awaitable</em> function. That means you <em>can</em> wait for it to complete, but you don’t have to. By default, the program  immediately continues to the next line of code while the awaitable code runs to completion in the background. This makes it possible to run multiple commands at the same time.</p>
+</div></div><div class="base"><a class="anchor" id="lls-help-python-gs-motors-runloop_async_await"></a><h4 class="heading">Run Loop, Async, and Await
+</h4><div class="text.content"><p>To effectively use awaitable code with the flexibility to run commands either concurrently or sequentially, you must run your code in an <em>asynchronous function</em> using a <em>run loop</em>. The <code>runloop</code> module controls the run loop on the Hub, and lets you run asynchronous functions with its <code>run()</code> function. An asynchronous function, also known as a <em>coroutine</em>, is an awaitable that uses the <code>async</code> keyword before the function definition. The convention is to name the coroutine containing your main program <code>main()</code>. The code below shows the general structure of a program using a run loop.</p>
+</div><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-keyword">import</span> runloop
+
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():
+    <span class="hljs-comment"># Write your program here.</span>
+
+runloop.run(main())</code></pre><div class="text.content"><p>In the body of a coroutine, you can use the <code>await</code> keyword before calling an awaitable command. This pauses the coroutine until the command completes. Without the keyword, the program immediately continues to the next line of code in the coroutine. You can still use regular (not awaitable) code inside the coroutine. However, doing so will always pause or <em>block</em> the whole program until the command completes.</p>
+<p>The program below defines the <code>main()</code> coroutine, which uses the <code>await</code> keyword before the two <code>run_for_degrees()</code> function calls. It uses the <code>run()</code> function from the <code>runloop</code> module to run the <code>main()</code> coroutine on the final line of code.</p>
+</div><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-keyword">import</span> motor
+<span class="hljs-keyword">import</span> runloop
+<span class="hljs-keyword">from</span> hub <span class="hljs-keyword">import</span> port
+
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():
+    <span class="hljs-comment"># Run two motors on ports A and B for 360 degrees at 720 degrees per second.</span>
+    <span class="hljs-comment"># The motors run after each other.</span>
+    <span class="hljs-keyword">await</span> motor.run_for_degrees(port.A, <span class="hljs-number">360</span>, <span class="hljs-number">720</span>)
+    <span class="hljs-keyword">await</span> motor.run_for_degrees(port.B, <span class="hljs-number">360</span>, <span class="hljs-number">720</span>)
+
+runloop.run(main())</code></pre><div class="text.content"><p>Try the sample code. You should see that both motors run 360 degrees (one rotation) at 720 degrees per second, one at a time.</p>
+</div></div><div class="base"><a class="anchor" id="lls-help-python-gs-motors-challenge"></a><h4 class="heading">Challenge
+</h4><div class="text.content"><p>Can you change the code to run both motors at the same time again?</p>
+</div></div></div><div class="base"><a class="anchor" id="lls-help-python-gs-variables"></a><h3 class="heading">
+Variables
+
+</h3><div class="text.content"><p>Sometimes, you find yourself writing the same number again and again. For example, the motor commands in the previous chapter ran for the same number of degrees at the same velocity each time. In cases like this, using variables makes changing multiple commands easier.  </p>
+<p>You create a variable by writing the variable name, followed by a single <code>=</code> sign, and the initial value for the variable. If you want to change the value of an existing variable, you use the exact same format to <em>assign</em> a new value to it.</p>
+<p>Connect motors to ports A and B and try the program below.</p>
+</div><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-keyword">import</span> motor
+<span class="hljs-keyword">import</span> runloop
+<span class="hljs-keyword">from</span> hub <span class="hljs-keyword">import</span> port
+
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():
+    <span class="hljs-comment"># Create a variable `velocity` with a value of 720.</span>
+    velocity = <span class="hljs-number">720</span>
+
+    <span class="hljs-comment"># Run two motors on ports A and B for 360 degrees.</span>
+    <span class="hljs-comment"># Use the value of the `velocity` variable for the motor velocity.</span>
+    <span class="hljs-keyword">await</span> motor.run_for_degrees(port.A, <span class="hljs-number">360</span>, velocity)
+    <span class="hljs-keyword">await</span> motor.run_for_degrees(port.B, <span class="hljs-number">360</span>, velocity)
+
+runloop.run(main())</code></pre><div class="text.content"><p>As in the previous chapter, you’ll see both motors run 360 degrees (one rotation) at 720 degrees per second, one at a time. The example here creates a <code>velocity</code> variable and uses it in the <code>run_for_degrees()</code> function calls. Because we used a variable, it’s easy to change the motor velocity for all the motor commands. Try changing the value of the <code>velocity</code> variable and run the program again.</p>
+</div><div class="base"><a class="anchor" id="lls-help-python-gs-variables-scope"></a><h4 class="heading">Variable Scope
+</h4><div class="text.content"><p>It’s important to understand that it matters <em>where</em> a variable is created. When you create a variable inside a function, it’s only available to that function. This is called a <em>local</em> variable. If you want to use a variable across different functions in your program, you must create the variable outside the functions, for example underneath your <code>import</code> statements. This is called a <em>global</em> variable.</p>
+</div><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-keyword">import</span> motor
+<span class="hljs-keyword">import</span> runloop
+<span class="hljs-keyword">from</span> hub <span class="hljs-keyword">import</span> port
+
+<span class="hljs-comment"># Create a global variable `velocity` with a value of 720.</span>
+velocity = <span class="hljs-number">720</span>
+
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():
+    <span class="hljs-comment"># Create a local variable `degrees` with a value of 360.</span>
+    degrees = <span class="hljs-number">360</span>
+
+    <span class="hljs-comment"># Run two motors on ports A and B.</span>
+    <span class="hljs-comment"># Use the value of the `degrees` variable for the number of degrees.</span>
+    <span class="hljs-comment"># Use the value of the `velocity` variable for the motor velocity.</span>
+    <span class="hljs-keyword">await</span> motor.run_for_degrees(port.A, degrees, velocity)
+    <span class="hljs-keyword">await</span> motor.run_for_degrees(port.B, degrees, velocity)
+
+runloop.run(main())</code></pre><div class="text.content"><p>Once again, you’ll see both motors run 360 degrees (one rotation) at 720 degrees per second, one at a time. This time the <code>velocity</code> variable has global <em>scope</em> and a new <code>degrees</code> variable has local scope. You can use the global <code>velocity</code> variable both inside and outside of the <code>main()</code> function, but you can only use the local <code>degrees</code> variable inside the <code>main()</code> function where it is defined.</p>
+<p>It can be tempting to define all your variables at the top of your program so they have global scope, because then you can conveniently use them in your whole program. However, this also means that the value of those variables can be changed from <em>anywhere</em> in your program, with undesired side effects. Instead, <em>tightly scope</em> your variables, so only the parts of your program that need to use and change them have access.</p>
+</div></div><div class="base"><a class="anchor" id="lls-help-python-gs-variables-loops"></a><h4 class="heading">Variables in Loops
+</h4><div class="text.content"><p>In Python, the simplest way to repeat some code a number of times is to use a <code>for</code> loop with the built-in <code>range()</code> function. For example, to repeat something four times, you write <code>for i in range(4):</code> followed by the code you want to run four times. You can think of <code>range(4)</code> as the <em>tuple</em> <code>(0, 1, 2, 3)</code>. Tuples and <em>lists</em> such as <code>[1, 2, 3]</code> are <em>iterables</em>. The <code>for</code> loop takes an iterable and <em>loops over</em> its values until it reaches the end.</p>
+<p>When a <code>for</code> loop <em>iterates</em> over a tuple or list, it changes the value of a local variable on each iteration. So far, you’ve explicitly created variables and assigned them a value using the <code>=</code> sign. In a <code>for</code> loop, the name of the local variable is defined after the <code>for</code> keyword, in this case <code>i</code>. Each time the loop runs, the value of this local variable <code>i</code> changes. It will be <code>0</code> the first time the loop runs and <code>3</code> the last time it runs, corresponding to the values in <code>(0, 1, 2, 3)</code>.</p>
+<p>The next example uses a <code>for</code> loop to change the global <code>velocity</code> variable four times to run the motor on port A with a different velocity each time. To enable changing the global variable <code>velocity</code> in the <em>local context</em> of the <code>main()</code> function, you need to use the <code>global</code> keyword before <code>velocity</code> at the start of the function body.</p>
+</div><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-keyword">import</span> motor
+<span class="hljs-keyword">import</span> runloop
+<span class="hljs-keyword">from</span> hub <span class="hljs-keyword">import</span> port
+
+<span class="hljs-comment"># Create a global variable `velocity` with a value of 450.</span>
+velocity = <span class="hljs-number">450</span>
+
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():
+    <span class="hljs-comment"># Use the `global` keyword to enable changing `velocity` here.</span>
+    <span class="hljs-keyword">global</span> velocity
+
+    <span class="hljs-comment"># Create a local variable `degrees` with a value of 360.</span>
+    degrees = <span class="hljs-number">360</span>
+
+    <span class="hljs-comment"># The `for` loop creates a local variable `i` and repeats 4 times.</span>
+    <span class="hljs-comment"># The values of the `i` variable are 0, 1, 2, and 3.</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">4</span>):
+        <span class="hljs-comment"># Change the global variable `velocity` by adding `i`*90 each time.</span>
+        <span class="hljs-comment"># The values of the `velocity` variable are 450, 540, 720, and 990.</span>
+        velocity = velocity + i*<span class="hljs-number">90</span>
+        <span class="hljs-keyword">await</span> motor.run_for_degrees(port.A, degrees, velocity)
+
+    <span class="hljs-comment"># The value of the `velocity` variable outside the `for` loop is 990.</span>
+    <span class="hljs-keyword">await</span> motor.run_for_degrees(port.B, degrees, velocity)
+
+runloop.run(main())</code></pre><div class="text.content"><p>Run the example code. You’ll see the motor on port A run 360 degrees four times, at four different velocities, faster each time. The final time, the motor on port B runs 360 degrees once at 990 degrees per second.</p>
+</div></div><div class="base"><a class="anchor" id="lls-help-python-gs-variables-challenge"></a><h4 class="heading">Challenge
+</h4><div class="text.content"><p>Can you change the code so the motor on port A runs a different number of degrees each time?</p>
+</div></div></div><div class="base"><a class="anchor" id="lls-help-python-gs-random"></a><h3 class="heading">
+The Power of Random
+
+</h3><div class="text.content"><p>Sometimes, the best program is an unpredictable one. When you don’t know what a program will do next, it seems more alive. To achieve this result, add some randomness.</p>
+<p>The program below will set the Power Button light on the SPIKE Prime Hub to ten different colors, with a random delay between each color change.</p>
+</div><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-keyword">import</span> random
+<span class="hljs-keyword">import</span> time
+<span class="hljs-keyword">from</span> hub <span class="hljs-keyword">import</span> light
+
+<span class="hljs-keyword">for</span> color <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">11</span>):
+    <span class="hljs-comment"># Set the light to the current color.</span>
+    light.color(light.POWER, color)
+
+    <span class="hljs-comment"># Keep the light on for 0.5 to 1.5 seconds.</span>
+    sleep_time = random.randint(<span class="hljs-number">500</span>, <span class="hljs-number">1500</span>)
+    time.sleep_ms(sleep_time)</code></pre><div class="text.content"><p>Each color is represented by a different number. The <code>for</code> loop iterates over <code>range(11)</code> and assigns the value to the <code>color</code> variable. It will be <code>0</code> (black) which turns the light off the first time the loop runs and <code>10</code> (white) in the last iteration. Notice that this program imports the <code>random</code> module, which contains several functions to add randomness.</p>
+<p>This example uses the <code>randint()</code> function, with a <code>start</code> value of 500 and a <code>stop</code> value of 1500. With these arguments, the function <em>returns</em> a number between 500 and 1500 to add some variation to the sleep time. However, the colors will always light up in the same order even if you run the program several times. Luckily, the <code>random</code> module has some other functions to add even more randomness to the program.</p>
+</div><div class="base"><a class="anchor" id="lls-help-python-gs-random-forever"></a><h4 class="heading">Loop Forever
+</h4><div class="text.content"><p>You can also use a <code>while</code> loop to repeat something forever instead of a specific number of times. In Python, the simplest way to create such a loop is to write <code>while True:</code> followed by the code you want to run forever. The next example uses a <code>while True</code> loop to run a little disco show forever or until you stop the program.</p>
+</div><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-keyword">import</span> random
+<span class="hljs-keyword">import</span> time
+<span class="hljs-keyword">from</span> hub <span class="hljs-keyword">import</span> light
+
+<span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+    <span class="hljs-comment"># Generate a random number between 1 and 9.</span>
+    random_color = random.randint(<span class="hljs-number">1</span>, <span class="hljs-number">9</span>)
+
+    <span class="hljs-comment"># Set the light to the random color.</span>
+    light.color(light.POWER, random_color)
+
+    <span class="hljs-comment"># Keep the light on for 0.5 to 1.5 seconds.</span>
+    sleep_time = random.randint(<span class="hljs-number">500</span>, <span class="hljs-number">1500</span>)
+    time.sleep_ms(sleep_time)</code></pre><div class="text.content"><p>Notice that the Power Button lights up in random colors, with a random delay between each color change. The example uses the <code>randint()</code> function again to generate a number between 1 and 9 (both included), which corresponds to the different color numbers excluding black (<code>0</code>) and white (<code>10</code>).</p>
+</div></div><div class="base"><a class="anchor" id="lls-help-python-gs-random-lists_constants"></a><h4 class="heading">Lists and Constants
+</h4><div class="text.content"><p>If you want the light show to only include certain colors, you can put them in a <em>list</em> and then choose a random color from it. You create a new list like a variable, first writing the list name, then the <code>=</code> sign, and finally the values inside square brackets, separated with commas. For a simple list with at least two <em>items</em>, write <code>my_list = [1, 2]</code>. You can add as many values as you want.</p>
+<p>As you’ve seen in the previous examples, each color is represented by a different number. You use this number to set the light to that color, for example, number <code>9</code> will set the light to red. However, using numbers for colors can make it harder for other readers to know what your code will do. You could add comments to describe each value, but a better way is to make variables for each color. The <code>color</code> module has a variable <code>RED</code> so you can write <code>color.RED</code> instead of the number <code>9</code> in your code. (A variable listed with all capital letters is a <em>constant</em>, which means you shouldn’t change it.)</p>
+<p>The example below imports the <code>color</code> module and uses some of the color constants to create the list <code>colors</code>. This time, the <code>randint()</code> function determines how many times the <code>for</code> loop runs, and the light turns white at the end of this little random light show.</p>
+</div><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-keyword">import</span> random
+<span class="hljs-keyword">import</span> time
+<span class="hljs-keyword">import</span> color
+<span class="hljs-keyword">from</span> hub <span class="hljs-keyword">import</span> light
+
+<span class="hljs-comment"># Create a list with some different light colors.</span>
+colors = [color.RED, color.GREEN, color.BLUE, color.YELLOW]
+
+<span class="hljs-comment"># Change the light five to ten times.</span>
+times = random.randint(<span class="hljs-number">5</span>, <span class="hljs-number">10</span>)
+
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(times):
+    <span class="hljs-comment"># Choose a random color from the list of colors.</span>
+    random_color = random.choice(colors)
+
+    <span class="hljs-comment"># Set the light to the random color.</span>
+    light.color(light.POWER, random_color)
+
+    <span class="hljs-comment"># Keep the light on for 0.5 to 1.5 seconds.</span>
+    sleep_time = random.randint(<span class="hljs-number">500</span>, <span class="hljs-number">1500</span>)
+    time.sleep_ms(sleep_time)
+
+<span class="hljs-comment"># Set the light to white.</span>
+light.color(light.POWER, color.WHITE)</code></pre><div class="text.content"><p>You’ll see the Power Button light change to a random color from the list, for a random number of times, with a random delay between each color change. The example uses the <code>choice()</code> function to pick a random color from the <code>colors</code> list.</p>
+</div></div><div class="base"><a class="anchor" id="lls-help-python-gs-random-challenge"></a><h4 class="heading">Challenge
+</h4><div class="text.content"><p>Can you change the code so there are different colors in the <code>colors</code> list?</p>
+</div></div></div><div class="base"><a class="anchor" id="lls-help-python-gs-s_control"></a><h3 class="heading">
+Sensor Control
+
+</h3><div class="text.content"><p>In the previous chapters, you tried using variables and random numbers to control the motors and the light. Now you’ll use a sensor value to control a motor.</p>
+<p>Connect a motor to port A and a Force Sensor to port B and try the program below.</p>
+</div><img class="image.content" src="./LEGO Education SPIKE_files/sensor_control.png"><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-keyword">import</span> force_sensor
+<span class="hljs-keyword">import</span> motor
+<span class="hljs-keyword">from</span> hub <span class="hljs-keyword">import</span> port
+
+<span class="hljs-comment"># Store the force of the Force Sensor in a variable.</span>
+force = force_sensor.force(port.B)
+
+<span class="hljs-comment"># Print the variable to the Console.</span>
+<span class="hljs-built_in">print</span>(force)
+
+<span class="hljs-comment"># Run the motor and use the variable to set the velocity.</span>
+motor.run(port.A, force)</code></pre><div class="text.content"><p>Press the Force Sensor while the program is running. That didn’t do much, right? Luckily, the example uses the built-in <code>print()</code> function to write the <code>force</code> variable to the Console, so that you can easily see what went wrong.</p>
+</div><div class="base"><a class="anchor" id="lls-help-python-gs-s_control-console"></a><h4 class="heading">The Console
+</h4><div class="text.content"><p>Sometimes your program doesn’t do what you expect it to do. You can use the <code>print()</code> function to <em>debug</em> your program when that happens. The <code>print()</code> function writes whatever you pass as the argument to the Console window below the Code Editor, in this case the force of the Force Sensor. Run the program again and notice the value that appears in the Console.</p>
+<p>You’ll see a single number in the console, and unless you were pressing the Force Sensor when you started the program, that number is <code>0</code>. Running a motor at 0 degrees per second doesn’t do much, so the problem is that the program only checks the sensor value once at the start of the program. To update the motor velocity based on the force for as long as the program runs, you’ll need to use the <code>while True</code> loop again.</p>
+<p>The Console also displays error messages when something goes wrong while running your program. One common error happens when you run a program to control a motor or read a sensor that isn’t connected. Disconnect the Force Sensor and run the same program one last time. You’ll see an error in the Console informing you that there was a problem, what the problem was, and on what line of code it happened.</p>
+</div></div><div class="base"><a class="anchor" id="lls-help-python-gs-s_control-fix_bugs"></a><h4 class="heading">Fix the Bugs
+</h4><div class="text.content"><p>The Console helped you find two bugs. Reconnect the Force Sensor to port B to fix the second bug and then run the program below that fixes the first bug by <em>wrapping</em> the code in a <code>while True</code> loop.</p>
+</div><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-keyword">import</span> force_sensor
+<span class="hljs-keyword">import</span> motor
+<span class="hljs-keyword">from</span> hub <span class="hljs-keyword">import</span> port
+
+<span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+    <span class="hljs-comment"># Store the force of the Force Sensor in a variable.</span>
+    force = force_sensor.force(port.B)
+
+    <span class="hljs-comment"># Print the variable to the Console.</span>
+    <span class="hljs-built_in">print</span>(force)
+
+    <span class="hljs-comment"># Run the motor and use the variable to set the speed.</span>
+    motor.run(port.A, force)</code></pre><div class="text.content"><p>Press the Force Sensor while the program is running. You’ll see the motor speeding up or slowing down depending on how hard you press the Force Sensor. You’ll also see a lot of variable values written in the Console. The Force Sensor force is measured in decinewtons (dN) and since the maximum force it can measure is 10 newtons, the maximum value in dN is 100. Running a motor at 100 degrees per second still isn’t very fast!</p>
+</div></div><div class="base"><a class="anchor" id="lls-help-python-gs-s_control-func_return_values"></a><h4 class="heading">Function Return Values
+</h4><div class="text.content"><p>Instead of storing the value of the Force Sensor in a variable, you can also define a function that <em>returns</em> this value. Separating the different parts of your program this way makes it easier to organize your code and fix bugs if they happen.</p>
+<p>The next program defines a <code>motor_velocity()</code> function that returns the desired motor velocity based on the force of the Force Sensor instead of using a variable.</p>
+</div><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-keyword">import</span> force_sensor
+<span class="hljs-keyword">import</span> motor
+<span class="hljs-keyword">from</span> hub <span class="hljs-keyword">import</span> port
+
+<span class="hljs-comment"># This function returns the desired motor velocity.</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">motor_velocity</span>():
+    <span class="hljs-comment"># The velocity is five times the force of the Force Sensor.</span>
+    <span class="hljs-keyword">return</span> force_sensor.force(port.B) * <span class="hljs-number">5</span>
+
+<span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+    <span class="hljs-comment"># Run the motor like before.</span>
+    <span class="hljs-comment"># Use the `motor_velocity()` function return value for velocity.</span>
+    motor.run(port.A, motor_velocity())</code></pre><div class="text.content"><p>Press the Force Sensor while the program is running. You’ll see the motor speeding up or slowing down depending on how hard you press the Force Sensor. The <code>motor_velocity()</code> function multiplies the force value by 5, so the velocity will be between 0 and 500 degrees per second.</p>
+</div></div><div class="base"><a class="anchor" id="lls-help-python-gs-s_control-challenge"></a><h4 class="heading">Challenge
+</h4><div class="text.content"><p>Can you change the code to run the motor at 1000 degrees per second when the Force Sensor is fully pressed?</p>
+</div></div></div><div class="base"><a class="anchor" id="lls-help-python-gs-s_conditions"></a><h3 class="heading">
+Sensor Conditions
+
+</h3><div class="text.content"><p>You’ve used the sensor value to control a motor directly, but it’s also possible to change the <em>flow</em> of the program using sensor <em>conditions</em> and an <code>if</code>statement. The <code>if</code> statement is an essential part of programming and the simplest way to control the flow of your program.</p>
+<p>You create an <code>if</code> statement by writing <code>if</code> followed by a logical expression and a colon. Logical expressions are basically yes / no questions, such as “Is the color red?” or “Is the button pressed?” If the answer to the question is “yes,” the expression is evaluated to be <code>True</code> and otherwise it is <code>False</code>. These are the two <em>Boolean</em> values used in Python, and are of type <code>bool</code>. All the lines of code with the same indentation level after the <code>if</code> statement are part of the code block that runs if the expression is <code>True</code>.</p>
+<p>For an example, connect a Color Sensor to port A and run the program below.</p>
+</div><img class="image.content" src="./LEGO Education SPIKE_files/sensor_conditions.png"><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-keyword">from</span> hub <span class="hljs-keyword">import</span> port, sound
+<span class="hljs-keyword">import</span> color
+<span class="hljs-keyword">import</span> color_sensor
+<span class="hljs-keyword">import</span> runloop
+
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        <span class="hljs-comment"># Check if the red color is detected.</span>
+        <span class="hljs-keyword">if</span> color_sensor.color(port.A) == color.RED:
+            <span class="hljs-comment"># If red is detected start a very long beep.</span>
+            sound.beep(<span class="hljs-number">440</span>, <span class="hljs-number">1000000</span>, <span class="hljs-number">100</span>)
+            <span class="hljs-comment"># Pause the program while red is detected.</span>
+            <span class="hljs-keyword">while</span> color_sensor.color(port.A) == color.RED:
+                <span class="hljs-keyword">await</span> runloop.sleep_ms(<span class="hljs-number">1</span>)
+            <span class="hljs-comment"># Stop the sound when red is no longer detected.</span>
+            sound.stop()
+
+runloop.run(main())</code></pre><div class="text.content"><p>Wave a red LEGO® brick in front of the Color Sensor while the program is running. You’ll hear a beep when the red color is detected, which stops when the red color is no longer detected. The example uses an <code>if</code> statement to check if the color detected by the Color Sensor is red. It does this using the <em>equality operator</em> <code>==</code> with the Color Sensor color value on the left and the <code>color.RED</code> constant on the right. (Note that there are two <code>=</code> signs vs. the single <code>=</code> sign you used to assign values to variables.) If the Color Sensor color value is the same as the <code>color.RED</code> constant, the condition is <code>True</code> and the code block after the <code>if</code> statement runs.</p>
+<p>It’s important to wrap the code in a <code>while True</code> loop. Otherwise, the Color Sensor only checks the color for a split second when the program starts. So far, you used the <code>while</code> loop with the <code>True</code> constant to repeat code forever. You can also use the <code>while</code> loop with a logical expression to repeat code only as long as that expression evaluates to <code>True</code>. The example above uses the same condition as the <code>if</code> statement in the inner <code>while</code> loop, to continue playing the beep while the red color is detected. When the condition is no longer <code>True</code>, the Hub <em>exits</em> the <code>while</code> loop and runs the next line of code to stop the sound.</p>
+<p>Inside the inner <code>while</code> loop, notice the <code>sleep_ms()</code> function from the <code>runloop</code> module. This function pauses the <code>main()</code> coroutine for a number of milliseconds in a <em>non-blocking</em> way. Because it uses the <code>await</code> keyword, other tasks can run while that coroutine is paused. In the example, the pause is one millisecond. This may seem like very little time, but it’s enough for the Hub to run many coroutines concurrently. The <code>sleep_ms()</code> function from the <code>time</code> module, which you used in earlier chapters, pauses the program in a <em>blocking</em> way. This means that it pauses the entire program and not just the code block where you call it.</p>
+</div><div class="base"><a class="anchor" id="lls-help-python-gs-s_conditions-what_else"></a><h4 class="heading">What Else?
+</h4><div class="text.content"><p>You can add more than one condition by extending the <code>if</code> statement with an <code>elif</code> statement that checks another condition. You can add as many of these as you need, and they follow the same syntax as the <code>if</code> statement. The <code>elif</code> should be on the same indentation level as the first <code>if</code> statement, and the <code>elif</code> keyword is followed by a logical expression and a colon. Indent the next line(s) of code that should run when this condition is <code>True</code>.</p>
+<p>Sometimes, none of the conditions in the <code>if</code> and <code>elif</code> statements are <code>True</code>. In this case, you can run some code by adding an <code>else</code> statement without any condition. This runs when all the previous conditions are <code>False</code>.</p>
+<p>For example, the program below adds an <code>elif</code> and <code>else</code> statement to also beep if the left button is pressed.</p>
+</div><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-keyword">from</span> hub <span class="hljs-keyword">import</span> button, port, sound
+<span class="hljs-keyword">import</span> color
+<span class="hljs-keyword">import</span> color_sensor
+<span class="hljs-keyword">import</span> runloop
+
+<span class="hljs-comment"># This function returns `True` if the Color Sensor detects red.</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">red_detected</span>():
+    <span class="hljs-keyword">return</span> color_sensor.color(port.A) == color.RED
+
+<span class="hljs-comment"># This function returns `True` if the left button is pressed.</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">left_pressed</span>():
+    <span class="hljs-keyword">return</span> button.pressed(button.LEFT) &gt; <span class="hljs-number">0</span>
+
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        <span class="hljs-keyword">if</span> red_detected():
+            <span class="hljs-comment"># If red is detected start a very long beep.</span>
+            sound.beep(<span class="hljs-number">440</span>, <span class="hljs-number">1000000</span>, <span class="hljs-number">100</span>)
+            <span class="hljs-comment"># Wait until red is no longer detected.</span>
+            <span class="hljs-keyword">while</span> red_detected():
+                <span class="hljs-keyword">await</span> runloop.sleep_ms(<span class="hljs-number">1</span>)
+        <span class="hljs-keyword">elif</span> left_pressed():
+            <span class="hljs-comment"># If the left button is pressed make a short beep.</span>
+            sound.beep(<span class="hljs-number">880</span>, <span class="hljs-number">200</span>, <span class="hljs-number">100</span>)
+            <span class="hljs-comment"># Wait until the left button is released.</span>
+            <span class="hljs-keyword">while</span> left_pressed():
+                <span class="hljs-keyword">await</span> runloop.sleep_ms(<span class="hljs-number">1</span>)
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-comment"># Otherwise, stop the sound.</span>
+            sound.stop()
+
+runloop.run(main())</code></pre><div class="text.content"><p>Wave a red LEGO brick in front of the Color Sensor and press the left button on the Hub while the program is running. You’ll hear a beep for as long as the red color is detected, and a short beep each time the left button is pressed.</p>
+<p>The example defines two functions to do the logic tests and return the result. The <code>red_detected()</code> function checks if the color detected by the Color Sensor is red and returns the result <code>True</code> or <code>False</code>. The <code>left_pressed()</code> function uses the <code>pressed()</code> function from the <code>hub.button</code> module and uses the <code>&gt;</code> operator to check if the value is <em>greater than</em> <code>0</code> and returns the result.</p>
+<p>The code in the <code>if</code> statement here is largely the same as the first example, but now it uses the <code>red_detected()</code> function in two places instead of repeating the condition for the <code>if</code> and <code>while</code> statements. The <code>elif</code> statement uses the <code>left_pressed()</code> function to check if the left button on the Hub is pressed for more than <code>0</code> milliseconds.</p>
+<p>Note that the <code>elif</code> statement only runs when the condition of the first <code>if</code> statement is <code>False</code>. Therefore, pressing the button while the Color Sensor detects something red has no effect. You should carefully consider the order of your <code>if</code> and <code>elif</code> conditions and check the most important ones first. The <code>else</code> statement stops the sound if neither condition is <code>True</code>.</p>
+</div></div><div class="base"><a class="anchor" id="lls-help-python-gs-s_conditions-multiple_conditions"></a><h4 class="heading">Multiple Conditions
+</h4><div class="text.content"><p>When you use <code>if</code>/<code>elif</code>/<code>else</code> statements to test for multiple conditions, only one of the blocks will run. These conditions are <em>mutually exclusive</em>. You’ve seen that while the color red was detected, pressing the left button had no effect. To truly check multiple conditions, you must check them at the same time. Like adding several stacks of Word Blocks, in Python you can run multiple coroutines with the <code>run()</code> function from the <code>runloop</code> module. Until now, you’ve called it with the <code>main()</code> coroutine as its only argument, but it’s possible to pass multiple coroutines as comma-separated arguments.</p>
+<p>For example, the program below divides the code that checks the detected color and the pressed button into two coroutines. The <code>run()</code> function on the final line of code starts both coroutines at the same time.</p>
+</div><pre class="code.content allow-text-selection" dir="ltr"><code data-testid="help-python-code"><span class="hljs-keyword">from</span> hub <span class="hljs-keyword">import</span> button, port, sound
+<span class="hljs-keyword">import</span> color
+<span class="hljs-keyword">import</span> color_sensor
+<span class="hljs-keyword">import</span> runloop
+
+<span class="hljs-comment"># This function returns `True` if the Color Sensor detects red.</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">red_detected</span>():
+    <span class="hljs-keyword">return</span> color_sensor.color(port.A) == color.RED
+
+<span class="hljs-comment"># This function returns `True` if the left button is pressed.</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">left_pressed</span>():
+    <span class="hljs-keyword">return</span> button.pressed(button.LEFT) &gt; <span class="hljs-number">0</span>
+
+<span class="hljs-comment"># This coroutine continuously checks if the Color Sensor detects red.</span>
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">check_color</span>():
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        <span class="hljs-comment"># Wait until red is detected.</span>
+        <span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> red_detected():
+            <span class="hljs-keyword">await</span> runloop.sleep_ms(<span class="hljs-number">1</span>)
+        <span class="hljs-comment"># When it&#39;s detected start a very long beep.</span>
+        sound.beep(<span class="hljs-number">440</span>, <span class="hljs-number">1000000</span>, <span class="hljs-number">100</span>)
+        <span class="hljs-comment"># Wait until red is no longer detected.</span>
+        <span class="hljs-keyword">while</span> red_detected():
+            <span class="hljs-keyword">await</span> runloop.sleep_ms(<span class="hljs-number">1</span>)
+        <span class="hljs-comment"># When red is no longer detected stop the sound.</span>
+        sound.stop()
+
+<span class="hljs-comment"># This coroutine continuously checks if the left button is pressed.</span>
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">check_button</span>():
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        <span class="hljs-comment"># Wait until the left button is pressed.</span>
+        <span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> left_pressed():
+            <span class="hljs-keyword">await</span> runloop.sleep_ms(<span class="hljs-number">1</span>)
+        <span class="hljs-comment"># When it&#39;s pressed make a short beep.</span>
+        sound.beep(<span class="hljs-number">880</span>, <span class="hljs-number">200</span>, <span class="hljs-number">100</span>)
+        <span class="hljs-comment"># Wait until the left button is released.</span>
+        <span class="hljs-keyword">while</span> left_pressed():
+            <span class="hljs-keyword">await</span> runloop.sleep_ms(<span class="hljs-number">1</span>)
+
+<span class="hljs-comment"># Run both coroutines.</span>
+runloop.run(check_color(), check_button())</code></pre><div class="text.content"><p>Wave a red LEGO brick in front of the Color Sensor and press the left button on the Hub while the program is running. Like before, you’ll hear a beep for as long as the red color is detected, and a short beep each time the left button is pressed. This time, it’s possible to press the left button and hear a beep while the red color is detected because both functions run at the same time.</p>
+<p>When you create your own coroutines, remember that:</p>
+<ul>
+<li>Your coroutines should at least <code>await</code> one command.</li>
+<li>When you use a <em>tight</em> <code>while</code> loop, use <code>await runloop.sleep_ms(1)</code> inside the loop to give other coroutines a chance to start and run.</li>
+</ul>
+</div></div><div class="base"><a class="anchor" id="lls-help-python-gs-s_conditions-challenge"></a><h4 class="heading">Challenge
+</h4><div class="text.content"><p>Can you change the code to detect a different color than red?</p>
+</div></div></div><div class="base"><a class="anchor" id="lls-help-python-gs-next"></a><h3 class="heading">
+Next Steps
+
+</h3><div class="text.content"><p>In the previous chapters, you</p>
+<ul>
+<li>learned the basics of using Python with SPIKE Prime, and how to use the Hub Light Matrix, Light, Speaker, and Buttons, as well as the motors, Color Sensor, and Force Sensor. </li>
+<li>became familiar with regular and asynchronous functions, local and global variables, and data types such as <code>int</code>, <code>bool</code>, <code>str</code>, <code>tuple</code>, and <code>list</code>. </li>
+<li>used <code>for</code> and <code>while</code> loops, as well as <code>if</code>/<code>elif</code>/<code>else</code> statements to control the flow of your program. </li>
+<li>learned how to use comments in your code, and when things go wrong, how to debug the program.</li>
+</ul>
+<p>This is quite an achievement – you can be proud of yourself! </p>
+<p>There are additional resources you can access to learn even more about using Python with SPIKE Prime.</p>
+</div><div class="base"><a class="anchor" id="lls-help-python-gs-next-user_guide"></a><h4 class="heading">Python User Guide
+</h4><div class="text.content"><p>This <strong>Getting Started</strong> section has barely scratched the surface of what’s possible with Python and SPIKE Prime. Explore these two other sections of the Python User Guide.</p>
+<ol>
+<li><strong>Examples</strong> Find example programs that show how to use Python to solve various tasks. Copy and try them, then modify them to suit your needs.</li>
+<li><strong>SPIKE Prime Modules</strong> Find documentation of all the functions and variables in the SPIKE Prime modules with short examples of how to use them.</li>
+</ol>
+</div></div><div class="base"><a class="anchor" id="lls-help-python-gs-next-lessons"></a><h4 class="heading">Python Lessons
+</h4><div class="text.content"><p>On the LEGOeducation.com/lessons website, select the product <strong>SPIKE™ Prime with Python</strong>. You’ll find several unit plans with 6–8 lessons each (available in English only). These 50+ lessons cover a wide range of topics, from debugging to sensor control, and from simple games to data and math functions. Discover the many possibilities and become an expert using Python with SPIKE Prime.</p>
+</div></div><div class="base"><a class="anchor" id="lls-help-python-gs-next-challenge"></a><h4 class="heading">Challenge
+</h4><div class="text.content"><p>Create a new Python project and get coding!</p>
+</div></div></div></div></div></body></html>

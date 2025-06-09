@@ -70,6 +70,7 @@ if (defined $dir_stubs) {
     generate_stubs($api_tree, $dir_stubs);
 }
 
+$api_root->remove();
 my $new = Mojo::DOM58->new('<html><head></head><body></body>');
 $new->at('head')->append_content( $dom->new_tag(
     'link',
@@ -95,7 +96,6 @@ for my $item (@menu_items) {
 $root->at('h1')->content('Python and the Spike Prime Hub (v3)');
 $new->at('body')->append_content($menu);
 $new->at('body')->append_content($root);
-
 say "$new";
 
 sub traverse {

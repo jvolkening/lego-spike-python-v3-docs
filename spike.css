@@ -29,6 +29,11 @@ pre {
 code {
     font-family: Inconsolata, mono;
 }
+code:not([data-testid]) {
+    background: #dbcf8f;
+    padding: 2px;
+    border-radius: 3px;
+}
 h2, h3, h4, h5 {
     page-break-after: avoid !important;
 }
@@ -53,7 +58,9 @@ ol {
 .hljs-number { color:#ff7d00 }
 
 #main-content.base div.base div.base div.base h4.heading {
-    background: red;
+    background: #ccc;
+    padding: 3px;
+    border-radius: 3px;
 }
 div.function > h4, div.function > h5 {
     background: green !important;
