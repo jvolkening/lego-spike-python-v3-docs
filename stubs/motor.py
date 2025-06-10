@@ -145,11 +145,11 @@ def run_for_degrees(
         * ``motor.COAST`` to make the motor coast until a stop
         * ``motor.BRAKE`` to brake and continue to brake after stop
         * ``motor.HOLD`` to tell the motor to hold it's position
-        * ``motor.CONTINUE`` to tell the motor to keep running at whatever
+        * ``motor.CONTINUE`` to tell the motor to keep running at whatever \
             velocity it's running at until it gets another command
-        * ``motor.SMART_COAST`` to make the motor brake until stop and then
+        * ``motor.SMART_COAST`` to make the motor brake until stop and then \
             coast and compensate for inaccuracies in the next command
-        * ``motor.SMART_BRAKE`` to make the motor brake and continue to brake
+        * ``motor.SMART_BRAKE`` to make the motor brake and continue to brake \
             after stop and compensate for inaccuracies in the next command
 
     :param acceleration: The acceleration to use at start of run (deg/sec²)
@@ -204,11 +204,11 @@ def run_for_time(
         * ``motor.COAST`` to make the motor coast until a stop
         * ``motor.BRAKE`` to brake and continue to brake after stop
         * ``motor.HOLD`` to tell the motor to hold it's position
-        * ``motor.CONTINUE`` to tell the motor to keep running at whatever
+        * ``motor.CONTINUE`` to tell the motor to keep running at whatever \
             velocity it's running at until it gets another command
-        * ``motor.SMART_COAST`` to make the motor brake until stop and then
+        * ``motor.SMART_COAST`` to make the motor brake until stop and then \
             coast and compensate for inaccuracies in the next command
-        * ``motor.SMART_BRAKE`` to make the motor brake and continue to brake
+        * ``motor.SMART_BRAKE`` to make the motor brake and continue to brake \
             after stop and compensate for inaccuracies in the next command
 
     :param acceleration: The acceleration to use at start of run (deg/sec²)
@@ -249,11 +249,11 @@ def run_to_absolute_position(
         * ``motor.COAST`` to make the motor coast until a stop
         * ``motor.BRAKE`` to brake and continue to brake after stop
         * ``motor.HOLD`` to tell the motor to hold it's position
-        * ``motor.CONTINUE`` to tell the motor to keep running at whatever
+        * ``motor.CONTINUE`` to tell the motor to keep running at whatever \
             velocity it's running at until it gets another command
-        * ``motor.SMART_COAST`` to make the motor brake until stop and then
+        * ``motor.SMART_COAST`` to make the motor brake until stop and then \
             coast and compensate for inaccuracies in the next command
-        * ``motor.SMART_BRAKE`` to make the motor brake and continue to brake
+        * ``motor.SMART_BRAKE`` to make the motor brake and continue to brake \
             after stop and compensate for inaccuracies in the next command
 
     :param acceleration: The acceleration to use at start of run (deg/sec²)
@@ -291,11 +291,11 @@ def run_to_relative_position(
         * ``motor.COAST`` to make the motor coast until a stop
         * ``motor.BRAKE`` to brake and continue to brake after stop
         * ``motor.HOLD`` to tell the motor to hold it's position
-        * ``motor.CONTINUE`` to tell the motor to keep running at whatever
+        * ``motor.CONTINUE`` to tell the motor to keep running at whatever \
             velocity it's running at until it gets another command
-        * ``motor.SMART_COAST`` to make the motor brake until stop and then
+        * ``motor.SMART_COAST`` to make the motor brake until stop and then \
             coast and compensate for inaccuracies in the next command
-        * ``motor.SMART_BRAKE`` to make the motor brake and continue to brake
+        * ``motor.SMART_BRAKE`` to make the motor brake and continue to brake \
             after stop and compensate for inaccuracies in the next command
 
     :param acceleration: The acceleration to use at start of run (deg/sec²)
@@ -340,11 +340,11 @@ def stop(port: int, *, stop: int = BRAKE) -> None:
         * ``motor.COAST`` to make the motor coast until a stop
         * ``motor.BRAKE`` to brake and continue to brake after stop
         * ``motor.HOLD`` to tell the motor to hold it's position
-        * ``motor.CONTINUE`` to tell the motor to keep running at whatever
+        * ``motor.CONTINUE`` to tell the motor to keep running at whatever \
             velocity it's running at until it gets another command
-        * ``motor.SMART_COAST`` to make the motor brake until stop and then
+        * ``motor.SMART_COAST`` to make the motor brake until stop and then \
             coast and compensate for inaccuracies in the next command
-        * ``motor.SMART_BRAKE`` to make the motor brake and continue to brake
+        * ``motor.SMART_BRAKE`` to make the motor brake and continue to brake \
             after stop and compensate for inaccuracies in the next command
 
     :rtype: None

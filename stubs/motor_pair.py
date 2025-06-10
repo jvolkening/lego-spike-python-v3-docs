@@ -126,11 +126,11 @@ def move_for_degrees(
         * ``motor.COAST`` to make the motor coast until a stop
         * ``motor.BRAKE`` to brake and continue to brake after stop
         * ``motor.HOLD`` to tell the motor to hold it's position
-        * ``motor.CONTINUE`` to tell the motor to keep running at whatever
+        * ``motor.CONTINUE`` to tell the motor to keep running at whatever \
             velocity it's running at until it gets another command
-        * ``motor.SMART_COAST`` to make the motor brake until stop and then
+        * ``motor.SMART_COAST`` to make the motor brake until stop and then \
             coast and compensate for inaccuracies in the next command
-        * ``motor.SMART_BRAKE`` to make the motor brake and continue to brake
+        * ``motor.SMART_BRAKE`` to make the motor brake and continue to brake \
             after stop and compensate for inaccuracies in the next command
 
     :param acceleration: The acceleration (deg/sec²) (1–10000)
@@ -192,11 +192,11 @@ def move_for_time(
         * ``motor.COAST`` to make the motor coast until a stop
         * ``motor.BRAKE`` to brake and continue to brake after stop
         * ``motor.HOLD`` to tell the motor to hold it's position
-        * ``motor.CONTINUE`` to tell the motor to keep running at whatever
+        * ``motor.CONTINUE`` to tell the motor to keep running at whatever \
             velocity it's running at until it gets another command
-        * ``motor.SMART_COAST`` to make the motor brake until stop and then
+        * ``motor.SMART_COAST`` to make the motor brake until stop and then \
             coast and compensate for inaccuracies in the next command
-        * ``motor.SMART_BRAKE`` to make the motor brake and continue to brake
+        * ``motor.SMART_BRAKE`` to make the motor brake and continue to brake \
             after stop and compensate for inaccuracies in the next command
 
     :param acceleration: The acceleration (deg/sec²) (1–10000)
@@ -299,11 +299,11 @@ def move_tank_for_degrees(
         * ``motor.COAST`` to make the motor coast until a stop
         * ``motor.BRAKE`` to brake and continue to brake after stop
         * ``motor.HOLD`` to tell the motor to hold it's position
-        * ``motor.CONTINUE`` to tell the motor to keep running at whatever
+        * ``motor.CONTINUE`` to tell the motor to keep running at whatever \
             velocity it's running at until it gets another command
-        * ``motor.SMART_COAST`` to make the motor brake until stop and then
+        * ``motor.SMART_COAST`` to make the motor brake until stop and then \
             coast and compensate for inaccuracies in the next command
-        * ``motor.SMART_BRAKE`` to make the motor brake and continue to brake
+        * ``motor.SMART_BRAKE`` to make the motor brake and continue to brake \
             after stop and compensate for inaccuracies in the next command
 
     :param acceleration: The acceleration (deg/sec²) (1–10000)
@@ -363,11 +363,11 @@ def move_tank_for_time(
         * ``motor.COAST`` to make the motor coast until a stop
         * ``motor.BRAKE`` to brake and continue to brake after stop
         * ``motor.HOLD`` to tell the motor to hold it's position
-        * ``motor.CONTINUE`` to tell the motor to keep running at whatever
+        * ``motor.CONTINUE`` to tell the motor to keep running at whatever \
             velocity it's running at until it gets another command
-        * ``motor.SMART_COAST`` to make the motor brake until stop and then
+        * ``motor.SMART_COAST`` to make the motor brake until stop and then \
             coast and compensate for inaccuracies in the next command
-        * ``motor.SMART_BRAKE`` to make the motor brake and continue to brake
+        * ``motor.SMART_BRAKE`` to make the motor brake and continue to brake \
             after stop and compensate for inaccuracies in the next command
 
     :param acceleration: The acceleration (deg/sec²) (1–10000)
@@ -413,11 +413,11 @@ def stop(pair: int, *, stop: int = motor.BRAKE) -> None:
         * ``motor.COAST`` to make the motor coast until a stop
         * ``motor.BRAKE`` to brake and continue to brake after stop
         * ``motor.HOLD`` to tell the motor to hold it's position
-        * ``motor.CONTINUE`` to tell the motor to keep running at whatever
+        * ``motor.CONTINUE`` to tell the motor to keep running at whatever \
             velocity it's running at until it gets another command
-        * ``motor.SMART_COAST`` to make the motor brake until stop and then
+        * ``motor.SMART_COAST`` to make the motor brake until stop and then \
             coast and compensate for inaccuracies in the next command
-        * ``motor.SMART_BRAKE`` to make the motor brake and continue to brake
+        * ``motor.SMART_BRAKE`` to make the motor brake and continue to brake \
             after stop and compensate for inaccuracies in the next command
 
     :rtype: None
