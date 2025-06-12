@@ -1,6 +1,7 @@
-"""The ``color_matrix`` module enables you to interact with an attached 3x3
-Color Light Matrix (e.g. LEGO part 45608) and write code that sets or retrieves
-the color and intensity of the nine LEDs as a whole or individually.
+"""The ``color_matrix`` module contains functions to interact with an attached
+3x3 Color Light Matrix (e.g. LEGO part 45608). It enables you to write code
+that sets or retrieves the color and intensity of the nine LEDs as a whole or
+individually.
 
 To use the ``color_matrix`` module, add the following import statement to
 your project:
@@ -34,8 +35,8 @@ def clear(port: int) -> None:
 
 
 def get_pixel(port: int, x: int, y: int) -> tuple[int, int]:
-    """Retrieve a specific pixel represented as a tuple containing the color
-    and intensity
+    """Get the current value of a specific pixel at column X and row Y,
+    represented as a tuple containing the color and intensity.
 
     ::
 
@@ -47,14 +48,14 @@ def get_pixel(port: int, x: int, y: int) -> tuple[int, int]:
         print(color_matrix.get_pixel(port.A, 0, 0))
 
     :param port: A port from the ``port`` submodule in the ``hub`` module
-    :param x: The X value, range 0–2
-    :param y: The Y value, range 0–2
+    :param x: The pixel column, range 0–2
+    :param y: The pixel row, range 0–2
     :rtype: tuple
     """
 
 
 def set_pixel(port: int, x: int, y: int, pixel: tuple[int, int]) -> None:
-    """Change a single pixel on a Color Matrix
+    """Set the color and intensity of a single pixel at column X and row Y.
 
     ::
 
@@ -71,16 +72,15 @@ def set_pixel(port: int, x: int, y: int, pixel: tuple[int, int]) -> None:
         print(color_matrix.get_pixel(port.A, 0, 0)[0])
 
     :param port: A port from the ``port`` submodule in the ``hub`` module
-    :param x: The X value, range 0–2
-    :param y: The Y value, range 0–2
-    :param pixel: Tuple containing color and intensity, meaning how bright
-        to light up the pixel
+    :param x: The pixel column, range 0–2
+    :param y: The pixel row, range 0–2
+    :param pixel: A tuple containing color constant and intensity (0–100)
     :rtype: None
     """
 
 
 def show(port: int, pixels: list[tuple[int, int]]) -> None:
-    """Change all pixels at once on a Color Matrix
+    """Set the color and intensity of all pixels at once on a Color Matrix
 
     ::
 
@@ -97,7 +97,8 @@ def show(port: int, pixels: list[tuple[int, int]]) -> None:
         color_matrix.show(port.A, pixels)
 
     :param port: A port from the ``port`` submodule in the ``hub`` module
-    :param pixels: A list containing color and intensity value tuples for
-        all 9 pixels
+    :param pixels: A list of tuples specifying color and intensity values for
+        all 9 pixels (see `set_pixel()` for a description of the individual
+        pixel format)
     :rtype: None
     """

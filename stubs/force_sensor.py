@@ -1,6 +1,6 @@
-"""The ``force_sensor`` module enables you to interact with an attached Force
-Sensor (e.g. LEGO part 45606) and write code that reacts to touch events or
-force magnitude.
+"""The ``force_sensor`` module contains functions to interact with an attached
+Force Sensor (e.g. LEGO part 45606) and enables you to write code that reacts
+to touch events or force magnitude.
 
 To use the ``force_sensor`` module, add the following import statement to
 your project:

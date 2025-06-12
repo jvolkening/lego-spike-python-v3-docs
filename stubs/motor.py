@@ -1,4 +1,4 @@
-"""The ``motor`` module is used to control and query individual motors attached
+"""The ``motor`` module contains functions to control and query individual motors attached
 to the Spike hub.
 
 To use the `motor` module, add the following import statement to your project:
@@ -98,7 +98,7 @@ def reset_relative_position(port: int, position: int) -> None:
 
 
 def run(port: int, velocity: int, *, acceleration: int = 1000) -> None:
-    """Move a Motor at a constant speed until a new command is given.
+    """Run a Motor at a constant speed until a new command is given.
 
     ::
 
@@ -127,15 +127,19 @@ def run_for_degrees(
     acceleration: int = 1000,
     deceleration: int = 1000
 ) -> Awaitable:
-    """Turn a motor for a specific number of degrees. When awaited, returns a
+    """Turn a Motor for a specific number of degrees. When awaited, returns a
     status of the movement that corresponds to one of the following
     constants:
 
-    ``motor.READY``  ``motor.RUNNING``  ``motor.STALLED``
-    ``motor.CANCELED``  ``motor.ERROR``  ``motor.DISCONNECTED``
+    * ``motor.READY``
+    * ``motor.RUNNING``
+    * ``motor.STALLED``
+    * ``motor.CANCELED``
+    * ``motor.ERROR``
+    * ``motor.DISCONNECTED``
 
     :param port: A port from the ``port`` submodule in the ``hub`` module
-    :param degrees: The number of degrees
+    :param degrees: The number of degrees to turn
     :param velocity: The velocity in degrees/sec; value ranges depends on
         motor type: Small motor (essential): -660 to 660; Medium motor:
         -1110 to 1110; Large motor: -1050 to 1050
@@ -172,8 +176,12 @@ def run_for_time(
     """Run a Motor for a specific amount of time. When awaited, returns a
     status of the movement that corresponds to one of the following constants:
 
-    ``motor.READY``  ``motor.RUNNING``  ``motor.STALLED``
-    ``motor.ERROR``  ``motor.DISCONNECTED``
+    * ``motor.READY``
+    * ``motor.RUNNING``
+    * ``motor.STALLED``
+    * ``motor.CANCELED``
+    * ``motor.ERROR``
+    * ``motor.DISCONNECTED``
 
     ::
 
@@ -232,8 +240,12 @@ def run_to_absolute_position(
     """Turn a Motor to an absolute position. When awaited, returns a status of
     the movement that corresponds to one of the following constants:
 
-    ``motor.READY``  ``motor.RUNNING``  ``motor.STALLED``
-    ``motor.CANCELED``  ``motor.ERROR``  ``motor.DISCONNECTED``
+    * ``motor.READY``
+    * ``motor.RUNNING``
+    * ``motor.STALLED``
+    * ``motor.CANCELED``
+    * ``motor.ERROR``
+    * ``motor.DISCONNECTED``
 
     :param port: A port from the ``port`` submodule in the ``hub`` module
     :param position: The final position of the motor in degrees
@@ -241,8 +253,12 @@ def run_to_absolute_position(
         motor type: Small motor (essential): -660 to 660; Medium motor:
         -1110 to 1110; Large motor: -1050 to 1050
     :param direction: The direction to turn. Options are:
-        ``motor.CLOCKWISE``, ``motor.COUNTERCLOCKWISE``,
-        ``motor.SHORTEST_PATH``, ``motor.LONGEST_PATH``
+
+        * ``motor.CLOCKWISE``
+        * ``motor.COUNTERCLOCKWISE``
+        * ``motor.SHORTEST_PATH``
+        * ``motor.LONGEST_PATH``
+
     :param stop: The behavior of the Motor after it has stopped. Use the
         constants in the ``motor`` module. Possible values are:
 
@@ -273,12 +289,17 @@ def run_to_relative_position(
     acceleration: int = 1000,
     deceleration: int = 1000
 ) -> Awaitable:
-    """Turn a motor to a position relative to its reference position (see
+    """Turn a Motor to a position relative to its reference position (see
     ``reset_relative_position``). When awaited, returns a status of the
     movement that corresponds to one of the following constants:
 
-    ``motor.READY``  ``motor.RUNNING``  ``motor.STALLED``
-    ``motor.CANCELED``  ``motor.ERROR``  ``motor.DISCONNECTED``
+    * ``motor.READY``
+    * ``motor.RUNNING``
+    * ``motor.STALLED``
+    * ``motor.CANCELED``
+    * ``motor.ERROR``
+    * ``motor.DISCONNECTED``
+
 
     :param port: A port from the ``port`` submodule in the ``hub`` module
     :param position: The degree of the motor
@@ -316,7 +337,7 @@ def set_duty_cycle(port: int, pwm: int) -> None:
 
 
 def stop(port: int, *, stop: int = BRAKE) -> None:
-    """Stop the motor given by ``port``. If no ``port`` is specified, stop all
+    """Stop the Motor given by ``port``. If no ``port`` is specified, stop all
     attached motors.
 
     ::
@@ -352,7 +373,7 @@ def stop(port: int, *, stop: int = BRAKE) -> None:
 
 
 def velocity(port: int) -> int:
-    """Get the velocity (deg/sec) of a motor (*NOTE*: empirical testing
+    """Get the velocity (deg/sec) of a Motor (*NOTE*: empirical testing
     suggests the unit of the returned value is *not* in deg/sec).
 
     :param port: A port from the ``port`` submodule in the ``hub`` module
@@ -361,9 +382,16 @@ def velocity(port: int) -> int:
 
 
 def status(port: int) -> int:
-    """**UNDOCUMENTED** Get the motor status as one of : ``motor.READY``,
-    ``motor.RUNNING``, ``motor.STALLED``, ``motor.CANCELLED``, ``motor.ERROR``,
-    ``motor.DISCONNECTED``. *NOTE*: ``motor.run`` does not set status to
+    """**UNDOCUMENTED** Get the Motor status as one of:
+
+    * ``motor.READY``
+    * ``motor.RUNNING``
+    * ``motor.STALLED``
+    * ``motor.CANCELED``
+    * ``motor.ERROR``
+    * ``motor.DISCONNECTED``
+
+    *NOTE*: Based on empirical testing,``motor.run`` does not set status to
     ``motor.RUNNING``; other ``run_*`` functions do.
 
     :param port: A port from the ``port`` submodule in the ``hub`` module
@@ -372,7 +400,7 @@ def status(port: int) -> int:
 
 
 def info(port: int) -> tuple[int, int]:
-    """**UNDOCUMENTED** Get the device ID and maximum speed of the motor
+    """**UNDOCUMENTED** Get the device ID and maximum speed of the Motor
     as a tuple.
 
     :param port: A port from the ``port`` submodule in the ``hub`` module

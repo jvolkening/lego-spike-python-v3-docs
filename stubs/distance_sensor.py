@@ -1,4 +1,4 @@
-"""The ``distance_sensor`` module enables you to interact with an attached
+"""The ``distance_sensor`` module contains functions to interact with an attached
 Distance Sensor (e.g. LEGO part 45604) and write code that reacts to specific
 distances or lights up the device LEDs in different ways.
 
@@ -41,8 +41,8 @@ def get_pixel(port: int, x: int, y: int) -> int:
     connected to ``port`` as a percentage (0–100).
 
     :param port: A port from the ``port`` submodule in the ``hub`` module
-    :param x: The X value (range 0–1)
-    :param y: The Y value (range 0–1)
+    :param x: The pixel column (range 0–1)
+    :param y: The pixel row (range 0–1)
     :rtype: int
     """
 
@@ -52,8 +52,8 @@ def set_pixel(port: int, x: int, y: int, intensity: int) -> None:
     connected to ``port``.
 
     :param port: A port from the ``port`` submodule in the ``hub`` module
-    :param x: The X value (range 0–1)
-    :param y: The Y value (range 0–1)
+    :param x: The pixel column (range 0–1)
+    :param y: The pixel row (range 0–1)
     :param intensity: Brightness of the light as a percentage (0–100)
     :rtype: None
     """

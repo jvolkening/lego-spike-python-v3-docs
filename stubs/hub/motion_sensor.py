@@ -1,5 +1,5 @@
 """The ``motion_sensor`` module includes functions to interact with the
-internal motion sensor (gyroscope) in the SPIKE hubs.
+internal motion sensor (gyroscope) in a SPIKE hub.
 
 To use the ``motion_sensor`` module, add the following import statement to
 your project:
@@ -47,7 +47,7 @@ LEFT = 5
 
 def acceleration(raw_unfiltered: bool) -> tuple[int, int, int]:
     """Get a tuple containing x, y & z acceleration values as integers. The
-    values are mili G, so 1 / 1000 G.
+    values are milli G, so 1 / 1000 G.
 
     :param raw_unfiltered: If we want the data back raw and unfiltered
     :rtype: tuple
@@ -64,13 +64,13 @@ def angular_velocity(raw_unfiltered: bool) -> tuple[int, int, int]:
 
 
 def gesture() -> int:
-    """Get the gesture recognized.
+    """Get the gesture recognized. Possible values are:
 
-    Possible values are:
-
-    ``motion_sensor.TAPPED``  ``motion_sensor.DOUBLE_TAPPED``
-    ``motion_sensor.SHAKEN``  ``motion_sensor.FALLING``
-    ``motion_sensor.UNKNOWN``
+    * ``motion_sensor.TAPPED``
+    * ``motion_sensor.DOUBLE_TAPPED``
+    * ``motion_sensor.SHAKEN``
+    * ``motion_sensor.FALLING``
+    * ``motion_sensor.UNKNOWN``
 
     :rtype: int
     """
@@ -79,14 +79,19 @@ def gesture() -> int:
 def get_yaw_face() -> int:
     """Get the face of the hub that yaw is relative to. If you put the hub on a
     flat surface with the face returned pointing up, when you rotate the hub
-    only the yaw will update ``motion_sensor.TOP`` The SPIKE Prime hub face
-    with the USB charging port. ``motion_sensor.FRONT`` The SPIKE Prime hub
-    face with the Light Matrix. ``motion_sensor.RIGHT`` The right side of the
-    SPIKE Prime hub when facing the front hub face. ``motion_sensor.BOTTOM``
-    The side of the SPIKE Prime hub where the battery is.
-    ``motion_sensor.BACK`` The SPIKE Prime hub face where the speaker is.
-    ``motion_sensor.LEFT`` The left side of the SPIKE Prime hub when facing the
-    front hub face.
+    only the yaw will update. Possible return values are:
+
+    * ``motion_sensor.TOP``: The SPIKE Prime hub face with the USB \
+        charging port
+    * ``motion_sensor.FRONT``: The SPIKE Prime hub face with the Light \
+        Matrix
+    * ``motion_sensor.RIGHT``: The right side of the SPIKE Prime hub \
+        when facing the front hub face
+    * ``motion_sensor.BOTTOM``: The side of the SPIKE Prime hub where \
+        the battery is
+    * ``motion_sensor.BACK``: The SPIKE Prime hub face where the speaker is
+    * ``motion_sensor.LEFT``: The left side of the SPIKE Prime hub when \
+        facing the front hub face
 
     :rtype: int
     """
@@ -120,18 +125,18 @@ def set_yaw_face(up: int) -> bool:
     will update.
 
     :param up: The hub face that should be set as the upwards facing hub
-        face. Available values are:
+        face. Possible values are:
 
-        * ``motion_sensor.TOP`` The SPIKE Prime hub face with the USB
+        * ``motion_sensor.TOP``: The SPIKE Prime hub face with the USB \
             charging port
-        * ``motion_sensor.FRONT`` The SPIKE Prime hub face with the
-            Light Matrix
-        *  ``motion_sensor.RIGHT`` The right side of the SPIKE Prime
-            hub when facing the front hub face
-        * ``motion_sensor.BOTTOM`` The side of the SPIKE Prime hub
-            where the battery is
-        * ``motion_sensor.BACK`` The SPIKE Prime hub face where the speaker is
-        * ``motion_sensor.LEFT`` The left side of the SPIKE Prime hub when
+        * ``motion_sensor.FRONT``: The SPIKE Prime hub face with the Light \
+            Matrix
+        * ``motion_sensor.RIGHT``: The right side of the SPIKE Prime hub \
+            when facing the front hub face
+        * ``motion_sensor.BOTTOM``: The side of the SPIKE Prime hub where \
+            the battery is
+        * ``motion_sensor.BACK``: The SPIKE Prime hub face where the speaker is
+        * ``motion_sensor.LEFT``: The left side of the SPIKE Prime hub when \
             facing the front hub face
 
     :rtype: bool
@@ -162,18 +167,18 @@ def tilt_angles() -> tuple[int, int, int]:
 
 
 def up_face() -> int:
-    """Get the Hub face that is currently facing up:
+    """Get the Hub face that is currently facing up. Possible values are:
 
-    * ``motion_sensor.TOP`` The SPIKE Prime hub face with the USB
+    * ``motion_sensor.TOP``: The SPIKE Prime hub face with the USB \
         charging port
-    * ``motion_sensor.FRONT`` The SPIKE Prime hub face with the
-        Light Matrix
-    *  ``motion_sensor.RIGHT`` The right side of the SPIKE Prime
-        hub when facing the front hub face
-    * ``motion_sensor.BOTTOM`` The side of the SPIKE Prime hub
-        where the battery is
-    * ``motion_sensor.BACK`` The SPIKE Prime hub face where the speaker is
-    * ``motion_sensor.LEFT`` The left side of the SPIKE Prime hub when
+    * ``motion_sensor.FRONT``: The SPIKE Prime hub face with the Light \
+        Matrix
+    * ``motion_sensor.RIGHT``: The right side of the SPIKE Prime hub \
+        when facing the front hub face
+    * ``motion_sensor.BOTTOM``: The side of the SPIKE Prime hub where \
+        the battery is
+    * ``motion_sensor.BACK``: The SPIKE Prime hub face where the speaker is
+    * ``motion_sensor.LEFT``: The left side of the SPIKE Prime hub when \
         facing the front hub face
 
     :rtype: int

@@ -1,5 +1,5 @@
 """The ``runloop`` module contains all functions and constants to use the
-Runloop.
+Runloop for asynchronous IO programming.
 
 To use the ``runloop`` module, add the following import statement to your
 project:
@@ -97,7 +97,7 @@ def until(function: Callable[[], bool], timeout: int = 0) -> Awaitable:
 
 
 def wait(unknown: Iterator) -> Awaitable:
-    """Currently undocumented and not understood; use with caution.
+    """**UNDOCUMENTED** Behavior is not known; use with caution.
 
     :param unknown: Meaning unknown
     :rtype: Awaitable

@@ -17,3 +17,8 @@ div.body h1 {
 table.align-default {
     margin-left: 0;
 }
+code {
+    background: #fcea90;
+    padding: 0px 2px;
+    border-radius: 3px;
+}

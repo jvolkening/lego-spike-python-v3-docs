@@ -1,4 +1,4 @@
-"""The ``color_sensor`` module enables you to interact with an attached Color
+"""The ``color_sensor`` module contains functions to interact with an attached Color
 Sensor (e.g. LEGO part 45605) and write code that reacts to specific colors or
 the intensity of the reflected light.
 
@@ -28,7 +28,7 @@ The Color Sensor can recognize the following named colors:
 * Black
 * White
 
-It can also return intensity values for red, green, and blue channels
+It can also return intensity values for the red, green, and blue channels
 individually for more control over color recognition.
 """
 

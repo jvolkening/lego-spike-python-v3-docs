@@ -1,5 +1,5 @@
-"""The ``device`` module enables you to write code to get information about
-devices plugged into the hub.
+"""The ``device`` module contains functions to get general information about
+any devices plugged into the hub (motors, sensors, displays, etc). 
 
 To use the ``device`` module, add the following import statement to your
 project:
@@ -26,8 +26,8 @@ def data(port: int) -> tuple[int]:
 
 
 def id(port: int) -> int:
-    """Get the device id of a device. Each device has an id based on its
-    type. Common device IDs for Spike Prime inputs/outputs (from
+    """Get the device type ID of a device. Each device has an ID based on its
+    type. IDs for commonly used Spike Prime inputs/outputs (from
     `<https://github.com/pybricks/technical-info/blob/master/assigned-numbers.md>`_
     include:
 
@@ -39,7 +39,7 @@ def id(port: int) -> int:
     * *64*: Color Light Matrix (45608)
     * *65*: Small Motor (45607)
 
-    See the above link for a more extensive list.
+    See the link above for a more extensive list.
 
     :param port: A port from the ``port`` submodule in the ``hub`` module
     :rtype: int
@@ -56,8 +56,8 @@ def get_duty_cycle(port: int) -> int:
 
 
 def ready(port: int) -> bool:
-    """When a device is attached to the hub it might take a short amount of
-    time before it’s ready to accept requests. Use ``ready`` to test for the
+    """When a device is attached to the hub, it might take a short amount of
+    time before it is ready to accept requests. Use ``ready`` to test for the
     readiness of the attached devices.
 
     :param port: A port from the ``port`` submodule in the ``hub`` module
@@ -69,6 +69,6 @@ def set_duty_cycle(port: int, duty_cycle: int) -> None:
     """Set the duty cycle on a device. Range 0 to 10000.
 
     :param port: A port from the ``port`` submodule in the ``hub`` module
-    :param duty_cycle: The PWM value (0-10000)
+    :param duty_cycle: The PWM value (0–10000)
     :rtype: None
     """

@@ -1,4 +1,4 @@
-"""The ``color`` module contains all of the color constants to use with the
+"""The ``color`` module contains the color constants to use with the
 ``color_matrix``, ``color_sensor`` and ``light`` modules.
 
 To use the ``color`` module, add the following import statement to your

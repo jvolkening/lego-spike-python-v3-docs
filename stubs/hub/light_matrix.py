@@ -209,8 +209,8 @@ def get_pixel(x: int, y: int) -> int:
         # Print the value of the center pixel's intensity
         print(light_matrix.get_pixel(2, 2))
 
-    :param x: The X value, range 0–4
-    :param y: The Y value, range 0–4
+    :param x: The pixel column, range 0–4
+    :param y: The pixel row, range 0–4
     :rtype: int
     """
 
@@ -236,8 +236,8 @@ def set_pixel(x: int, y: int, intensity: int) -> None:
         # Turn on the pixel in the center of the hub
         light_matrix.set_pixel(2, 2, 100)
 
-    :param x: The X value, range 0–4
-    :param y: The Y value, range 0–4
+    :param x: The pixel column, range 0–4
+    :param y: The pixel row, range 0–4
     :param intensity: How bright to light up the pixel
     :rtype: None
     """

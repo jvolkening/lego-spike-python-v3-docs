@@ -1,5 +1,5 @@
-"""The ``light`` module includes functions to change the color of the lights on
-the SPIKE Prime hub.
+"""The ``light`` module includes functions to change the color of the button lights on
+the SPIKE Prime hub. To control the light matrix, see `hub.light_matrix`.
 
 To use the ``light`` module, add the following import statement to your
 project:

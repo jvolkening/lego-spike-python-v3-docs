@@ -88,8 +88,12 @@ def move_for_degrees(
     When awaited, returns a status of the movement that corresponds to one of
     the following constants from the motor module:
 
-    ``motor.READY``  ``motor.RUNNING``  ``motor.STALLED``
-    ``motor.CANCELED``  ``motor.ERROR``  ``motor.DISCONNECTED``
+    * ``motor.READY``
+    * ``motor.RUNNING``
+    * ``motor.STALLED``
+    * ``motor.CANCELED``
+    * ``motor.ERROR``
+    * ``motor.DISCONNECTED``
 
     ::
 
@@ -153,8 +157,12 @@ def move_for_time(
     awaited, returns a status of the movement that corresponds to one of the
     following constants from the motor module:
 
-    ``motor.READY``  ``motor.RUNNING``  ``motor.STALLED``
-    ``motor.CANCELED``  ``motor.ERROR``  ``motor.DISCONNECTED``
+    * ``motor.READY``
+    * ``motor.RUNNING``
+    * ``motor.STALLED``
+    * ``motor.CANCELED``
+    * ``motor.ERROR``
+    * ``motor.DISCONNECTED``
 
     ::
 
@@ -262,8 +270,12 @@ def move_tank_for_degrees(
     When awaited, returns a status of the movement that
     corresponds to one of the following constants from the motor module:
 
-    ``motor.READY``  ``motor.RUNNING``  ``motor.STALLED``
-    ``motor.CANCELED``  ``motor.ERROR``  ``motor.DISCONNECTED``
+    * ``motor.READY``
+    * ``motor.RUNNING``
+    * ``motor.STALLED``
+    * ``motor.CANCELED``
+    * ``motor.ERROR``
+    * ``motor.DISCONNECTED``
 
     ::
 
@@ -326,8 +338,12 @@ def move_tank_for_time(
     amount of time. When awaited, returns a status of the movement that
     corresponds to one of the following constants from the motor module:
 
-    ``motor.READY``  ``motor.RUNNING``  ``motor.STALLED``
-    ``motor.CANCELED``  ``motor.ERROR``  ``motor.DISCONNECTED``
+    * ``motor.READY``
+    * ``motor.RUNNING``
+    * ``motor.STALLED``
+    * ``motor.CANCELED``
+    * ``motor.ERROR``
+    * ``motor.DISCONNECTED``
 
     ::
 
