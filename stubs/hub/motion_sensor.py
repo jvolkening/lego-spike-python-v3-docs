@@ -159,8 +159,10 @@ def tap_count() -> int:
 
 
 def tilt_angles() -> tuple[int, int, int]:
-    """Get a tuple containing yaw pitch and roll values as integers. Values are
-    decidegrees.
+    """Get a tuple containing yaw, pitch, and roll values as integers. Values are
+    in decidegrees (tenths of a degree). Values range from -1795 to 1800.
+    Negative values indicate clockwise rotation from zero, positives indicate
+    counter-clockwise rotation.
 
     :rtype: tuple
     """

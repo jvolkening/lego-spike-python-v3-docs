@@ -60,7 +60,9 @@ LONGEST_PATH = 3
 
 
 def absolute_position(port: int) -> int:
-    """Get the absolute position of a Motor.
+    """Get the absolute position of a Motor in degrees. Return values range
+    from -179 to 180. Positive values indicate clockwise rotation from zero;
+    negative values indicate counter-clockwise rotation.
 
     :param port: A port from the ``port`` submodule in the ``hub`` module
     :rtype: int
@@ -78,8 +80,10 @@ def get_duty_cycle(port: int) -> int:
 def relative_position(port: int) -> int:
     """Get the relative position of a Motor. This is the cumulative number of
     degrees the motor has moved (positive or negative) from its starting
-    position (either at hub boot or after a call to
-    ``reset_relative_position``).
+    position (either at hub boot or after a call to 
+    ``reset_relative_position``). Positive values indicate clockwise rotation
+    (looking at the motor from the top); negative values indicate
+    counter-clockwise rotation.
 
     :param port: A port from the ``port`` submodule in the ``hub`` module
     :rtype: int
@@ -127,9 +131,10 @@ def run_for_degrees(
     acceleration: int = 1000,
     deceleration: int = 1000
 ) -> Awaitable:
-    """Turn a Motor for a specific number of degrees. When awaited, returns a
-    status of the movement that corresponds to one of the following
-    constants:
+    """Turn a Motor for a specific number of degrees. Positive values for
+    `degrees` indicate clockwise rotation (when viewed from the top); negative
+    values indicate counter-clockwise rotation. When awaited, returns a status
+    of the movement that corresponds to one of the following constants:
 
     * ``motor.READY``
     * ``motor.RUNNING``
@@ -237,7 +242,15 @@ def run_to_absolute_position(
     acceleration: int = 1000,
     deceleration: int = 1000
 ) -> Awaitable:
-    """Turn a Motor to an absolute position. When awaited, returns a status of
+    """Turn a Motor to an absolute position. While the value returned by
+    `absolute_position()` is bounded between -179 and 180, you can provide
+    position values outside of that range to this function and the hub will
+    "wrap them around" into range. For example, specifying a `position` of 200
+    is identical to specifying a `position` of -160; a subsequent call to
+    `motor.absolute_position()` will return -160 (or therearouts) in either
+    case.
+
+    When awaited, returns a status of
     the movement that corresponds to one of the following constants:
 
     * ``motor.READY``
