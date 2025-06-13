@@ -73,3 +73,5 @@ latex_elements = {
         \setmainfont{Charis SIL}
     ''',
 }
+
+sitemap_url_scheme = "{link}"
